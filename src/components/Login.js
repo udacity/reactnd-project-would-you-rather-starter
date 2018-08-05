@@ -30,7 +30,10 @@ class Login extends Component {
   }
 
   handleChange = (e, { value }) => {
-    this.props.dispatch(setAuthedUser(value))
+    const { users } = this.props
+    const selectedUser = users[value]
+  
+    this.props.dispatch(setAuthedUser(selectedUser))
   }
 
 
