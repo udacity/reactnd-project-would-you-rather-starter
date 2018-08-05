@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 function Page_404() {
   return (
 
-      <div id="Page_404" clasName="content-area">
+      <div id="Page_404" className="content-area">
         <main id="main" className="site-main">
 
           <section className="error-404 not-found">
