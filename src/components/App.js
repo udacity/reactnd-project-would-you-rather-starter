@@ -5,7 +5,8 @@ import { handleInitialData } from '../actions/shared'
 
 import Home from './Home'
 import Login from './Login'
-import Page_404 from './Page_404';
+import Page_404 from './Page_404'
+import Nav from './Nav'
 
 
 class App extends Component {
@@ -15,27 +16,25 @@ class App extends Component {
   }
 
   render() {
-    const { authedUser} = this.props;
+    const { authedUser } = this.props;
 
-    if (authedUser === null) {
-      return (
-        <Login />
-      )
-    } else {
-      return (
-        <Router>
-          <Fragment>
-            <div className='container'>
-              <Switch>
-                <Route path='/' exact component={Home} />
-                <Route component={Page_404} />
-              </Switch>
-            </div>
-          </Fragment>
-        </Router>
-      )
-    }
-
+    return(
+      <div className='main-container'>
+        { authedUser === null ? <Login /> :
+          <Router>
+            <Fragment>
+              <div className='container'>
+                <Nav />
+                <Switch>
+                  <Route path='/' exact component={Home} />
+                  <Route component={Page_404} />
+                </Switch>
+              </div>
+            </Fragment>
+          </Router>
+      }
+      </div>
+    )
   }
 }
 
