@@ -6,36 +6,33 @@ import { Dropdown } from 'semantic-ui-react'
 
 class Login extends Component {
 
+  handleChange = (e, { value }) => {
+    const { users } = this.props
+    const selectedUser = users[value]
+
+    this.props.dispatch(setAuthedUser(selectedUser.id))
+  }
 
   renderDropdown(handleChange) {
     const {users, authedUser} = this.props
-
-    const users1 = Object.keys(users).map((user) => {
+    const usersOptions = Object.keys(users).map((user) => {
       return { 
         text: users[user].name,
         value: users[user].id,
         image: { avatar: true, src: users[user].avatarURL },
       }
-    });
+    })
 
     return(
-      < Dropdown
+      <Dropdown
         placeholder = 'Select User'
         selection
-        options={users1}
+        options={usersOptions}
         onChange = { handleChange }
         value={authedUser}
       />
     )
   }
-
-  handleChange = (e, { value }) => {
-    const { users } = this.props
-    const selectedUser = users[value]
-  
-    this.props.dispatch(setAuthedUser(selectedUser))
-  }
-
 
   render() {
     return (

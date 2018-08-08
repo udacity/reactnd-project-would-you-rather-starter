@@ -5,17 +5,18 @@ import { setAuthedUser } from '../actions/authedUser'
 
 class Nav extends Component {
 
-
   logout = (e) => {
     e.preventDefault()
     const { history, dispatch } = this.props
+
     dispatch(setAuthedUser(null))
     history.push('/')
   }
 
 
   render() {
-    const {authedUser} = this.props
+    const { authedUser, users} = this.props
+    const authedUserObj = users[authedUser]
 
     return (
       <div className='nav-container'>
@@ -25,8 +26,8 @@ class Nav extends Component {
           <NavLink className='item' to='/leaderboard' exact>LeaderBoard</NavLink>
           <div className="right menu">
             <div className="item">
-              Hello There! {authedUser.name} 
-              <img src={authedUser.avatarURL} alt={authedUser.name}/>
+              Hello There! {authedUserObj.name} 
+              <img src={authedUserObj.avatarURL} alt={authedUserObj.name}/>
             </div>
             <a className="ui item" onClick={this.logout}>Logout</a>
           </div>
@@ -37,11 +38,11 @@ class Nav extends Component {
 }
 
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ authedUser, users }) {
   return {
-    authedUser
+    authedUser,
+    users
   }
 }
-
 
 export default withRouter(connect(mapStateToProps)(Nav))

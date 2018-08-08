@@ -7,7 +7,9 @@ import Home from './Home'
 import Login from './Login'
 import Page_404 from './Page_404'
 import Nav from './Nav'
-
+import QuestionDetails from './QuestionDetails'
+import AddQuestion from './AddQuestion'
+import Leaderboard from './Leaderboard'
 
 class App extends Component {
   
@@ -16,7 +18,7 @@ class App extends Component {
   }
 
   render() {
-    const { authedUser } = this.props;
+    const { authedUser } = this.props
 
     return(
       <div className='main-container'>
@@ -27,6 +29,9 @@ class App extends Component {
                 <Nav />
                 <Switch>
                   <Route path='/' exact component={Home} />
+                  <Route path='/add' exact component={AddQuestion} />
+                  <Route path='/leaderboard' exact component={Leaderboard} />
+                  <Route path='/questions/:id' component={QuestionDetails} /> 
                   <Route component={Page_404} />
                 </Switch>
               </div>
@@ -43,6 +48,5 @@ function mapStateToProps({ authedUser }) {
     authedUser,
   }
 }
-
 
 export default connect(mapStateToProps)(App)
