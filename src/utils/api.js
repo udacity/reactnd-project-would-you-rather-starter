@@ -5,7 +5,7 @@ import {
   _saveQuestionAnswer,
 } from './_DATA.js'
 
-export function getInitialData() {
+export function getInitialDataAPI() {
   return Promise.all([
     _getUsers(),
     _getQuestions(),
@@ -15,10 +15,10 @@ export function getInitialData() {
   }))
 }
 
-export function saveQuestion(info) {
+export function saveQuestionAPI(info) {
   return _saveQuestion(info)
 }
 
-export function saveQuestionAnswer(info) {
+export function saveQuestionAnswerAPI(info) {
   return _saveQuestionAnswer(info)
 }
