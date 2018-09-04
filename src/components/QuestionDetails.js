@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { handleSaveQuestionAnswer } from '../actions/shared'
-import { Statistic, Progress, Icon, Grid, Image, Label } from 'semantic-ui-react'
+import { Statistic, Progress, Grid, Image, Label } from 'semantic-ui-react'
 
 class QuestionDetails extends Component {
   constructor(props) {
@@ -67,6 +67,7 @@ class QuestionDetails extends Component {
           </Grid.Column>
           <Grid.Column width={9} className='question-results-content-wrapper'>
             <div className='question-results-content'>
+              <h1>Would You Rather</h1>
               <div className='question-results-optionOne-container'>
                 <div className='question-results-answered-icon'>
                   {answered === 'optionOne' ?

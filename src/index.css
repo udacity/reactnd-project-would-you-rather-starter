@@ -91,6 +91,10 @@ body {
   height: 100%;
 }
 
+.question-results-content h1 {
+  align-self: center;
+}
+
 .question-results-content h3 {
   padding-bottom: 20px;
 }
