@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { Grid, Image } from 'semantic-ui-react'
 
 
 class QuestionList extends Component {
@@ -12,13 +13,17 @@ class QuestionList extends Component {
 
   renderQuestionPreview(question, user) {
     return (
-      <div>
-        <div>{user.name} asks...</div>
-        <div><img src={user.avatarURL} alt={user.name}/></div>
-        <h4>Would you rather</h4>
-        <div>{question.optionOne.text.substring(0, 10)}...</div>
-        <div className="ui primary button" onClick={(e) => this.loadQuestionDetails(e, question.id)} >View Question</div>
-      </div>
+      <Grid.Row key={user.id} className='question-preview-item'>
+        <Grid.Column width={7} className='question-preview-img'>
+          <Image src={user.avatarURL} alt={user.name} />
+          <span className='question-preview-user'>{user.name} asks...</span>
+        </Grid.Column>
+        <Grid.Column width={9} className='question-preview-content'>
+          <h4>Would you rather</h4>
+          <span>{question.optionOne.text.substring(0, 10)}...</span>
+          <div className="ui primary button" onClick={(e) => this.loadQuestionDetails(e, question.id)} >View Question</div>
+        </Grid.Column>
+      </Grid.Row>
     )
   }
 
@@ -26,8 +31,15 @@ class QuestionList extends Component {
     const { questions, users } = this.props
 
     return (
-      <div>{
-        filteredQuestions.map(qid => <div key={qid}> {this.renderQuestionPreview(questions[qid], users[questions[qid].author])} </div>)
+      <div className='question-list-wrapper'>{
+        filteredQuestions.map((qid, index) => 
+        <div className='question-preview-wrapper'>
+          <Grid columns={2} key={qid}> 
+            {console.log(index)}
+            {this.renderQuestionPreview(questions[qid], users[questions[qid].author])}
+          </Grid>
+        </div>
+        )
       }</div>
     )
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddQuestion } from '../actions/shared'
-import { Input, Form, Button } from 'semantic-ui-react'
+import { Tab, Input, Form, Button } from 'semantic-ui-react'
 
 
 class AddQuestion extends Component {
@@ -32,29 +32,40 @@ class AddQuestion extends Component {
 
   }
 
-  render() {  
+  renderAddQuestion() {
     const { optionOne, optionTwo } = this.state
 
-    return (
-      <div>
+    return(
+      <div id="page-addQuestion">
         <Form className="AddQuestionForm" onSubmit={this.handleSubmit}>
           <h1>Would You Rather?</h1>
           <Form.Field>
-            <Input id='optionOne' fluid icon='question' 
-              placeholder='Question 2' 
+            <Input id='optionOne' fluid icon='question'
+              placeholder='Option 1'
               value={optionOne}
               onChange={this.handleChange}
             />
           </Form.Field>
           <Form.Field>
-            <Input id='optionTwo' fluid icon='question' 
-            placeholder='Question 2' 
-            value={optionTwo}
-            onChange={this.handleChange}/>
+            <Input id='optionTwo' fluid icon='question'
+              placeholder='Option 2'
+              value={optionTwo}
+              onChange={this.handleChange} />
           </Form.Field>
           <Button type='submit'>Submit</Button>
-
         </Form>
+      </div>
+    )
+  }
+
+  render() {
+    const panes = [
+      { menuItem: 'New Question', render: () => <Tab.Pane>{this.renderAddQuestion()}</Tab.Pane> },
+    ]
+
+    return (
+      <div>
+        <Tab panes={panes} />
       </div>
     )
   }

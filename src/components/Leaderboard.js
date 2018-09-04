@@ -1,41 +1,54 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Tab, Grid, Image, Label } from 'semantic-ui-react'
 
 class Leaderboard extends Component {
 
 
   renderLeaderboardItem(user) {
     return (
-      <div key={user.id}>
-        <div>
-          <div className='lb-avatar'><img src={user.avatarURL} alt={user.name} /></div>
-          <div>{user.name}</div>
-          <div>
-            <span>Questions Answered</span>
-            <span>{user.questionsAnswered}</span>
+
+      <Grid key={user.id} className='leaderboard-container'>
+        <Grid.Column width={4} className='leaderboard-img-container'>
+          <Image className='leaderboard-img' src={user.avatarURL} alt={user.name} />
+        </Grid.Column>
+        <Grid.Column width={8} className='leaderboard-info-wrapper'>
+          <div className='leaderboard-info'>
+            <h1>{user.name}</h1>
+            <div className='leaderboard-info-answered'>
+              <span>Questions answered</span>
+              <span>{user.questionsAnswered}</span>
+            </div>
+            <div className='leaderboard-info-created'>
+              <span>Questions created</span>
+              <span>{user.questionsCreated}</span>
+            </div>
           </div>
-          <div>
-            <span>Questions Created</span>
-            <span>{user.questionsCreated}</span>
+        </Grid.Column>
+        <Grid.Column width={4} className='leaderboard-score-wrapper'>
+          <div className='leaderboard-score'>
+            <Label circular color='yellow'>
+              {user.questionsCreated + user.questionsAnswered}
+            </Label>
           </div>
-          <div>
-            <span>Score</span>
-            <span>{user.questionsCreated + user.questionsAnswered}</span>
-          </div>
-        </div>
-      </div>
+        </Grid.Column>
+      </Grid>
+
     )
   }
   
 
   render() {
     const { leaderboard } = this.props
-  
+    const panes = [
+      {
+        menuItem: 'Leaderboard',
+        render: () =>
+          <Tab.Pane>{<div>{leaderboard.map((element) => this.renderLeaderboardItem(element))}</div>}</Tab.Pane>
+      },
+    ]
     return ( 
-      <div>
-        <h1>Leaderboard</h1>
-        {leaderboard.map((element) => this.renderLeaderboardItem(element))}
-      </div>
+      <div><Tab panes={panes} /></div>
       )
     }
   }

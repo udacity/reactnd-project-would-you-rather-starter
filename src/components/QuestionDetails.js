@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { handleSaveQuestionAnswer } from '../actions/shared'
-import { Statistic, Progress, Icon } from 'semantic-ui-react'
+import { Statistic, Progress, Icon, Grid, Image, Label } from 'semantic-ui-react'
 
 class QuestionDetails extends Component {
   constructor(props) {
@@ -29,16 +29,22 @@ class QuestionDetails extends Component {
     const { question, questionAuthor } = this.props;
 
     return (
-      <div>
-        <div>
-          <h4>Would You Rather</h4>
-        </div>
-
-        <div>{questionAuthor.name} asks...</div>
-        <div><img src={questionAuthor.avatarURL} alt={questionAuthor.name} /></div>
-        <h4>Would you rather</h4>
-        <div className="ui basic green button" onClick={(e) => this.handleSubmit(e, 'optionOne')} >{question.optionOne.text}</div>
-        <div className="ui basic red button" onClick={(e) => this.handleSubmit(e, 'optionTwo')} >{question.optionTwo.text}</div>
+      <div className='question-detail-wrapper'>
+        <Grid>
+          <Grid.Column width={7}>
+            <span className='question-detail-user'>{questionAuthor.name} asks...</span>
+            <Image className='question-detail-img' src={questionAuthor.avatarURL} alt={questionAuthor.name}  />
+          </Grid.Column>
+          <Grid.Column width={9} className='question-detail-content-wrapper'>
+            <div className='question-detail-content'>
+              <h1>Would You Rather</h1>
+              <div>
+                <div className="ui basic green button fluid" onClick={(e) => this.handleSubmit(e, 'optionOne')} >{question.optionOne.text}</div>
+                <div className="ui basic blue button fluid" onClick={(e) => this.handleSubmit(e, 'optionTwo')} >{question.optionTwo.text}</div>
+              </div>
+            </div>
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }
@@ -52,41 +58,51 @@ class QuestionDetails extends Component {
     const percentageOptionTwo = (optionTwoVotes / (optionOneVotes + optionTwoVotes) * 100).toFixed(1)
 
     return (
-      <div>
-        <div>{questionAuthor.name} asked...</div>
-        <h2>question Results</h2>
-        <div>
-          
-          <div><span>{question.optionOne.text}</span></div>
-          <div>
-            <Statistic>
-              <Statistic.Value><Progress percent={percentageOptionOne} color='teal' progress /></Statistic.Value>
-              <Statistic.Label>{optionOneVotes} out of {optionOneVotes + optionTwoVotes}</Statistic.Label>
-            </Statistic>
-          </div>
-          <div>
-            {answered === 'optionOne' ?
-            < Icon circular inverted color='green' name='checkmark' size='small' /> : null
-            }
-          </div>
 
+      <div className='question-results-wrapper'>
+        <Grid>
+          <Grid.Column width={7}>
+            <span className='question-results-user'>{questionAuthor.name} asks...</span>
+            <Image className='question-results-img' src={questionAuthor.avatarURL} alt={questionAuthor.name} />
+          </Grid.Column>
+          <Grid.Column width={9} className='question-results-content-wrapper'>
+            <div className='question-results-content'>
+              <div className='question-results-optionOne-container'>
+                <div className='question-results-answered-icon'>
+                  {answered === 'optionOne' ?
+                    <Label color='teal' ribbon='right'>Your Choice</Label> : null
+                  }
+                </div>
+                  <div><h3>{question.optionOne.text}</h3></div>
+                  <div>
+                    <Statistic>
+                      <Statistic.Value><Progress percent={percentageOptionOne} color='teal' progress /></Statistic.Value>
+                      <Statistic.Label>{optionOneVotes} out of {optionOneVotes + optionTwoVotes}</Statistic.Label>
+                    </Statistic>
+                  </div>
+              </div>
+
+              
+              <div className='question-results-optionTwo-container'>
+                <div className='question-results-answered-icon'>
+                  {answered === 'optionTwo' ?
+                    <Label color='teal' ribbon='right'>Your Choice</Label> : null
+                  }
+                </div>
+                <div><h3>{question.optionTwo.text}</h3></div>
+                <div>
+                  <Statistic>
+                    <Statistic.Value><Progress percent={percentageOptionTwo} color='teal' progress/></Statistic.Value>
+                    <Statistic.Label>{optionTwoVotes} out of {optionOneVotes + optionTwoVotes}</Statistic.Label>
+                  </Statistic>
+                </div>
+              </div>
+            </div>
+          </Grid.Column>
+        </Grid>
         </div>
-        <div>
-          <div><span>{question.optionTwo.text}</span></div>
-          <div>
-            <Statistic>
-              <Statistic.Value><Progress percent={percentageOptionTwo} color='teal' progress 
-              /></Statistic.Value>
-              <Statistic.Label>{optionTwoVotes} out of {optionOneVotes + optionTwoVotes}</Statistic.Label>
-            </Statistic>
-          </div>
-          <div>
-            {answered === 'optionTwo' ?
-              < Icon circular inverted color='green' name='checkmark' size='small' /> : null
-            }
-          </div>
-        </div>
-      </div>
+        
+
     )
   }
   
@@ -102,15 +118,11 @@ class QuestionDetails extends Component {
 
     return (
       <div>
-        <p>question item!</p>
-        <div>
-          {
-            this.state.answered === '' ? 
-            this.renderQuestionOptions() : 
+        {
+          this.state.answered === '' ?
+            this.renderQuestionOptions() :
             this.renderQuestionResults()
-          }
-        </div>
-
+        }
       </div>
       )
     }

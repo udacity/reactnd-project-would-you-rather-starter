@@ -36,8 +36,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Login Page</h1>
+      <div id='page-login'>
+        <h1>Sign In</h1>
         {this.renderDropdown(this.handleChange)}
       </div>
     )

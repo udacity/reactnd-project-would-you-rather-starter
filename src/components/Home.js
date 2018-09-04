@@ -9,15 +9,20 @@ class Home extends Component {
       { 
         menuItem: 'Unanswered Questions', 
         render: () => 
-          <Tab.Pane>{<div>Unanswered Questions { <QuestionList type={['unanswered']} /> }</div>}</Tab.Pane>}, 
+          <Tab.Pane>{<div>{ <QuestionList type={['unanswered']} /> }</div>}</Tab.Pane>}, 
       { 
         menuItem: 'Answered Questions', 
         render: () => 
-          <Tab.Pane>{<div>Answered Questions {<QuestionList type={['answered']} />}</div>}</Tab.Pane>}, 
+          <Tab.Pane>{<div>{<QuestionList type={['answered']} />}</div>}</Tab.Pane>}, 
       { 
         menuItem: 'All Questions', 
         render: () => 
-        <Tab.Pane>{<div>All Questions {<QuestionList type={['unanswered', 'answered']} />}</div>}</Tab.Pane> },
+        <Tab.Pane>{<div>
+          <h2>Unanswered Questions</h2>
+          <QuestionList type={['unanswered']} />
+            <h2>Answered Questions</h2>
+          <QuestionList type={['answered']} />
+        </div>}</Tab.Pane> },
     ]
 
     return (

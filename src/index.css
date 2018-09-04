@@ -5,6 +5,138 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.ui.grid {
+  margin: 0; /* Override for semetic ui */
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#page-login {
+  width: 200px;
+  margin: 100px auto;
+}
+
+.nav-container {
+  margin-bottom: 10px;
+}
+
+.nav-container span {
+  padding-left: 10px;
+}
+
+#page-addQuestion {
+  max-width: 800px;
+  margin: 50px auto;
+}
+
+.question-list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.question-preview-content {
+  text-align: center;
+}
+.question-preview-content span {
+  display: inline-block;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  min-width: 100px;
+}
+
+.question-preview-user,
+.question-detail-user,
+.question-results-user {
+  padding: 15px 1rem;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
+}
+
+.question-preview-img,
+.question-detail-img,
+.question-results-img {
+  margin: auto;
+}
+
+.question-preview-wrapper {
+  width: 390px;
+  padding: 20px 0;
+}
+
+.question-detail-wrapper,
+.question-results-wrapper {
+  width: 800px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.question-detail-content {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.question-detail-content div.button {
+  margin-top: 10px;
+}
+
+.question-results-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.question-results-content h3 {
+  padding-bottom: 20px;
+}
+
+.question-results-content .statistic {
+  width: 100%;
+}
+
+.question-results-optionOne-container, .question-results-optionTwo-container {
+  height: 45%;
+  padding: 20px;
+  position: relative;
+}
+.question-results-answered-icon {
+  position: absolute;
+  right: 0;
+}
+
+.leaderboard-info-answered {
+  margin-top: 50px;
+}
+
+
+.leaderboard-info-answered, .leaderboard-info-created {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+}
+
+.leaderboard-info-wrapper h1,
+.leaderboard-info-answered, 
+.leaderboard-info-created {
+  min-height: 50px;
+  display: flex;
+}
+
+.leaderboard-container .leaderboard-score-wrapper {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard-container .leaderboard-score div {
+  font-size: 64px;
+}
+
 /* 404 page styling */
 /* Animation Credit - https://codepen.io/sqfreakz/pen/GJRJOY */
 #Page_404 {

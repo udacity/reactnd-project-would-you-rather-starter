@@ -20,16 +20,16 @@ class Nav extends Component {
 
     return (
       <div className='nav-container'>
-        <div className="ui secondary  menu">
+        <div className="ui secondary pointing menu">
           <NavLink className='item' to='/' exact>Home</NavLink>
           <NavLink className='item' to='/add' exact>New Question</NavLink>
           <NavLink className='item' to='/leaderboard' exact>LeaderBoard</NavLink>
           <div className="right menu">
             <div className="item">
-              Hello There! {authedUserObj.name} 
-              <img src={authedUserObj.avatarURL} alt={authedUserObj.name}/>
+              <img src={authedUserObj.avatarURL} alt={authedUserObj.name} />
+              <span>{authedUserObj.name}</span>
+              <a className="ui item" onClick={this.logout}>Logout</a>
             </div>
-            <a className="ui item" onClick={this.logout}>Logout</a>
           </div>
         </div>
       </div>
