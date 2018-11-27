@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
+import './Home.scss';
 
 class Home extends React.Component {
   render() {
@@ -19,11 +20,11 @@ class Home extends React.Component {
                           <img
                             src="https://image.flaticon.com/icons/svg/145/145843.svg"
                             alt="User avatar"
-                            style={{ width: 100, height: 100 }}
+                            style={{ width: 50, height: 50 }}
                           />
                         </Col>
                         <Col sm={10}>
-                          <Card.Title>Would you rather...</Card.Title>
+                          <h4>Would you rather...</h4>
                         </Col>
                       </Row>
                       <Row>
@@ -35,9 +36,6 @@ class Home extends React.Component {
                               role="button"
                             >
                               {question.optionOne.text}
-                            </div>
-                            <div className="or">
-                              <span>or</span>
                             </div>
                             <div
                               className="choices second"

@@ -35,7 +35,7 @@ class Navigation extends Component {
                         </LinkContainer>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end logged-in-username">
-                        <Navbar.Text>Welcome back: Mark Otto</Navbar.Text>
+                        <Navbar.Text>Welcome back: Sarah Edo</Navbar.Text>
                     </Navbar.Collapse>
                     <Nav>
                         <LinkContainer to="/login">
