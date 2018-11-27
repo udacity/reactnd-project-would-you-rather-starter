@@ -4,7 +4,7 @@ import {
   ADD_QUESTION
 } from '../actions/types'
 
-export function questions(state = {}, action) {
+function questions(state = {}, action) {
   switch (action.type) {
     case GET_QUESTIONS:
       return {
@@ -31,3 +31,5 @@ export function questions(state = {}, action) {
       return state
   }
 }
+
+export default questions;

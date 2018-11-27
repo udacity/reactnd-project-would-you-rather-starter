@@ -6,8 +6,8 @@ import {getQuestions} from "./questionActions";
 export function handleInitialData() {
     return (dispatch) => {
         return getInitialData().then(({users, questions}) => {
+            dispatch(getQuestions(questions))
             dispatch(getUsers(users))
-            // dispatch(getQuestions(questions))
         })
     }
 
