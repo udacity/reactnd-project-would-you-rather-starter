@@ -3,12 +3,17 @@ import PropTypes from "prop-types";
 import { Card, DropdownButton, Dropdown } from "react-bootstrap";
 import { connect } from "react-redux";
 
+import { setAuthUser } from '../actions/auth';
 import logo from "../assets/logo.svg";
 
 class Login extends Component {
-  // constructor(props) {
-  //     super(props);
-  // }
+  constructor(props) {
+      super(props);
+  }
+
+  handleLogin = (e, id) => {
+    this.props.dispatch(setAuthUser(id));
+  }
 
   render() {
     return (
@@ -26,7 +31,7 @@ class Login extends Component {
           >
             {this.props.users.length !== 0 &&
               this.props.users.map((user, index) => (
-                <Dropdown.Item eventKey={index + 1} key={user.id}>
+                <Dropdown.Item eventKey={index + 1} key={user.id} onClick={(e) => this.handleLogin(e, user.id)}>
                   <img
                     src={user.avatarURL}
                     alt={user.name}
@@ -46,13 +51,14 @@ Login.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-function mapStateToProps(state) {
-  const userData = Object.keys(state.users).map(user => ({
-    name: state.users[user].name,
-    id: state.users[user].id,
-    avatarURL: state.users[user].avatarURL,
+function mapStateToProps({users, auth}) {
+  const userData = Object.keys(users).map(user => ({
+    name: users[user].name,
+    id: users[user].id,
+    avatarURL: users[user].avatarURL,
   }));
   return {
+    auth,
     users: userData,
   };
 }
