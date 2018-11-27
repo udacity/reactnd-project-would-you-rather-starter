@@ -1,6 +1,6 @@
 import {getInitialData} from "../utils/api"
-import {getUsers} from "./userActions";
-import {getQuestions} from "./questionActions";
+import {getUsers} from "./user";
+import {getQuestions} from "./questions";
 
 
 export function handleInitialData() {

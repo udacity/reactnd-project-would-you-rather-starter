@@ -34,7 +34,7 @@ body {
 
   .choices {
     width: 300px;
-    min-height: 200px;
+    min-height: 80px;
     border-radius: 8px;
     color: #ffffff;
     padding: 1rem;
@@ -76,8 +76,7 @@ body {
     color: black;
     text-transform: uppercase;
     position: absolute;
-    top: 78px;
-
+    top: 16px;
 
     span {
       position: relative;
