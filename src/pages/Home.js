@@ -1,72 +1,172 @@
 import React from "react";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { connect } from "react-redux";
-import './Home.scss';
+import "./Home.scss";
+import Question from '../components/Question';
 
 class Home extends React.Component {
   render() {
+    const { questions, auth } = this.props;
+
+    // check if user is auth
+    const isUserAuthed = auth === null;
+
+    // define open / answered question arrays to display
+    const answeredQuestions = [];
+    const openQuestions = [];
+
     return (
-      <Container>
-        {this.props.questions.length !== 0 &&
-          this.props.questions.map(question => (
-            <Row className="justify-content-md-center question-card">
-              <Col md="auto">
-                <Card bg="secondary" text="white">
-                  <Card.Header>{question.author} asks...</Card.Header>
-                  <Card.Body>
-                    <Container>
-                      <Row style={{ marginBottom: 24 }}>
-                        <Col sm={2}>
-                          <img
-                            src="https://image.flaticon.com/icons/svg/145/145843.svg"
-                            alt="User avatar"
-                            style={{ width: 50, height: 50 }}
-                          />
-                        </Col>
-                        <Col sm={10}>
-                          <h4>Would you rather...</h4>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          <div className="answers-wrapper">
-                            <div
-                              className="choices first"
-                              tabIndex={0}
-                              role="button"
-                            >
-                              {question.optionOne.text}
-                            </div>
-                            <div
-                              className="choices second"
-                              tabIndex={0}
-                              role="button"
-                            >
-                              {question.optionTwo.text}
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Container>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          ))}
+      <Container style={{marginTop: 24}}>
+        <Tab.Container id="left-tabs-example" defaultActiveKey="all">
+          <Row>
+            <Col sm={3} md={3}>
+              <Nav variant="pills" className="flex-column" style={{marginBottom: 24}}>
+                <Nav.Item>
+                  <Nav.Link eventKey="all">All</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="open" disabled={isUserAuthed}>Open</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="answered" disabled={isUserAuthed}>Answered</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+            <Col sm={9} md={9}>
+              <Container>
+                <Tab.Content>
+                  <Tab.Pane eventKey="all">
+                    {this.props.questions.length !== 0 &&
+                      this.props.questions.map(question => (
+                        <Question question={question} />
+                      ))}{" "}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="open" disabled>
+                  {this.props.questions.length !== 0 &&
+                      this.props.questions.map(question => (
+                        <Row className="question-card">
+                          <Col>
+                            <Card bg="secondary" text="white">
+                              <Card.Header>
+                                {question.author} asks...
+                              </Card.Header>
+                              <Card.Body>
+                                <Container>
+                                  <Row style={{ marginBottom: 24 }}>
+                                    <Col sm={2}>
+                                      <img
+                                        src="https://image.flaticon.com/icons/svg/145/145843.svg"
+                                        alt="User avatar"
+                                        style={{ width: 50, height: 50 }}
+                                      />
+                                    </Col>
+                                    <Col sm={10}>
+                                      <h4>Would you rather...</h4>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col>
+                                      <div className="answers-wrapper">
+                                        <div
+                                          className="choices first"
+                                          tabIndex={0}
+                                          role="button"
+                                        >
+                                          {question.optionOne.text}
+                                        </div>
+                                        <div
+                                          className="choices second"
+                                          tabIndex={0}
+                                          role="button"
+                                        >
+                                          {question.optionTwo.text}
+                                        </div>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </Container>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        </Row>
+                      ))}{" "}
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="answered">
+                  {this.props.questions.length !== 0 &&
+                      this.props.questions.map(question => (
+                        <Row className="question-card">
+                          <Col>
+                            <Card bg="secondary" text="white">
+                              <Card.Header>
+                                {question.author} asks...
+                              </Card.Header>
+                              <Card.Body>
+                                <Container>
+                                  <Row style={{ marginBottom: 24 }}>
+                                    <Col sm={2}>
+                                      <img
+                                        src="https://image.flaticon.com/icons/svg/145/145843.svg"
+                                        alt="User avatar"
+                                        style={{ width: 50, height: 50 }}
+                                      />
+                                    </Col>
+                                    <Col sm={10}>
+                                      <h4>Would you rather...</h4>
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col>
+                                      <div className="answers-wrapper">
+                                        <div
+                                          className="choices first"
+                                          tabIndex={0}
+                                          role="button"
+                                        >
+                                          {question.optionOne.text}
+                                        </div>
+                                        <div
+                                          className="choices second"
+                                          tabIndex={0}
+                                          role="button"
+                                        >
+                                          {question.optionTwo.text}
+                                        </div>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </Container>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        </Row>
+                      ))}{" "}
+                  </Tab.Pane>
+                </Tab.Content>
+              </Container>
+            </Col>
+          </Row>
+        </Tab.Container>
       </Container>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const questionData = Object.keys(state.questions).map(question => ({
-    id: state.questions[question].id,
-    author: state.questions[question].author,
-    optionOne: state.questions[question].optionOne,
-    optionTwo: state.questions[question].optionTwo,
+Home.defaultProps = {
+  isUserAuthed: false,
+};
+
+function mapStateToProps({users, questions, auth}) {
+  const questionData = Object.keys(questions).map(question => ({
+    id: questions[question].id,
+    author: users[questions[question].author].name,
+    authorAvatarURL: users[questions[question].author].avatarURL,
+    optionOne: questions[question].optionOne,
+    optionTwo: questions[question].optionTwo,
   }));
+
   return {
     questions: questionData,
+    auth
   };
 }
 

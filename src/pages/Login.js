@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Card, DropdownButton, Dropdown } from "react-bootstrap";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom'
 
 import { setAuthUser } from '../actions/auth';
 import logo from "../assets/logo.svg";
@@ -12,7 +13,11 @@ class Login extends Component {
   }
 
   handleLogin = (e, id) => {
-    this.props.dispatch(setAuthUser(id));
+    const { dispatch, history } = this.props;
+    dispatch(setAuthUser(id))
+      .then(() => {
+        history.push('/');
+      });
   }
 
   render() {
@@ -63,4 +68,4 @@ function mapStateToProps({users, auth}) {
   };
 }
 
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));

@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, Button, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { connect } from "react-redux";
+import { logOut } from '../actions/auth';
 
 class Navigation extends Component {
+
+  handleLogout = (e, id) => {
+    const { dispatch } = this.props;
+    dispatch(logOut());
+  }
+
   render() {
     return (
       <div>
@@ -40,17 +47,15 @@ class Navigation extends Component {
               </Navbar.Text>
             )}
           </Navbar.Collapse>
-          <Nav>
+          <Form inline>
             {this.props.auth === null ? (
               <LinkContainer to="/login">
                 <Button variant="outline-primary">Login</Button>
               </LinkContainer>
             ) : (
-              <LinkContainer to="/logout">
-                <Button variant="outline-danger">Logout</Button>
-              </LinkContainer>
+              <Button variant="outline-danger" onClick={(e) => {this.handleLogout(e)}}>Logout</Button>
             )}
-          </Nav>
+          </Form>
         </Navbar>
       </div>
     );
