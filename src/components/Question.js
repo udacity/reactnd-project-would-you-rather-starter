@@ -41,7 +41,7 @@ class Question extends React.Component {
                 </Row>
               </Container>
             </Card.Body>
-            <Card.Footer>Asked by {question.author}</Card.Footer>
+            <Card.Footer>Submitted by {question.author}</Card.Footer>
           </Card>
         </Col>
       </Row>
