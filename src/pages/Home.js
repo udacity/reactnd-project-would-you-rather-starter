@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Row, Col, Tab, Nav } from "react-bootstrap";
+import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { connect } from "react-redux";
 
 import Question from "../components/Question";
@@ -22,10 +22,8 @@ class Home extends React.Component {
       const userId = auth.user.id;
       // for each question check if the user is part of the optionOne.votes || optionTwo.votes
       answeredQuestions = questions.filter((question) => (question.optionOne.votes.indexOf(userId)) || (question.optionTwo.votes.indexOf(userId)));
-      console.log(answeredQuestions);
       // for each question check if user id is in optionOne or optionTwo votes
       unansweredQuestions = questions.filter((question) => (question.optionOne.votes.indexOf(userId) === -1 ) && (question.optionTwo.votes.indexOf(userId)) === -1);
-      console.log(unansweredQuestions);
     }
 
     return (
