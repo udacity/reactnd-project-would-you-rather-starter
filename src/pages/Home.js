@@ -1,8 +1,10 @@
 import React from "react";
 import { Card, Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { connect } from "react-redux";
+
+import Question from "../components/Question";
+import PageTitle from "../components/PageTitle";
 import "./Home.scss";
-import Question from '../components/Question';
 
 class Home extends React.Component {
   render() {
@@ -16,19 +18,28 @@ class Home extends React.Component {
     const openQuestions = [];
 
     return (
-      <Container style={{marginTop: 24}}>
+      <Container style={{ marginTop: 24 }}>
+        <PageTitle>Polls</PageTitle>
         <Tab.Container id="left-tabs-example" defaultActiveKey="all">
           <Row>
             <Col sm={3} md={3}>
-              <Nav variant="pills" className="flex-column" style={{marginBottom: 24}}>
+              <Nav
+                variant="pills"
+                className="flex-column"
+                style={{ marginBottom: 24 }}
+              >
                 <Nav.Item>
                   <Nav.Link eventKey="all">All</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="open" disabled={isUserAuthed}>Open</Nav.Link>
+                  <Nav.Link eventKey="open" disabled={isUserAuthed}>
+                    Open
+                  </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="answered" disabled={isUserAuthed}>Answered</Nav.Link>
+                  <Nav.Link eventKey="answered" disabled={isUserAuthed}>
+                    Answered
+                  </Nav.Link>
                 </Nav.Item>
               </Nav>
             </Col>
@@ -42,7 +53,7 @@ class Home extends React.Component {
                       ))}{" "}
                   </Tab.Pane>
                   <Tab.Pane eventKey="open" disabled>
-                  {this.props.questions.length !== 0 &&
+                    {this.props.questions.length !== 0 &&
                       this.props.questions.map(question => (
                         <Row className="question-card">
                           <Col>
@@ -92,7 +103,7 @@ class Home extends React.Component {
                       ))}{" "}
                   </Tab.Pane>
                   <Tab.Pane eventKey="answered">
-                  {this.props.questions.length !== 0 &&
+                    {this.props.questions.length !== 0 &&
                       this.props.questions.map(question => (
                         <Row className="question-card">
                           <Col>
@@ -155,7 +166,7 @@ Home.defaultProps = {
   isUserAuthed: false,
 };
 
-function mapStateToProps({users, questions, auth}) {
+function mapStateToProps({ users, questions, auth }) {
   const questionData = Object.keys(questions).map(question => ({
     id: questions[question].id,
     author: users[questions[question].author].name,
@@ -166,7 +177,7 @@ function mapStateToProps({users, questions, auth}) {
 
   return {
     questions: questionData,
-    auth
+    auth,
   };
 }
 
