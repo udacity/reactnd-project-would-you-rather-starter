@@ -7,7 +7,7 @@ class Leaderboard extends Component {
     return (
       <Container style={{ marginTop: 24 }}>
         <PageTitle>Leaderboard</PageTitle>
-        <div style={{ color: "white" }}>
+        <div className="is-center">
           The more questions you ask and answer, the higher you'll move up in
           the ranks.
         </div>

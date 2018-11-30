@@ -26,3 +26,7 @@ body {
 .question-card {
   margin-bottom: 24px;
 }
+
+.nav-link.disabled {
+  cursor: not-allowed;
+}

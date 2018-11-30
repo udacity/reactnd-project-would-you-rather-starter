@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col, Image } from "react-bootstrap";
 
 class Question extends React.Component {
   render() {
@@ -13,10 +13,11 @@ class Question extends React.Component {
               <Container>
                 <Row style={{ marginBottom: 24 }}>
                   <Col sm={2}>
-                    <img
+                    <Image
                       src={question.authorAvatarURL}
                       alt={`${question.author} avatar`}
                       style={{ width: 50, height: 50 }}
+                      roundedCircle
                     />
                   </Col>
                   <Col sm={10} style={{marginTop: 8}}>

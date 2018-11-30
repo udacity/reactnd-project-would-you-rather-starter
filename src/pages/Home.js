@@ -11,11 +11,22 @@ class Home extends React.Component {
     const { questions, auth } = this.props;
 
     // check if user is auth
-    const isUserAuthed = auth === null;
+    const isUserAuthed = auth !== null;
 
     // define open / answered question arrays to display
-    const answeredQuestions = [];
-    const openQuestions = [];
+    let unansweredQuestions = [],
+    answeredQuestions = [];
+
+      // check if the user is auth
+    if (isUserAuthed) {
+      const userId = auth.user.id;
+      // for each question check if the user is part of the optionOne.votes || optionTwo.votes
+      answeredQuestions = questions.filter((question) => (question.optionOne.votes.indexOf(userId)) || (question.optionTwo.votes.indexOf(userId)));
+      console.log(answeredQuestions);
+      // for each question check if user id is in optionOne or optionTwo votes
+      unansweredQuestions = questions.filter((question) => (question.optionOne.votes.indexOf(userId) === -1 ) && (question.optionTwo.votes.indexOf(userId)) === -1);
+      console.log(unansweredQuestions);
+    }
 
     return (
       <Container style={{ marginTop: 24 }}>
@@ -32,12 +43,12 @@ class Home extends React.Component {
                   <Nav.Link eventKey="all">All</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="open" disabled={isUserAuthed}>
-                    Open
+                  <Nav.Link eventKey="unanswered" disabled={!isUserAuthed}>
+                    Unanswered
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="answered" disabled={isUserAuthed}>
+                  <Nav.Link eventKey="answered" disabled={!isUserAuthed}>
                     Answered
                   </Nav.Link>
                 </Nav.Item>
@@ -49,107 +60,19 @@ class Home extends React.Component {
                   <Tab.Pane eventKey="all">
                     {this.props.questions.length !== 0 &&
                       this.props.questions.map(question => (
-                        <Question question={question} />
+                        <Question question={question} key={`all-${question.id}`}/>
                       ))}{" "}
                   </Tab.Pane>
-                  <Tab.Pane eventKey="open" disabled>
-                    {this.props.questions.length !== 0 &&
-                      this.props.questions.map(question => (
-                        <Row className="question-card">
-                          <Col>
-                            <Card bg="secondary" text="white">
-                              <Card.Header>
-                                {question.author} asks...
-                              </Card.Header>
-                              <Card.Body>
-                                <Container>
-                                  <Row style={{ marginBottom: 24 }}>
-                                    <Col sm={2}>
-                                      <img
-                                        src="https://image.flaticon.com/icons/svg/145/145843.svg"
-                                        alt="User avatar"
-                                        style={{ width: 50, height: 50 }}
-                                      />
-                                    </Col>
-                                    <Col sm={10}>
-                                      <h4>Would you rather...</h4>
-                                    </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col>
-                                      <div className="answers-wrapper">
-                                        <div
-                                          className="choices first"
-                                          tabIndex={0}
-                                          role="button"
-                                        >
-                                          {question.optionOne.text}
-                                        </div>
-                                        <div
-                                          className="choices second"
-                                          tabIndex={0}
-                                          role="button"
-                                        >
-                                          {question.optionTwo.text}
-                                        </div>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </Container>
-                              </Card.Body>
-                            </Card>
-                          </Col>
-                        </Row>
+                  <Tab.Pane eventKey="unanswered">
+                    {unansweredQuestions.length !== 0 &&
+                      unansweredQuestions.map(question => (
+                        <Question question={question} key={`unanswered-${question.id}`}/>
                       ))}{" "}
                   </Tab.Pane>
                   <Tab.Pane eventKey="answered">
-                    {this.props.questions.length !== 0 &&
-                      this.props.questions.map(question => (
-                        <Row className="question-card">
-                          <Col>
-                            <Card bg="secondary" text="white">
-                              <Card.Header>
-                                {question.author} asks...
-                              </Card.Header>
-                              <Card.Body>
-                                <Container>
-                                  <Row style={{ marginBottom: 24 }}>
-                                    <Col sm={2}>
-                                      <img
-                                        src="https://image.flaticon.com/icons/svg/145/145843.svg"
-                                        alt="User avatar"
-                                        style={{ width: 50, height: 50 }}
-                                      />
-                                    </Col>
-                                    <Col sm={10}>
-                                      <h4>Would you rather...</h4>
-                                    </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col>
-                                      <div className="answers-wrapper">
-                                        <div
-                                          className="choices first"
-                                          tabIndex={0}
-                                          role="button"
-                                        >
-                                          {question.optionOne.text}
-                                        </div>
-                                        <div
-                                          className="choices second"
-                                          tabIndex={0}
-                                          role="button"
-                                        >
-                                          {question.optionTwo.text}
-                                        </div>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </Container>
-                              </Card.Body>
-                            </Card>
-                          </Col>
-                        </Row>
+                    {answeredQuestions.length !== 0 &&
+                      answeredQuestions.map(question => (
+                        <Question question={question} key={`answered-${question.id}`}/>
                       ))}{" "}
                   </Tab.Pane>
                 </Tab.Content>
