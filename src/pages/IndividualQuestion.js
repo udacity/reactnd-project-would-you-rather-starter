@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Card, ListGroup, Row, Col, Image } from "react-bootstrap";
 import Question from "../components/Question";
+import Voters from "../components/Voters";
 import { connect } from "react-redux";
 
 class IndividualQuestion extends Component {
@@ -41,47 +42,15 @@ class IndividualQuestion extends Component {
         </div>
         <Row>
           <Col sm={12} md={6} lg={6}>
-            <Card>
+            <Card style={{ marginTop: 8 }}>
               <Card.Header>Option One</Card.Header>
-              <ListGroup variant="flush">
-                {optionOneVotes.length !== 0 ? (
-                  optionOneVotes.map(voter => (
-                    <ListGroup.Item>
-                      <Image
-                        src={voter.avatarURL}
-                        alt={`${voter.name} avatar`}
-                        style={{ width: 32, height: 32, marginRight: 8 }}
-                        roundedCircle
-                      />
-                      {voter.name}
-                    </ListGroup.Item>
-                  ))
-                ) : (
-                  <ListGroup.Item>No votes</ListGroup.Item>
-                )}
-              </ListGroup>
+              <Voters votes={optionOneVotes} />
             </Card>
           </Col>
           <Col sm={12} md={6} lg={6}>
-          <Card>
+            <Card style={{ marginTop: 8 }}>
               <Card.Header>Option Two</Card.Header>
-              <ListGroup variant="flush">
-                {optionTwoVotes.length !== 0 ? (
-                  optionTwoVotes.map(voter => (
-                    <ListGroup.Item>
-                      <Image
-                        src={voter.avatarURL}
-                        alt={`${voter.name} avatar`}
-                        style={{ width: 32, height: 32, marginRight: 8 }}
-                        roundedCircle
-                      />
-                      {voter.name}
-                    </ListGroup.Item>
-                  ))
-                ) : (
-                  <ListGroup.Item>No votes</ListGroup.Item>
-                )}
-              </ListGroup>
+              <Voters votes={optionTwoVotes} />
             </Card>
           </Col>
         </Row>
