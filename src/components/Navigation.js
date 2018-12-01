@@ -32,8 +32,8 @@ class Navigation extends Component {
               <LinkContainer to="/">
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/ask-a-question">
-                <Nav.Link>Ask a Question</Nav.Link>
+              <LinkContainer to="/add">
+                <Nav.Link>Add Question</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/leaderboard">
                 <Nav.Link>Leaderboard</Nav.Link>

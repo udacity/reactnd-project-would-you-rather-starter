@@ -29,7 +29,7 @@ class Home extends React.Component {
     return (
       <Container style={{ marginTop: 24 }}>
         <PageTitle>Polls</PageTitle>
-        <Tab.Container id="left-tabs-example" defaultActiveKey="all">
+        <Tab.Container id="left-tabs-example" defaultActiveKey={isUserAuthed ? 'unanswered' : 'all'}>
           <Row>
             <Col sm={3} md={3}>
               <Nav

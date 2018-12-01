@@ -11,7 +11,7 @@ import Leaderboard from "./pages/Leaderboard";
 import IndividualQuestion from "./pages/IndividualQuestion";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import AskAQuestion from "./pages/AskAQuestion";
+import AddQuestion from "./pages/AddQuestion";
 
 class App extends Component {
 
@@ -28,7 +28,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/leaderboard" component={Leaderboard} />
-          <Route path="/ask-a-question" component={AskAQuestion} />
+          <Route path="/add" component={AddQuestion} />
           <Route path="/question/:qid" component={IndividualQuestion} />
         </div>
       </Router>
