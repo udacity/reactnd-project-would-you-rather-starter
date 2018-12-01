@@ -1,10 +1,10 @@
-import {getInitialData} from "../utils/api"
+import {getInitialData as _getInitialData } from "../utils/api"
 import {getUsers} from "./user";
 import {getQuestions} from "./questions";
 
-export function handleInitialData() {
+export function getInitialData() {
     return (dispatch) => {
-        return getInitialData().then(({users, questions}) => {
+        return _getInitialData().then(({users, questions}) => {
             dispatch(getUsers(users));
             dispatch(getQuestions(questions));
         })

@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, Container, Row, Col, Image, Button } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 class Question extends React.Component {
   render() {
-    const { question } = this.props;
+    const { question, individual } = this.props;
 
     return (
       <Row className="question-card">
@@ -45,7 +46,12 @@ class Question extends React.Component {
             <Card.Footer>
               <p>Asked by {question.author}</p>
               <p>Timestamp: {question.timestamp}</p>
-              <Button variant="light" size="sm">View more details</Button>
+              {
+                !individual && <LinkContainer to={`/question/${question.id}`}>
+                <Button variant="light" size="sm">View more details</Button>
+              </LinkContainer>
+              }
+
             </Card.Footer>
           </Card>
         </Col>
