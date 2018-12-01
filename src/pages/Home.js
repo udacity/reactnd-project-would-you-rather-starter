@@ -90,6 +90,7 @@ Home.defaultProps = {
 function mapStateToProps({ users, questions, auth }) {
   const questionData = Object.keys(questions).map(question => ({
     id: questions[question].id,
+    timestamp: questions[question].timestamp,
     author: users[questions[question].author].name,
     authorAvatarURL: users[questions[question].author].avatarURL,
     optionOne: questions[question].optionOne,

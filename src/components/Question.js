@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container, Row, Col, Image } from "react-bootstrap";
+import { Card, Container, Row, Col, Image, Button } from "react-bootstrap";
 
 class Question extends React.Component {
   render() {
@@ -42,7 +42,11 @@ class Question extends React.Component {
                 </Row>
               </Container>
             </Card.Body>
-            <Card.Footer>Submitted by {question.author}</Card.Footer>
+            <Card.Footer>
+              <p>Asked by {question.author}</p>
+              <p>Timestamp: {question.timestamp}</p>
+              <Button variant="light" size="sm">View more details</Button>
+            </Card.Footer>
           </Card>
         </Col>
       </Row>

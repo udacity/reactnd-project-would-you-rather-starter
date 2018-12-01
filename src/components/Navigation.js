@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Nav, Button, Form } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { connect } from "react-redux";
 import { logOut } from "../actions/auth";
@@ -14,8 +14,8 @@ class Navigation extends Component {
     return (
       <div>
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-          <LinkContainer to="/">
-            <Navbar.Brand href="/">
+          <LinkContainer to="/" exact>
+            <Navbar.Brand>
               <img
                 alt=""
                 src="https://image.flaticon.com/icons/svg/953/953818.svg"
