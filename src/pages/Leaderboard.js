@@ -6,13 +6,14 @@ import PageTitle from "../components/PageTitle";
 class Leaderboard extends Component {
   render() {
     const { users } = this.props;
+    // add up score
     Object.keys(users).map(user => {
       users[user].score = users[user].questions.length + Object.keys(users[user].answers).length;
     })
+    // sort according to descending score
     users.sort((obj1, obj2) => {
       return obj2.score - obj1.score;
     })
-    console.log(users);
     return (
       <Container style={{ marginTop: 24 }}>
         <PageTitle>Leaderboard</PageTitle>

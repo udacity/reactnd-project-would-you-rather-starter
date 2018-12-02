@@ -17,6 +17,10 @@ class Home extends React.Component {
     let unansweredQuestions = [],
     answeredQuestions = [];
 
+    Object.keys(questions).sort((obj1, obj2) => {
+      return questions[obj2].timestamp - questions[obj1].timestamp
+    })
+
       // check if the user is auth
     if (isUserAuthed) {
       const userId = auth.user.id;
