@@ -14,6 +14,7 @@ class Leaderboard extends Component {
     users.sort((obj1, obj2) => {
       return obj2.score - obj1.score;
     })
+
     return (
       <Container style={{ marginTop: 24 }}>
         <PageTitle>Leaderboard</PageTitle>
