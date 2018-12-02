@@ -1,7 +1,6 @@
 import {
     _getQuestions,
     _getUsers,
-    _saveNewUser,
     _saveQuestion,
     _saveQuestionAnswer
 } from "./_DATA";

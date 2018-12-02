@@ -1,6 +1,5 @@
 import {
   GET_QUESTIONS,
-  ANSWER_QUESTION,
   ADD_QUESTION
 } from '../actions/types'
 
@@ -11,22 +10,11 @@ function questions(state = {}, action) {
         ...state,
         ...action.questions
       }
-      // case ANSWER_QUESTION:
-      //   return {
-      //     ...state,
-      //     [action.qid]: {
-      //       ...state[action.qid],
-      //       [action.option]: {
-      //         ...state[action.qid][action.option],
-      //         votes: state[action.qid][action.option].votes.concat([action.auth])
-      //       }
-      //     }
-      //   }
-      // case ADD_QUESTION:
-      //   return {
-      //     ...state,
-      //     [action.question.id]: action.question
-      //   }
+      case ADD_QUESTION:
+        return {
+          ...state,
+          [action.question.id]: action.question
+        }
     default:
       return state
   }

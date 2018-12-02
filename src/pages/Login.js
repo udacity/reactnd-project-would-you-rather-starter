@@ -8,9 +8,6 @@ import { setAuthUser } from '../actions/auth';
 import logo from "../assets/logo.svg";
 
 class Login extends Component {
-  constructor(props) {
-      super(props);
-  }
 
   handleLogin = (e, id) => {
     const { dispatch, history } = this.props;
