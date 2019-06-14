@@ -1,5 +1,6 @@
 export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
+export const CREATE_QUESTION = 'CREATE_QUESTION'
 
 export function receiveUsers(users) {
   return {
@@ -16,3 +17,11 @@ export function answerQuestion({ authedUser, qid, answer }) {
     answer
   }
 } 
+
+export function createQuestion({ id, author}) {
+  return {
+    type: CREATE_QUESTION,
+    id,
+    author
+  }
+}

@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Poll = ({ question, authedUser, qid, dispatch }) => {
+const Poll = ({ question, authedUser, qid, logState, dispatch }) => {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -63,9 +63,7 @@ const Poll = ({ question, authedUser, qid, dispatch }) => {
     // setValues({ ...values, toResults: true })
   }
 
-  // if (values.toResults === true) {
-  //   return <Redirect to={`/results/${qid}`} />
-  // }
+  
 
   return (
     <Card className={classes.card}>
@@ -120,7 +118,7 @@ const Poll = ({ question, authedUser, qid, dispatch }) => {
   );
 }
 
-const mapStateToProps = ({ questions, authedUser }, { id }) => {
+const mapStateToProps = ({ questions, authedUser, logState }, { id }) => {
   // console.log(props)
   // const { id } = props.match.params
   const question = questions[id]
@@ -128,7 +126,8 @@ const mapStateToProps = ({ questions, authedUser }, { id }) => {
   return {
     question,
     authedUser,
-    qid: id
+    qid: id,
+    logState
   }
 }
 

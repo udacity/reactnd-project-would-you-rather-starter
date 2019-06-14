@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
+import { Link, Redirect, withRouter } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,6 +27,11 @@ const Dashboard = props => {
   }
 
   // console.log(props)
+
+  if (props.logState === false) {
+    // Here no history.push(). It needs to stop the code going further
+    return <Redirect to='/login' />
+  }
   
   return (
     <div className={classes.root}>
@@ -42,7 +47,7 @@ const Dashboard = props => {
   )
 }
 
-const mapStateToProps = ({ questions, authedUser }) => {
+const mapStateToProps = ({ questions, authedUser, logState }) => {
   // Order the questions with timestamp
   const questionArr = Object.entries(questions).sort((a, b) => questions[b[0]].timestamp - questions[a[0]].timestamp)
 
@@ -70,8 +75,10 @@ const mapStateToProps = ({ questions, authedUser }) => {
     optOneNullIds,
     optTwoNullIds,
     unanswered,
-    answered
+    answered,
+    authedUser,
+    logState
   }
 }
 
-export default connect(mapStateToProps)(Dashboard)
+export default withRouter(connect(mapStateToProps)(Dashboard)) 
