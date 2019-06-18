@@ -1,14 +1,15 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import React, { Component } from 'react'
+import { 
+  Button,
+  TextField,
+  withStyles
+} from '@material-ui/core';
 import { connect } from 'react-redux'
-import { handleSaveQuestion } from '../actions/shared';
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
-const useStyles = makeStyles(theme => ({
+import { handleSaveQuestion } from '../actions/shared'
+
+const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -17,28 +18,31 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-  dense: {
-    marginTop: theme.spacing(2),
-  },
-  menu: {
-    width: 200,
-  },
-}));
+})
 
-function NewPoll({ authedUser, dispatch, logState }) {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
+class NewPoll extends Component {
+  state = {
     option1: '',
     option2: '',
-  });
+  }
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
+  handleChange = name => event => {
+    // This one seems a new feature
+    // but have to be here
+    // otherwise the target value will be null
+    event.persist() 
+    
+    this.setState({
+      [name]: event.target.value
+    })
+  }
 
-  const handleClick = e => {
-    console.log(values)
-    const {option1, option2} = values
+  handleClick = e => {
+    e.preventDefault()
+
+    const { option1, option2 } = this.state
+    const { authedUser, dispatch } = this.props
+
     const question = {
       optionOneText: option1,
       optionTwoText: option2,
@@ -47,44 +51,54 @@ function NewPoll({ authedUser, dispatch, logState }) {
 
     dispatch(handleSaveQuestion(
       question,
-      () => setValues({ ...values, option1: '', option2: '' })
+      () => this.setState({
+        option1: '', 
+        option2: ''
+      })
     ))
   }
 
-  if (logState === false) {
-    return <Redirect to='/login' />
-  }
+  render() {
+    const { option1, option2 } = this.state
+    const { logState, classes } = this.props
 
-  return (
-    <form className={classes.container} noValidate autoComplete="off">
-      <TextField
-        id="option1"
-        label="Enter Option One Text Here"
-        className={classes.textField}
-        value={values.option1}
-        onChange={handleChange('option1')}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        id="option2"
-        label="Enter Option Two Text Here"
-        className={classes.textField}
-        value={values.option2}
-        onChange={handleChange('option2')}
-        margin="normal"
-        variant="outlined"
-      />
-      <Button onClick={handleClick}>
-        Submit
-      </Button>
-    </form>
-  );
+    if (logState === false) {
+      return <Redirect to='/login' />
+    }
+  
+    return (
+      <form className={classes.container} noValidate autoComplete="off">
+        <TextField
+          id="option1"
+          label="Enter Option One Text Here"
+          className={classes.textField}
+          value={option1}
+          onChange={this.handleChange('option1')}
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="option2"
+          label="Enter Option Two Text Here"
+          className={classes.textField}
+          value={option2}
+          onChange={this.handleChange('option2')}
+          margin="normal"
+          variant="outlined"
+        />
+        <Button onClick={this.handleClick}>
+          Submit
+        </Button>
+      </form>
+    )
+  }
+}
+  
+const mapStateToProps = ({ authedUser, logState }) => {
+  return {
+    authedUser,
+    logState,
+  }
 }
 
-const mapStateToProps = ({ authedUser, logState }) => ({
-  authedUser,
-  logState
-})
-
-export default connect(mapStateToProps)(NewPoll) 
+export default connect(mapStateToProps)(withStyles(styles)(NewPoll))

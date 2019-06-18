@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { setAuthedUser } from '../actions/authedUser';
-import { logIn } from '../actions/logState';
+import { withStyles } from '@material-ui/core/styles'
+import { 
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select
+} from '@material-ui/core'
+
+// import { setAuthedUser } from '../actions/authedUser'
+// import { logIn } from '../actions/logState'
+import { handleUserLogin } from '../actions/shared'
 
 const styles = theme => ({
   root: {
@@ -22,11 +22,7 @@ const styles = theme => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-});
-
+})
 
 class Login extends Component  {
   state = {
@@ -34,11 +30,15 @@ class Login extends Component  {
   }
 
   handleChange = (event) => {
+    const { cookies } = this.props
+
     this.setState({
       authedUser: event.target.value
     }, () => {
-      this.props.dispatch(setAuthedUser(this.state.authedUser))
-      this.props.dispatch(logIn())
+      const { authedUser } = this.state
+
+      cookies.set('authedUser', authedUser, { path: '/' })
+      this.props.dispatch(handleUserLogin(authedUser))
     })
   }
   
@@ -49,8 +49,6 @@ class Login extends Component  {
 
     const { authedUser } = this.state
     const { classes, users } = this.props
-    
-    // console.log(authedUser)
 
     return (
       <div>

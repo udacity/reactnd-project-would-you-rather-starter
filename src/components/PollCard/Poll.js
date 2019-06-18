@@ -1,31 +1,26 @@
 import React from 'react'
+import { 
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Typography
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import { handleSaveQuestionAnswer } from '../actions/shared';
-
-import { Link, Redirect } from 'react-router-dom'
-
+import { handleSaveQuestionAnswer } from '../../actions/shared';
 
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
-  },
-  root: {
-    display: 'flex',
   },
   formControl: {
     margin: theme.spacing(3),
@@ -35,23 +30,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Poll = ({ question, authedUser, qid, logState, dispatch }) => {
+const Poll = ({ question, authedUser, qid, dispatch }) => {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
     option: 'optionOne',
-    // toResults: false
   });
-
-  // function handleChange(event) {
-  //   setValue(event.target.value);
-  // }
 
   const handleChange = name => e => {
     setValues({ ...values, [name]: e.target.value });
   }
 
   const handleSubmit = e => {
+    e.preventDefault()
+
     const info = {
       authedUser,
       qid,
@@ -59,11 +51,7 @@ const Poll = ({ question, authedUser, qid, logState, dispatch }) => {
     }
 
     dispatch(handleSaveQuestionAnswer(info))
-
-    // setValues({ ...values, toResults: true })
   }
-
-  
 
   return (
     <Card className={classes.card}>
@@ -79,7 +67,6 @@ const Poll = ({ question, authedUser, qid, logState, dispatch }) => {
           <Typography gutterBottom variant="h5" component="h2">
             {`${question.author} ask`}
           </Typography>
-          
           <FormControl component="fieldset" className={classes.formControl}>
             <FormLabel component="legend">Would you rather</FormLabel>
             <RadioGroup
@@ -100,34 +87,28 @@ const Poll = ({ question, authedUser, qid, logState, dispatch }) => {
               />
             </RadioGroup>
           </FormControl>
-
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {/* <Link to={`/results/${qid}`}> */}
-          <Button 
-            size="small" 
-            color="primary"
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        {/* </Link> */}
+        <Button 
+          size="small" 
+          color="primary"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
       </CardActions>
     </Card>
-  );
+  )
 }
 
-const mapStateToProps = ({ questions, authedUser, logState }, { id }) => {
-  // console.log(props)
-  // const { id } = props.match.params
+const mapStateToProps = ({ questions, authedUser }, { id }) => {
   const question = questions[id]
-  // console.log(question)
+  
   return {
     question,
     authedUser,
-    qid: id,
-    logState
+    qid: id
   }
 }
 

@@ -1,19 +1,20 @@
-import { receiveQuestions, updateOption, newQuestion } from "./questions";
-import { receiveUsers, answerQuestion, createQuestion } from "./users";
+import { receiveQuestions, updateOption, newQuestion } from "./questions"
+import { receiveUsers, answerQuestion, createQuestion } from "./users"
+import { getInitialData, saveQuestionAnswer, saveQuestion } from "../utils/api"
 import { setAuthedUser, removeAuthedUser } from "./authedUser";
-import { getInitialData, saveQuestionAnswer, saveQuestion } from "../utils/api";
-import { logOut } from "./logState";
+import { logIn, logOut } from "./logState";
 
-const AUTHED_ID = 'tylermcginnis'
-// const AUTHED_ID = null
+// const AUTHED_ID = 'tylermcginnis' // For Test
 
-export function handleInitialData() {
+export function handleInitialData(cb) {
   return dispatch => {
     return getInitialData()
       .then(({ questions, users}) => {
         dispatch(receiveQuestions(questions))
         dispatch(receiveUsers(users))
-        // dispatch(setAuthedUser(AUTHED_ID))
+        // dispatch(setAuthedUser(AUTHED_ID)) // For test
+        // dispatch(logIn()) // For test
+        cb()
       })
   }
 }
@@ -39,9 +40,16 @@ export function handleSaveQuestion(question, cb) {
   }
 }
 
-// export function handleUserLogout(dispatch) {
-  
-//     dispatch(removeAuthedUser())
-//     dispatch(logOut())
-  
-// } 
+export function handleUserLogin(uid) {
+  return dispatch => {
+    dispatch(setAuthedUser(uid))
+    dispatch(logIn())
+  }
+}
+
+export function handleUserLogout() {
+  return dispatch => {
+    dispatch(removeAuthedUser())
+    dispatch(logOut())
+  }
+}

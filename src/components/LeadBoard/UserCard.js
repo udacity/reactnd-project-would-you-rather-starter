@@ -1,36 +1,19 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography
+} from '@material-ui/core'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import { handleSaveQuestionAnswer } from '../actions/shared';
 
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 345,
   },
-  root: {
-    display: 'flex',
-  },
-  formControl: {
-    margin: theme.spacing(3),
-  },
-  group: {
-    margin: theme.spacing(1, 0),
-  },
-}));
+}))
 
 const UserCard = ({ user, answered, created }) => {
   const classes = useStyles();
@@ -58,7 +41,6 @@ const UserCard = ({ user, answered, created }) => {
           <Typography gutterBottom variant="h5" component="h2">
             {`Toatal ${created + answered}`}
           </Typography>
-
         </CardContent>
       </CardActionArea>
     </Card>
@@ -66,9 +48,9 @@ const UserCard = ({ user, answered, created }) => {
 }
 
 const mapStateToProps = ({ users }, { id }) => {
-  const user = users[id]
-  const answered = Object.keys(user.answers).length
-  const created = user.questions.length
+  const user = users[id],
+        answered = Object.keys(user.answers).length,
+        created = user.questions.length
 
   return {
     user,
@@ -77,4 +59,4 @@ const mapStateToProps = ({ users }, { id }) => {
   }
 }
 
-export default connect(mapStateToProps)(UserCard) 
+export default connect(mapStateToProps)(UserCard)

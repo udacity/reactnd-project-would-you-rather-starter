@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
+
 import Poll from './Poll';
 import Results from './Results';
-
 
 const PollCard = ({ question, authedUser, id, logState }) => {
   const isPoll = () => 
@@ -28,7 +28,7 @@ const mapStateToProps = ({ questions, authedUser, logState }, props) => {
   return {
     question,
     authedUser,
-    id: id,
+    id,
     logState
   }
 }

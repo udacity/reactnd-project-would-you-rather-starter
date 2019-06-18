@@ -1,11 +1,14 @@
-import { connect } from 'react-redux'
+export function checkRedirect(userFromCookie, logState) {
+  
+  
+    
+    if (userFromCookie && logState === null) {
+      return true
+    }
 
-function isLoggedIn({ logout }) {
-  return true
+    if (logState === false || (!userFromCookie && logState === null)) {
+      return false
+    }
+  
 }
 
-const mapStateToProps = ({ authedUser }) => ({
-  logout: authedUser === null,
-})
-
-export default connect(mapStateToProps)(isLoggedIn)

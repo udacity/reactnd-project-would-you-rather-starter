@@ -1,79 +1,73 @@
 import React, { Fragment } from 'react'
-import { makeStyles, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu';
-import { NavLink } from 'react-router-dom'
+import { 
+  makeStyles, 
+  AppBar, 
+  Toolbar,
+  Container,
+  Tabs,
+  Tab
+} from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { userLogout, removeAuthedUser } from '../actions/authedUser'
-import { logOut } from '../actions/logState';
-import { handleUserLogout } from '../actions/shared';
 
+import { navTab } from '../actions/navi';
+import { handleUserLogout } from '../actions/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
+  container: {
+    height: 48
   },
 }));
 
-const Nav = ({ logout, dispatch }) => {
+const Nav = ({ logout, navi, dispatch, width, cookies }) => {
   const classes = useStyles()
 
+  const pageLink = React.forwardRef((props, ref) => 
+    <Link innerRef={ref} {...props} />)
+
+  const handleChange = (event, newValue) => {
+    dispatch(navTab(newValue))
+  }
+
   const handleLogout = (e) => {
-    dispatch(removeAuthedUser())
-    dispatch(logOut())
-    // handleUserLogout(dispatch)
+    e.preventDefault()
+    
+    dispatch(handleUserLogout())
+    cookies.remove('authedUser', { path: '/' })
   }
 
   return (
     <div className={classes.root}>
       <AppBar position='static'>
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
+        <Container maxWidth='md' className={classes.container}>
           {logout !== true 
             ? <Fragment>
-                <Typography variant="h6" className={classes.title}>
-                  <NavLink  to='/' exact>
-                    Home
-                  </NavLink>
-                </Typography>
-                <Typography variant="h6" className={classes.title}>
-                  <NavLink  to='/newpoll'>
-                    New
-                  </NavLink>
-                </Typography>
-                <Typography variant="h6" className={classes.title}>
-                  <NavLink  to='/leadboard'>
-                    Lead Board
-                  </NavLink>
-                </Typography>
+                <Tabs 
+                  variant="fullWidth" 
+                  value={navi} 
+                  onChange={handleChange}
+                >
+                  <Tab label="Home" component={pageLink} to="/" />
+                  <Tab label="New Question" component={pageLink} to="/newpoll" />
+                  <Tab label="Leader Board" component={pageLink} to="/leadboard" />
+                  <Tab label="Logout" onClick={handleLogout} />
+                </Tabs>
               </Fragment>
-            : null
+            : <Toolbar></Toolbar>
           }
-
-          {logout !== true 
-            ? <Button 
-                color="inherit"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            : null
-          }
-        </Toolbar>
+        </Container>
       </AppBar>
     </div>
   )
 }
 
-const mapStateToProps = ({ authedUser }) => ({
+const mapStateToProps = ({ authedUser, navi }, { cookies }) => ({
   logout: authedUser === null,
+  navi,
+  cookies
 })
 
 export default connect(mapStateToProps)(Nav)
