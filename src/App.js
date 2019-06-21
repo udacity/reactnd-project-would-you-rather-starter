@@ -1,26 +1,54 @@
 import React from 'react';
-import Login from './components/Login';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadInitialData } from './actions';
 
-export class App extends React.Component {
+import Home from './components/Home';
+import Login from './components/Login';
 
+function PrivateRoute({ component: Component, ...rest }) {
+  const isUserLoggedIn = (state) => {
+    const i = state && state.loggedInUserId && state.loggedInUserId.length > 0;
+    return i;
+  };
+
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return (
+          isUserLoggedIn(props.location.state) ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: {from: props.location}
+              }}
+            />
+          )
+        )
+      }}
+    />
+  );
+}
+
+export class App extends React.Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
 
   render() {
     return (
-      <div className="App">
-        <Login/>
-        <p>Logged In: {this.props.loggedInUserId}</p>
-      </div>
+      <Router>
+        <PrivateRoute exact path="/" component={Home}/>
+        <Route path="/login" component={Login}/>
+      </Router>
     );
   };
 }
 
 function mapStateToProps(state) {
-  console.log("loggedIn User %o", state)
   return {
     loggedInUserId: state.loggedInUserId
   };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions';
 
@@ -20,6 +21,10 @@ export class Login extends React.Component {
   };
 
   render() {
+    if (this.props.loggedInUserId) {
+      return(<Redirect to={{ pathname: "/", state: {loggedInUserId: this.props.loggedInUserId}}}/>);
+    }
+
     return (
       <form onSubmit={this.onLoginSubmitted}>
         <label htmlFor="login_users">Login</label>
@@ -37,9 +42,10 @@ export class Login extends React.Component {
   }
 }
 
-function mapStateToProps({ users = {} }) {
+function mapStateToProps({ users = {}, loggedInUserId }) {
   return {
-    users: (users && users.users) || {}
+    users: (users && users.users) || {},
+    loggedInUserId
   }
 }
 

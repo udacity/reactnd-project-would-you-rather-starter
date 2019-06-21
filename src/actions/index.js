@@ -14,6 +14,13 @@ export function loginUser(userId) {
   }
 }
 
+export function logoutUser(userId) {
+  return {
+    type: 'LOGOUT_USER',
+    userId
+  }
+}
+
 export function loadInitialData() {
   return (dispatch) => {
     getInitialData()
