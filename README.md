@@ -6,7 +6,7 @@ This app follows all the basic requirements in the rubric as well as a simple au
 
 - Heavyly based on Material UI on UI design with a little help from React-bootstrap and React-fontawesome.
 
-- Use cookie to save user information in browsers. So don't worry about login again everytime when refreshing. Certainly logout will destroy the cookie. Then you need to login.
+- Use cookie to save user information in browsers. So don't need to worry about login again everytime when refreshing the page. Logout will destroy the cookie so that login is required then.
 
 ## Installation and lauch
 
