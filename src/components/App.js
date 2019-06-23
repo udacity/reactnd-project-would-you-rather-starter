@@ -16,17 +16,19 @@ import { appInit } from '../actions/logState';
 import Initializing from './Initializing'
 import NonExisting from './NonExisting'
 
-
 class App extends Component {
   componentDidMount() {
     const { cookies, logState, dispatch } = this.props
     const authedUser = cookies.get('authedUser')
 
+    // Login from cookie
     const logFromCookie = () => {
+      // Login
       if (authedUser && logState === null) {
         dispatch(handleUserLogin(authedUser))
       }
 
+      // No cookie then set related status
       if (!authedUser && logState === null) {
         dispatch(appInit())
       }

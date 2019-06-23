@@ -119,7 +119,6 @@ const UserCard = ({ user, answered, created, rank }) => {
   const colorClass = rank < 3 ? classes[colors[rank]] : null
 
   return (
-    
     <Card className={classes.card}>
       {rank < 3 
         ? <FontAwesomeIcon 
@@ -176,7 +175,6 @@ const UserCard = ({ user, answered, created, rank }) => {
         </CardContent>
       </div>
     </Card>
-    
   )
 }
 

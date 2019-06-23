@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 import './index.css';
-import App from './components/App';
-import { createStore } from 'redux';
+import App from './components/App'
+import { createStore } from 'redux'
 import reducer from './reducers'
 import middleware from './middleware'
 import { Provider } from 'react-redux'
@@ -15,4 +15,4 @@ ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </CookiesProvider>, document.getElementById('root'));
+  </CookiesProvider>, document.getElementById('root'))

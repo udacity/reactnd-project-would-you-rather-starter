@@ -11,6 +11,7 @@ const PollCard = ({ question, authedUser, id, logState }) => {
     question.optionOne.votes.indexOf(authedUser) === -1 && 
     question.optionTwo.votes.indexOf(authedUser) === -1
 
+  // This will redirect to the page in address bar after login
   if (logState === 0) {
     return <Redirect 
       to={{

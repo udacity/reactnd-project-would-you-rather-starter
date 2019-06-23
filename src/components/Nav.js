@@ -51,11 +51,12 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Nav = ({ logout, navi, dispatch, width, cookies, user }) => {
-  const classes = useStyles()
-
-  const pageLink = React.forwardRef((props, ref) => 
+// Tab as link
+const pageLink = React.forwardRef((props, ref) => 
     <Link innerRef={ref} {...props} />)
+
+const Nav = ({ logout, navi, dispatch, cookies, user }) => {
+  const classes = useStyles()
 
   const handleChange = (event, newValue) => {
     dispatch(navTab(newValue))
@@ -92,7 +93,7 @@ const Nav = ({ logout, navi, dispatch, width, cookies, user }) => {
                     </Typography>
                   </div>
                   <Grid container alignItems="center" className={classes.grid}>
-                    <Avatar alt="Remy Sharp" src={user.avatarURL} className={classes.avatar} />
+                    <Avatar alt={user.name} src={user.avatarURL} className={classes.avatar} />
                   </Grid>
                   <Button onClick={handleLogout} className={classes.btn}>Logout</Button>
                 </div>
@@ -101,6 +102,7 @@ const Nav = ({ logout, navi, dispatch, width, cookies, user }) => {
           }
         </Container>
       </AppBar>
+      {/* Styles for link */}
       <style type="text/css">
         {`
         a, a:active, a:visited, a:hover {

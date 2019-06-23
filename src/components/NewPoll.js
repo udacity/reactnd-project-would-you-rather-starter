@@ -36,7 +36,7 @@ const styles = theme => ({
     marginBottom: 20
   },
   textField: {
-    marginTop: theme.spacing(1), // todo: implement the theme
+    marginTop: theme.spacing(1), 
     marginBottom: theme.spacing(1),
   },
   or: {
@@ -63,8 +63,6 @@ class NewPoll extends Component {
   }
 
   handleChange = name => event => {
-    // event.persist() 
-    
     this.setState({
       [name]: event.target.value
     })

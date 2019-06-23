@@ -49,6 +49,8 @@ const styles = theme => ({
   }
 })
 
+const loginImg = "https://img1.goodfon.com/original/1600x900/f/2d/world-of-warcraft-mists-of-923.jpg?d=1"
+
 class Login extends Component  {
   state = {
     authedUser: '',
@@ -69,8 +71,6 @@ class Login extends Component  {
   }
   
   render() {
-    
-
     if (this.props.logState === true) {
       if (this.props.location.state) {
         return <Redirect to={`/questions/${this.props.location.state.referrer}`} />
@@ -93,7 +93,7 @@ class Login extends Component  {
           />
           <CardMedia
             className={classes.media}
-            image="https://img1.goodfon.com/original/1600x900/f/2d/world-of-warcraft-mists-of-923.jpg?d=1"
+            image={loginImg}
           />
           <form autoComplete="off">
             <CardContent className={classes.cardContent}>

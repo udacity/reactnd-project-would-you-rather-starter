@@ -25,7 +25,7 @@ function NonExisting({ logState }) {
   return (
     <div className={classes.root}>
       <Typography variant="h6">
-        404 Page does not exist.
+        404 Page not found.
       </Typography>
     </div>
   )

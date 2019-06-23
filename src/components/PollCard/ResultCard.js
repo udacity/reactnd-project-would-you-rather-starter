@@ -33,6 +33,8 @@ const ResultCard = ({
       <Typography variant="body2" component="p" align="center">
         {`${optionVotes} out of ${totalVotes} votes`}
       </Typography>
+      
+      {/* This is for progress bar */}
       <style type="text/css">
         {`
         .progress {
