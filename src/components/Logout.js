@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { logoutUser } from '../actions';
+import { isEmptyObject } from '../utils';
 
 class Logout extends React.Component {
   handleLogoutUser = (event) => {
     event.preventDefault();
-    this.props.logoutUser(this.props.loggedInUserId);
+    this.props.logoutUser(this.props.loggedInUser);
   };
 
   render() {
-    if (!this.props.loggedInUserId) {
+    if (isEmptyObject(this.props.loggedInUser)) {
       return (<Redirect to="/login"/>);
     }
 
@@ -23,9 +24,9 @@ class Logout extends React.Component {
   }
 }
 
-function mapStateToProps({ loggedInUserId }) {
+function mapStateToProps({ loggedInUser }) {
   return {
-    loggedInUserId
+    loggedInUser
   };
 }
 

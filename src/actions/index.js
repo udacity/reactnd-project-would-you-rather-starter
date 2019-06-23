@@ -7,25 +7,33 @@ export function receiveUsers(users) {
   };
 }
 
-export function loginUser(userId) {
+export function receiveQuestions(questions) {
+  return {
+    type: 'RECEIVE_QUESTIONS',
+    questions
+  };
+}
+
+export function loginUser(user) {
   return {
     type: 'LOGIN_USER',
-    userId
+    user
   }
 }
 
-export function logoutUser(userId) {
+export function logoutUser(user) {
   return {
     type: 'LOGOUT_USER',
-    userId
+    user
   }
 }
 
 export function loadInitialData() {
   return (dispatch) => {
     getInitialData()
-      .then(({ users }) => {
-        dispatch(receiveUsers(users))
+      .then(({ users, questions }) => {
+        dispatch(receiveUsers(users));
+        dispatch(receiveQuestions(questions));
       });
   }
 }

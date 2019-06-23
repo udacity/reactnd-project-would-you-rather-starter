@@ -7,16 +7,16 @@ class Profile extends React.Component {
   render() {
     return (
       <div className="Profile">
-        <p>Logged In: {this.props.loggedInUserId}</p>
+        <p>Logged In: {this.props.loggedInUser.id}</p>
         <Logout/>
       </div>
     );
   }
 }
 
-function mapStateToProps({loggedInUserId}) {
+function mapStateToProps({loggedInUser}) {
   return {
-    loggedInUserId
+    loggedInUser
   };
 }
 

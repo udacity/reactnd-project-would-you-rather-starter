@@ -15,3 +15,7 @@ code {
 .Profile {
   border: 1px solid black;
 }
+
+.Polls .Poll {
+  border: 1px solid black;
+}
