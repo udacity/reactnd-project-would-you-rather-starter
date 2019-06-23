@@ -1,67 +1,112 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import { 
   Card,
-  CardActionArea,
+  CardHeader,
   CardContent,
   CardMedia,
-  Typography
-} from '@material-ui/core';
+  Typography,
+  makeStyles
+} from '@material-ui/core'
 import { connect } from 'react-redux'
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 345,
-  },
-}));
+import ResultCard from './ResultCard';
+import BadgedResultCard from './BadgedResultCard';
 
-const Results = ({ question, authedUser }) => {
-  const classes = useStyles();
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: 15
+  },
+  card: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 480,
+    margin: 15,
+  },
+  header: {
+    backgroundColor: '#f0f0f0',
+    fontSize: 18,
+    padding: '10px 0 10px 20px'
+  },
+  content: {
+    display: 'flex'
+  },
+  mediaWrapper: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  media: {
+    width: 128,
+    height: 128,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  detail: {
+    width: 'calc(100% - 128px - 15px - 15px)'
+  },
+  wrapper: {
+    width: 'calc(100% - 9px)',
+    margin: '20px 0',
+    borderLeft: '1px solid #dcdcdc'
+  },
+  description: {
+    padding: '0 16px 0 25px',
+    '&:last-child': {
+      paddingBottom: 0,
+    },
+  },
+}))
+
+const Results = ({ authedUser, author, id, options }) => {
+  const classes = useStyles()
 
   return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+    <div className={classes.root}>
+      <Card className={classes.card}>
+        <CardHeader
+          className={classes.header}
+          disableTypography={true}
+          title={`Asked by ${author.name}`}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Results:
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {`${question.optionOne.text} 
-              ${question.optionOne.votes.length}/${question.optionOne.votes.length + 
-                question.optionTwo.votes.length} `}
-            {question.optionOne.votes.indexOf(authedUser) !== -1
-              ? 'Your answer'
-              : null
-            }
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {`${question.optionTwo.text} 
-              ${question.optionTwo.votes.length}/${question.optionOne.votes.length + 
-                question.optionTwo.votes.length} `}
-            {question.optionTwo.votes.indexOf(authedUser) !== -1
-              ? 'Your answer'
-              : null
-            }
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
+        <div className={classes.content}>
+          <div className={classes.mediaWrapper}>
+            <CardMedia
+              className={classes.media}
+              alt={author.name}
+              image={author.avatarURL}
+            />
+          </div>
+          <div className={classes.detail}>
+            <div className={classes.wrapper}>
+              <CardContent className={classes.description}>
+                <Typography gutterBottom variant="h6">
+                  Results:
+                </Typography>
+                {options.map((option, index) => (
+                  option.votes.indexOf(authedUser) !== -1
+                    ? <BadgedResultCard key={index} id={id} option={index} />
+                    : <ResultCard key={index} id={id} option={index} />
+                ))}
+              </CardContent>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  )
 }
 
-const mapStateToProps = ({ questions, authedUser }, { id }) => {
-  const question = questions[id]
+const mapStateToProps = ({ questions, authedUser, users }, { id }) => {
+  const question = questions[id],
+        author = users[question.author],
+        options = [question.optionOne, question.optionTwo]
   
   return {
-    question,
-    authedUser
+    authedUser,
+    author,
+    id,
+    options
   }
 }
 

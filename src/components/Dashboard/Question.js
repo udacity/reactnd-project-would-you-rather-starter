@@ -17,11 +17,11 @@ const useStyles = makeStyles({
   card: {
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: 600,
+    maxWidth: 480,
     margin: 15,
     '&:last-child': {
       marginBottom: 0,
-  },
+    },
   },
   header: {
     backgroundColor: '#f0f0f0',
@@ -36,17 +36,21 @@ const useStyles = makeStyles({
   },
   wrapper: {
     width: 'calc(100% - 9px)',
-    height: 128,
     margin: '20px 0',
     borderLeft: '1px solid #dcdcdc'
   },
   description: {
     padding: '0 16px 16px 25px',
   },
+  mediaWrapper: {
+    display: 'flex',
+    alignItems: 'center'
+  },
   media: {
     width: 128,
     height: 128,
-    margin: '20px 25px',
+    marginLeft: 25,
+    marginRight: 25,
   },
   or: {
     fontStyle: 'italic'
@@ -73,11 +77,13 @@ const Question = ({ question, id, author, dispatch }) => {
         title={`${author.name} asks:`}
       />
       <div className={classes.content}>
-        <CardMedia
-          className={classes.media}
-          alt={author.name}
-          image={author.avatarURL}
-        />
+        <div className={classes.mediaWrapper}>
+          <CardMedia
+            className={classes.media}
+            alt={author.name}
+            image={author.avatarURL}
+          />
+        </div>
         <div className={classes.detail}>
           <div className={classes.wrapper}>
             <CardContent className={classes.description}>
@@ -98,7 +104,7 @@ const Question = ({ question, id, author, dispatch }) => {
                 variant="outlined"
                 fullWidth
                 component={pollLink} 
-                to={`/poll/${id}`}
+                to={`/questions/${id}`}
                 onClick={handleClick}
               >
                 View Poll

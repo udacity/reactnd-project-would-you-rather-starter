@@ -1,22 +1,36 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { 
+  makeStyles,
+} from '@material-ui/core'
 
 import UserCard from './UserCard';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: 15
+  },
+  container: {
+    width: 480
+  },
+}))
+
 const LeadBoard = ({ userIds, logState }) => {
-  if (logState === false) {
+  const classes = useStyles()
+
+  if (logState === false || logState === 0) {
     return <Redirect to='/login' />
   }
 
   return (
-    <ul>
-      {userIds.map(id => (
-        <li key={id}>
-          <UserCard id={id} />
-        </li>
-      ))}
-    </ul>
+    <div className={classes.root}>
+      <div className={classes.container}>
+        {userIds.map((id, index) => <UserCard id={id} key={id} rank={index} />)}
+      </div>
+    </div>
   )
 }
 

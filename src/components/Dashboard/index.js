@@ -19,17 +19,23 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     paddingBottom: 18,
-    width: 600
+    width: 480
   },
-}));
+}))
 
-const Dashboard = props => {
-  const classes = useStyles();
+const Dashboard = ({ 
+  logState, 
+  unanswered, 
+  answered,
+  UNANSWERED,
+  ANSWERED
+}) => {
+  const classes = useStyles()
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => setValue(newValue)
 
-  if (props.logState === false) {
+  if (logState === false || logState === 0) {
     return <Redirect to='/login' />
   }
   
@@ -46,18 +52,20 @@ const Dashboard = props => {
           <Tab label="Unanswered" />
           <Tab label="Answered" />
         </Tabs>
-        {value === 0 && <QuestionList ids={props.unanswered} />}
-        {value === 1 && <QuestionList ids={props.answered} />}
+        {value === 0 && <QuestionList ids={unanswered} type={UNANSWERED}  />}
+        {value === 1 && <QuestionList ids={answered} type={ANSWERED} />}
       </Paper>
     </div>
-    
   )
 }
 
 const mapStateToProps = ({ questions, authedUser, logState }) => {
   // Rearrange the order of questions by timestamp
   const questionArr = Object.entries(questions).sort((a, b) => 
-    questions[b[0]].timestamp - questions[a[0]].timestamp)
+    questions[b[0]].timestamp - questions[a[0]].timestamp),
+
+        UNANSWERED = 'unanswered',
+        ANSWERED = 'answered'
   
   let unanswered = [], // For unanswered question ids
       answered = [] // For answered question ids
@@ -76,7 +84,9 @@ const mapStateToProps = ({ questions, authedUser, logState }) => {
   return {
     unanswered,
     answered,
-    logState
+    logState,
+    UNANSWERED,
+    ANSWERED
   }
 }
 

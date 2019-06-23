@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { withCookies } from 'react-cookie'
+import LoadingBar from 'react-redux-loading'
 
 import Nav from './Nav';
 import { handleInitialData, handleUserLogin } from '../actions/shared';
@@ -11,7 +12,9 @@ import PollCard from './PollCard';
 import NewPoll from './NewPoll';
 import LeadBoard from './LeadBoard';
 import Login from './Login';
-import { logOut } from '../actions/logState';
+import { appInit } from '../actions/logState';
+import Initializing from './Initializing'
+import NonExisting from './NonExisting'
 
 
 class App extends Component {
@@ -25,7 +28,7 @@ class App extends Component {
       }
 
       if (!authedUser && logState === null) {
-        dispatch(logOut())
+        dispatch(appInit())
       }
     }
 
@@ -39,17 +42,20 @@ class App extends Component {
       <Router>
         <Fragment>
           <CssBaseline /> {/** To clear the browser CSS feature */}
-          {/** todo: loading bar */}
+          <LoadingBar />
           <Nav cookies={cookies} />
           {logState !== null
             ? <div>
-                <Route path='/' exact component={Dashboard} />
-                <Route path='/poll/:id' component={PollCard} />
-                <Route path='/newpoll' component={NewPoll} />
-                <Route path='/leadboard' component={LeadBoard} />
-                <Route path='/login' render={() => (<Login cookies={cookies} />)} />
+                <Switch>
+                  <Route path='/' exact component={Dashboard} />
+                  <Route path='/questions/:id' component={PollCard} />
+                  <Route path='/add' component={NewPoll} />
+                  <Route path='/leaderboard' component={LeadBoard} />
+                  <Route path='/login' render={() => (<Login cookies={cookies} />)} />
+                  <Route component={NonExisting} />
+                </Switch>  
               </div>
-            : <div>Loading</div>
+            : <Initializing />
           }
         </Fragment>
       </Router>
