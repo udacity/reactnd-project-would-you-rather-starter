@@ -20,6 +20,16 @@ code {
 
 #main {
   width: 1024px;
+  padding: 10px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+}
+
+#footer {
+  margin-top: 20px;
 }
 
 .Profile {
@@ -28,12 +38,23 @@ code {
 
 .Polls .Poll {
   border: 1px solid black;
+  padding: 10px;
 }
 
 .PollDetails {
   border: 1px solid black;
+  padding: 10px;
 }
 
 .PollDetails .answered {
   font-style: italic;
+  color: green;
+}
+
+.PollDetails input {
+  margin: 10px;
+}
+
+.PollDetails .answered-no {
+  color: red;
 }
