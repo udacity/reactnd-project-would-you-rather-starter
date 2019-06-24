@@ -6,6 +6,7 @@ import { isEmptyObject } from './utils';
 
 import Home from './components/Home';
 import Login from './components/Login';
+import PollDetails from './components/PollDetails';
 
 function PrivateRoute({ component: Component, ...rest }) {
   const isUserLoggedIn = (state) => {
@@ -42,11 +43,13 @@ export class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <PrivateRoute exact path="/" component={Home}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/home" component={Home}/>
-      </Router>
+      <div id="main">
+        <Router>
+          <Route path="/login" component={Login}/>
+          <PrivateRoute exact path="/" component={Home}/>
+          <PrivateRoute path="/questions/:questionId" component={PollDetails}/>
+        </Router>
+      </div>
     );
   };
 }

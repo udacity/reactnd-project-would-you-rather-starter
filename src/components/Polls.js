@@ -1,5 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Polls extends React.Component {
   state = {
@@ -22,6 +23,11 @@ class Polls extends React.Component {
               <p>{question.timestamp}</p>
               <p>{question.optionOne.text}</p>
               <p>{question.optionTwo.text}</p>
+              <p>
+                <Link to={{
+                  pathname: `/questions/${question.id}`,
+                  state: {loggedInUser: this.props.loggedInUser}}}>View Details</Link>
+              </p>
             </div>
           ))
         }
@@ -41,6 +47,11 @@ class Polls extends React.Component {
                 <p>{question.timestamp}</p>
                 <p>{question.optionOne.text}</p>
                 <p>{question.optionTwo.text}</p>
+                <p>
+                  <Link to={{
+                    pathname: `/questions/${question.id}`,
+                    state: {loggedInUser: this.props.loggedInUser}}}>View Details</Link>
+                </p>
               </div>
             ))
           }
@@ -81,7 +92,8 @@ function mapStateToProps({ loggedInUser, questions }) {
 
   return {
     unansweredPolls: unansweredPolls(loggedInUser, sortedQuestions),
-    answeredPolls: answeredPolls(loggedInUser, sortedQuestions)
+    answeredPolls: answeredPolls(loggedInUser, sortedQuestions),
+    loggedInUser
   };
 }
 

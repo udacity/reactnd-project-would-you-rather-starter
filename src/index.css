@@ -12,10 +12,28 @@ code {
     monospace;
 }
 
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#main {
+  width: 1024px;
+}
+
 .Profile {
   border: 1px solid black;
 }
 
 .Polls .Poll {
   border: 1px solid black;
+}
+
+.PollDetails {
+  border: 1px solid black;
+}
+
+.PollDetails .answered {
+  font-style: italic;
 }
