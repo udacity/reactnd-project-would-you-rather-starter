@@ -1,4 +1,4 @@
-import { getInitialData } from '../utils/api';
+import * as api from '../utils/api';
 
 export function receiveUsers(users) {
   return {
@@ -28,12 +28,29 @@ export function logoutUser(user) {
   }
 }
 
+export function submitPollAnswer(userId, questionId, answer) {
+  return {
+    type: 'SUBMIT_POLL_ANSWER',
+    userId,
+    questionId,
+    answer
+  }
+}
+
 export function loadInitialData() {
   return (dispatch) => {
-    getInitialData()
+    api.getInitialData()
       .then(({ users, questions }) => {
         dispatch(receiveUsers(users));
         dispatch(receiveQuestions(questions));
       });
+  }
+}
+
+export function savePollAnswer(userId, questionId, answer) {
+  return (dispatch) => {
+    api.savePollAnswer(userId, questionId, answer)
+      .then(dispatch(submitPollAnswer(userId, questionId, answer)))
+      .then(dispatch(loadInitialData()));
   }
 }

@@ -1,44 +1,75 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Profile from './Profile';
-
-// TODO REMOVE
-import { questions as Q } from '../utils/_DATA';
+import Profile from "./Profile";
+import { savePollAnswer } from '../actions';
 
 class PollDetails extends React.Component {
+  state = {
+    answer: ''
+  };
+
   getAnsweredClass = (option) => {
     return this.props.answer === option ? "answered" : "answered-no";
   };
 
   renderAnswered = () => {
+    const {
+      question,
+      optionOne,
+      optionTwo,
+      optionOneVoteCount,
+      optionTwoVoteCount,
+      optionOneVotePercentage,
+      optionTwoVotePercentage,
+      totalVoteCount
+    } = this.props;
+
     return(
       <div>
         <h3>Question Details (Your Answer is in <span className="answered">Green</span>)</h3>
-        <img className="avatar" src={this.props.question.authorAvatarURL} alt={this.props.question.author}/>
-        <h4 className={this.getAnsweredClass("optionOne")}>Option One ({this.props.optionOneVoteCount} of {this.props.totalVoteCount} Votes {this.props.optionOneVotePercentage}%)</h4>
-        <p className="option">{this.props.optionOne}</p>
+        <img className="avatar" src={question.authorAvatarURL} alt={question.author}/>
+        <h4 className={this.getAnsweredClass("optionOne")}>Option One ({optionOneVoteCount} of {totalVoteCount} Votes {optionOneVotePercentage}%)</h4>
+        <p className="option">{optionOne}</p>
 
-        <h4 className={this.getAnsweredClass("optionTwo")}>Option Two ({this.props.optionTwoVoteCount} of {this.props.totalVoteCount} Votes {this.props.optionTwoVotePercentage}%)</h4>
-        <p className="option">{this.props.optionTwo}</p>
+        <h4 className={this.getAnsweredClass("optionTwo")}>Option Two ({optionTwoVoteCount} of {totalVoteCount} Votes {optionTwoVotePercentage}%)</h4>
+        <p className="option">{optionTwo}</p>
       </div>
-    )
+    );
   };
 
-  renderUnAnswered = () => {
+  handlePollAnswerSubmitted = (event) => {
+    const { loggedInUser, question } = this.props;
+    event.preventDefault();
+    this.props.savePollAnswer(loggedInUser.id, question.id, this.state.answer);
+  };
+
+  handlePollAnswerChanged = (event) => {
+    this.setState({
+      answer: event.target.value
+    });
+  };
+
+  renderUnanswered = () => {
+    const {
+      question,
+      optionOne,
+      optionTwo
+    } = this.props;
+
     return(
       <div>
         <h3>Would You Rather?</h3>
-        <img className="avatar" src={this.props.question.authorAvatarURL} alt={this.props.question.author}/>
-        <form>
+        <img className="avatar" src={question.authorAvatarURL} alt={question.author}/>
+        <form onSubmit={this.handlePollAnswerSubmitted} onChange={this.handlePollAnswerChanged}>
           <label>
-            <input name="answer" type="radio"/>
-            {this.props.optionOne}
+            <input name="answer" type="radio" value="optionOne"/>
+            {optionOne}
           </label>
           <br/>
           <label>
-            <input name="answer" type="radio"/>
-            {this.props.optionTwo}
+            <input name="answer" type="radio" value="optionTwo"/>
+            {optionTwo}
           </label>
           <br/>
           <input type="submit" value="Submit Answer"/>
@@ -52,7 +83,7 @@ class PollDetails extends React.Component {
       <div>
         <Profile/>
         <div className="PollDetails">
-          { this.props.isAnswered ? this.renderAnswered() : this.renderUnAnswered() }
+          { this.props.isAnswered ? this.renderAnswered() : this.renderUnanswered() }
         </div>
       </div>
     );
@@ -85,14 +116,16 @@ function dig(object, keys, defaultValue) {
 }
 
 function getQuestionById(questionId, questions, users) {
-  let question = Object.values(questions).filter((question) => (question.id === questionId))[0] || Q["8xf0y6ziyjabvozdd253nd"]; // TODO REMOVE
-  question.authorAvatarURL = users && process.env.PUBLIC_URL + users[question.author].avatarURL;
-  return question;
+  let filteredQuestion = Object.values(questions).filter((question) => (question.id === questionId))[0];
+  return {
+    ...filteredQuestion,
+    authorAvatarURL: filteredQuestion.authorAvatarURL = users && process.env.PUBLIC_URL + users[filteredQuestion.author].avatarURL
+  };
 }
 
 function mapStateToProps({ loggedInUser, questions, users }, props) {
   const { questionId } = props.match.params;
-  const question = getQuestionById(questionId, questions, users.users);
+  const question = getQuestionById(questionId, questions, users);
   const optionOneVoteCount = question.optionOne.votes.length;
   const optionTwoVoteCount = question.optionTwo.votes.length;
   const totalVoteCount = optionOneVoteCount + optionTwoVoteCount;
@@ -112,8 +145,13 @@ function mapStateToProps({ loggedInUser, questions, users }, props) {
     optionTwoVotePercentage,
     totalVoteCount,
     answer,
-    isAnswered
+    isAnswered,
+    loggedInUser
   }
 }
 
-export default connect(mapStateToProps)(PollDetails);
+const mapDispatchToProps = {
+  savePollAnswer
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PollDetails);

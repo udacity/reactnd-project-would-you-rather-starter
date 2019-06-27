@@ -47,7 +47,7 @@ export class Login extends React.Component {
 
 function mapStateToProps({ users = {}, loggedInUser }) {
   return {
-    users: (users && users.users) || {},
+    users: users,
     loggedInUser
   }
 }
