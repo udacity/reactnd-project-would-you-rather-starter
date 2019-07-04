@@ -1,21 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { logoutUser } from '../actions';
-import { isEmptyObject } from '../utils';
 
 class Logout extends React.Component {
   handleLogoutUser = (event) => {
     event.preventDefault();
     this.props.logoutUser(this.props.loggedInUser);
+    this.props.history.push("/");
   };
 
   render() {
-    if (isEmptyObject(this.props.loggedInUser)) {
-      return (<Redirect to="/login"/>);
-    }
-
     return(
       <div>
         <button onClick={this.handleLogoutUser}>Logout</button>
@@ -24,9 +20,10 @@ class Logout extends React.Component {
   }
 }
 
-function mapStateToProps({ loggedInUser }) {
+function mapStateToProps({ loggedInUser, history }) {
   return {
-    loggedInUser
+    loggedInUser,
+    history
   };
 }
 
@@ -34,4 +31,4 @@ const mapDispatchToProps = {
   logoutUser
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Logout));

@@ -25,7 +25,7 @@ export class Login extends React.Component {
 
   render() {
     if (!isEmptyObject(this.props.loggedInUser)) {
-      return(<Redirect to={{ pathname: "/", state: {loggedInUser: this.props.loggedInUser}}}/>);
+      return(<Redirect to={{ pathname: "/" }}/>);
     }
 
     return (

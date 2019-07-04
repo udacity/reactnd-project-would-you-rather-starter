@@ -10,7 +10,7 @@ export default function(previousState = {}, action) {
           ...previousState[action.questionId],
           [action.answer]: {
             ...previousState[action.questionId][action.answer],
-            votes: Array.concat(previousState[action.questionId][action.answer].votes, action.userId)
+            votes: previousState[action.questionId][action.answer].votes.concat(action.userId)
           }
         }
       };
