@@ -4,7 +4,8 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
-import Login from './components/Login'
+import Login from './components/Login/Login'
+import './index.css'
 
 const store = createStore(reducer, middleware)
 window.store = store // TODO: delete
