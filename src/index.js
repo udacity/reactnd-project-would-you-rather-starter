@@ -8,11 +8,10 @@ import Login from './components/Login/Login'
 import './index.css'
 
 const store = createStore(reducer, middleware)
-window.store = store // TODO: delete
 
 ReactDOM.render(
 <Provider store={store}>
-    < Login ></Login>
+    <Login ></Login>
 </Provider>,
   document.getElementById('root')
 );
