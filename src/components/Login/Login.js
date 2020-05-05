@@ -2,21 +2,13 @@ import React, { Component } from 'react'
 import  { getUsers } from '../../actions/api'
 import { setAuthedUser } from '../../actions/authedUser'
 import './login.css'
-import img from '../../logo.svg'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import Emoji from 'react-emoji-render'
 import StyledButton from '../material-ui/StyledButton'
 
-const Logo = styled.div `
-    width: 100px;
-    height: 70px;
-    background-image: url(${props => props.logoUrl || img });
-    background-size:  cover;
-    background-repeat: no-repeat;
-`
+
 
 const Avatar = styled.div `
     display: inline-block;
@@ -51,14 +43,10 @@ class Login extends Component {
         return (
             users.length ? (
                 <React.Fragment>
-                    <div className="login-container">
-                        <div className="logo-container">
-                            <Logo className="spin"></Logo>
-                        </div>
-                        <div className="login-header">
-                            <div className="login-header-title"><span>Would</span> You <span>Rather?</span></div>
-                        </div>
-                        <div className="login-content">
+                    <div className="login-header">
+                        <div className="login-header-title"><span>Would</span> You <span>Rather?</span></div>
+                    </div>
+                    <div className="login-content">
                             <form className="form-container">
                                 <Select
                                     labelId="user-select"
@@ -81,8 +69,6 @@ class Login extends Component {
                                 </StyledButton>
                             </form>
                         </div>
-                    </div>
-                    <div className="made-by"><Emoji text="Made with <3 using React/Redux"></Emoji></div>
                 </React.Fragment>
             ) : null
         );
