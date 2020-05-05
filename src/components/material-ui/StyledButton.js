@@ -16,5 +16,6 @@ const useStyles = makeStyles({
 
 export default function StyledButton (props) {
     const classes = useStyles()
-    return <Button className={classes.root} children={props.children}></Button>
+    const { children, onClick } = props
+    return <Button className={classes.root} children={children} onClick={onClick}></Button>
 }

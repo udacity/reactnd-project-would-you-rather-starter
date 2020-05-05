@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import Login from './components/Login/Login'
+import React, { Component } from 'react'
+import Login from './components/login/Login'
+import Dashboard from './components/dashboard/Dashboard'
 import Emoji from 'react-emoji-render'
 import img from './logo.svg'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 const CONTAINER_TRANSITION_END_HEIGHT = '250px'
 const CONTENT_OPACITY_START = '0'
@@ -16,7 +18,13 @@ const Logo = styled.div `
     background-repeat: no-repeat;
 `
 
-export default class App extends Component {
+function mapStateToProps({ authedUser }) {
+    return {
+        showLogin: authedUser === null,
+    }
+}
+
+class App extends Component {
     constructor(props) {
         super(props)
         this.appContainer = React.createRef()
@@ -29,18 +37,29 @@ export default class App extends Component {
         }, 1000)
     }
     render() {
+        const { showLogin } = this.props
+        
         return (
             <React.Fragment>
                 <div className="logo-container">
                     <Logo className="spin"></Logo>
                 </div>
                 <div className="app-container" ref={this.appContainer} onTransitionEnd={() => { this.loginContainer.current.style.opacity = CONTENT_OPACITY_END } }>
-                    <div className="login-container" ref={this.loginContainer}>
-                        <Login></Login>
-                    </div>
+                    {showLogin && (
+                        <div className="login-container" ref={this.loginContainer}>
+                            <Login></Login>
+                        </div>
+                    )}
+                    {!showLogin && (
+                        <div className="dashboard-container">
+                            <Dashboard></Dashboard>
+                        </div>
+                    )}
                 </div>
                 <div className="made-by"><Emoji text="Made with <3 using React/Redux"></Emoji></div>
             </React.Fragment>
         );
     }
 }
+
+export default connect(mapStateToProps)(App)
