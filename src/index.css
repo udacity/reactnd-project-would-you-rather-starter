@@ -53,6 +53,13 @@ code {
     justify-content: center;
 }
 
+.authed-user-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+}
+
 @media(prefers-reduced-motion: no-preference) {
     .spin {
         animation: App-logo-spin infinite 10s linear;
