@@ -7,8 +7,9 @@ import styled from 'styled-components'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import StyledButton from '../material-ui/StyledButton'
+import StyledLoader from '../material-ui/StyledLoader'
 
-
+const AUTHED_USER_ID = 'tylermcginnis'
 
 const Avatar = styled.div `
     display: inline-block;
@@ -21,24 +22,37 @@ const Avatar = styled.div `
     margin-right: 10px;
 `
 
-function mapStateToProps({ users, authedUser }) {
+function mapStateToProps({ users }) {
     return {
-        users: Object.values(users),
-        authedUser: Object.values(users).find(val => val.id === authedUser)
+        users: Object.values(users)
     }
 }
 
 class Login extends Component {
+    state = {
+        authedUser:  null,
+        signingIn: false,
+    }
     componentDidMount() {
         this.props.dispatch(getUsers())
+        this.setState({ authedUser: AUTHED_USER_ID })
     }
 
     handleUserChange(evt) {
-        this.props.dispatch(setAuthedUser(evt.target.value))
+        // local state to keep track of who is being chosen before we sign in
+        this.setState({ authedUser: evt.target.value })
+    }
+
+    onSignIn() {
+        this.setState({ signingIn: true })
+        setTimeout(() => {
+            this.props.dispatch(setAuthedUser(this.state.authedUser))
+        }, 1000)
     }
 
     render() {
-        const  { authedUser, users } = this.props
+        const  { users } = this.props
+        const { authedUser, signingIn } = this.state
         
         return (
             users.length ? (
@@ -47,11 +61,12 @@ class Login extends Component {
                         <div className="login-header-title"><span>Would</span> You <span>Rather?</span></div>
                     </div>
                     <div className="login-content">
-                            <form className="form-container">
+                            {!signingIn && (
+                                <form className="form-container">
                                 <Select
                                     labelId="user-select"
                                     id="user-select"
-                                    value={authedUser ? authedUser.id : ''}
+                                    value={authedUser ? authedUser : ''}
                                     onChange={(evt) => { this.handleUserChange(evt) }}>
                                     {users.map((user) => (
                                         <MenuItem key={user.id} value={user.id}>
@@ -61,13 +76,14 @@ class Login extends Component {
                                     ))}
                                 </Select>
                                 <StyledButton
-                                    // type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary">
+                                    onClick={() => { this.onSignIn() }}>
                                     Sign In
                                 </StyledButton>
-                            </form>
+                            </form>  
+                            )}
+                            {signingIn && (
+                                <StyledLoader color="secondary"></StyledLoader>
+                            )}
                         </div>
                 </React.Fragment>
             ) : null
