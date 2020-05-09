@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import  { getUsers } from '../../actions/api'
+import  { getUsers, getQuestions } from '../../actions/api'
 import { setAuthedUser } from '../../actions/authedUser'
 import './login.css'
 import { connect } from 'react-redux'
@@ -35,6 +35,7 @@ class Login extends Component {
     }
     componentDidMount() {
         this.props.dispatch(getUsers())
+        this.props.dispatch(getQuestions())
         this.setState({ authedUser: AUTHED_USER_ID })
     }
 
@@ -47,6 +48,7 @@ class Login extends Component {
         this.setState({ signingIn: true })
         setTimeout(() => {
             this.props.dispatch(setAuthedUser(this.state.authedUser))
+            this.props.onSignIn()
         }, 1000)
     }
 

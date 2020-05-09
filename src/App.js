@@ -7,7 +7,8 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 
-const CONTAINER_TRANSITION_END_HEIGHT = '250px'
+const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '75%'
+const SMALL_CONTAINER_TRANSITION_END_HEIGHT = '30%'
 const CONTENT_OPACITY_START = '0'
 const CONTENT_OPACITY_END = '1'
 
@@ -38,17 +39,36 @@ function mapStateToProps({ users, authedUser }) {
     }
 }
 
+function setOpacityLevels(transitionEnd) {
+    if (transitionEnd) {
+        if (this.loginContainer && this.loginContainer.current) {
+            this.loginContainer.current.style.opacity = CONTENT_OPACITY_END
+        }
+    } else {
+        if (this.loginContainer && this.loginContainer.current) {
+            this.loginContainer.current.style.opacity = CONTENT_OPACITY_START
+        }
+    }    
+}
+
 class App extends Component {
     constructor(props) {
         super(props)
         this.appContainer = React.createRef()
         this.loginContainer = React.createRef()
+        this.dashboardContainer = React.createRef()
     }
     componentDidMount() {
-        this.loginContainer.current.style.opacity = CONTENT_OPACITY_START
+        setOpacityLevels.call(this)
         setTimeout(() => {
-            this.appContainer.current.style.height = CONTAINER_TRANSITION_END_HEIGHT
+            this.appContainer.current.style.height = SMALL_CONTAINER_TRANSITION_END_HEIGHT
         }, 1000)
+    }
+    expandContainer() {
+        this.appContainer.current.style.height = LARGE_CONTAINER_TRANSITION_END_HEIGHT
+    }
+    onTransitionEnd() {
+        setOpacityLevels.call(this, true)
     }
     render() {
         const { authedUser, showLogin } = this.props
@@ -66,19 +86,19 @@ class App extends Component {
                         <AuthedUserIcon avatarURL={ authedUser.avatarURL } ></AuthedUserIcon>
                     )}
                 </div>
-                <div className="app-container" ref={this.appContainer} onTransitionEnd={() => { this.loginContainer.current.style.opacity = CONTENT_OPACITY_END } }>
+                <div className="app-container" ref={this.appContainer} onTransitionEnd={() => { this.onTransitionEnd() } }>
                     {showLogin && (
                         <div className="login-container" ref={this.loginContainer}>
-                            <Login></Login>
+                            <Login onSignIn={() => { this.expandContainer() }}></Login>
                         </div>
                     )}
                     {!showLogin && (
-                        <div className="dashboard-container">
+                        <div className="dashboard-container" ref={this.dashboardContainer}>
                             <Dashboard></Dashboard>
                         </div>
                     )}
                 </div>
-                <div className="made-by"><Emoji text="Made with <3 using React/Redux"></Emoji></div>
+                <div className="made-by"><Emoji text="Built with <3 using React/Redux/MaterialUI"></Emoji></div>
             </React.Fragment>
         );
     }

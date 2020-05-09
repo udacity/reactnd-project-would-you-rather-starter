@@ -22,8 +22,8 @@ code {
      transform: translate(50%, -50%);
      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.75);
      border-radius: 5%;
-     width: 50%;
-     max-width: 550px;
+     width: 100%;
+     max-width: 800px;
      background-color: #fff;
     height: 0px;
     transition: height 1.5s ease-in-out;
