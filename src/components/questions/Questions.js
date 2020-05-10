@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import SwipeableViews from 'react-swipeable-views'
 import Pagination from '@material-ui/lab/Pagination'
+import Vote from '../vote/Vote'
 import './questions.css'
 
 const  QUESTION_NAME = 'Would you rather?'
@@ -9,6 +10,7 @@ const  QUESTION_NAME = 'Would you rather?'
 class Questions extends Component {
     state = {
         activeQuestionIdx: 0,
+        hoveredOptionIdx: null,
     }
     changeActiveQuestionsIdx(evt, page) {
         if (page) {
@@ -17,9 +19,23 @@ class Questions extends Component {
             })
         }
     }
+    handleMouseEnter(idx) {
+        this.setState({
+            hoveredOptionIdx: idx,
+        })
+    }
+    handleMouseLeave() {
+        this.setState({
+            hoveredOptionIdx: null,
+        })
+    }
+    activeIconColor(idx) {
+        return idx === this.state.hoveredOptionIdx ? 'secondary' : 'action'
+    }
     render() {
         const { activeQuestionIdx } = this.state
         const { questions } = this.props
+        console.log(questions)
         return (
             <div className="question-container">
                 {questions && (
@@ -32,8 +48,14 @@ class Questions extends Component {
                                         {QUESTION_NAME}
                                     </div>
                                     <div className="question-options">
-                                        <div className="option-one">{question.optionOne.text}</div>
-                                        <div className="option-two">{question.optionTwo.text}</div>
+                                        <div className="option-one" onMouseEnter={() => this.handleMouseEnter(0)} onMouseLeave={() => this.handleMouseLeave()}>
+                                            {question.optionOne.text}
+                                            <Vote votes={question.optionOne.votes} activeIconColor={this.activeIconColor(0)}></Vote>
+                                        </div>
+                                        <div className="option-two"onMouseEnter={() => this.handleMouseEnter(1)} onMouseLeave={() => this.handleMouseLeave()}>
+                                            {question.optionTwo.text}
+                                            <Vote votes={question.optionTwo.votes} activeIconColor={this.activeIconColor(1)}></Vote>
+                                        </div>
                                     </div>
                                 </Container>
                             ))}

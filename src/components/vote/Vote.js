@@ -1,0 +1,87 @@
+import React, { Component } from 'react'
+import Backdrop from '@material-ui/core/Backdrop'
+import Modal from '@material-ui/core/Modal'
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
+import { connect } from 'react-redux'
+import './vote.css'
+
+function mapStateToProps({ users }) {
+    return {
+        users,
+    }
+}
+
+class Vote extends Component {
+    state = {
+        modalOpen: false,
+        voterObjects: null,
+    }
+    componentDidMount() {
+        if (this.props.votes && this.props.users) {
+            let voterObjects = []
+            this.props.votes.forEach((voter) => {
+                const voterObj = Object.keys(this.props.users).map((key) => key === voter ? this.props.users[key] : undefined).filter((val) => val)
+                if (voterObj[0]) {
+                    voterObjects.push(voterObj[0])
+                }
+            })
+            this.setState({
+                voterObjects,
+            })
+        }
+    }
+    handleOpen() {
+        this.setState({
+            modalOpen: true
+        })
+    }
+    handleClose() {
+        this.setState({
+            modalOpen: false
+        })
+    }
+    voterAvatarStyle(voter) {
+        return {
+            backgroundImage: `url(${voter.avatarURL})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            borderRadius: '50px',
+            width: '30px',
+            height: '30px',
+            marginRight: '10px'
+        }
+    }
+    render() {
+        const { modalOpen, voterObjects } = this.state
+        const { votes, activeIconColor } = this.props
+        return (
+            <div className="vote">
+                {activeIconColor !== 'action' && (
+                    <div className="vote-count">
+                        {votes.length}
+                    </div>
+                )}
+                <ThumbUpAltIcon color={activeIconColor} onClick={() => this.handleOpen()}></ThumbUpAltIcon>
+                <Modal className="vote-list-modal" open={modalOpen} 
+                    onClose={()  => this.handleClose()} 
+                    BackdropComponent={Backdrop}>
+                    <div className="vote-list-container">
+                        <div className="vote-list-header">
+                            <ThumbUpAltIcon className="vote-list-icon" color="secondary"></ThumbUpAltIcon>
+                        </div>
+                        {voterObjects && voterObjects.map((voter, idx) => (
+                            <div key={idx} className="voter-container">
+                                <div className="voter-avatar" style={this.voterAvatarStyle(voter)}></div>
+                                <div className="voter-name">
+                                    {voter.name}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </Modal>
+            </div>
+        );
+    }
+}
+
+export default connect(mapStateToProps)(Vote)

@@ -1,0 +1,40 @@
+.vote {
+    cursor: pointer;
+}
+
+.vote-list-container {
+    display: flex;
+    height: auto;
+    width: 200px;
+    margin: auto;
+    overflow-y: scroll;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    padding: 50px;
+    margin-top: 10%;
+}
+
+.vote-list-icon {
+    margin-top: 10px;
+}
+
+.voter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.vote-list-header {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    width: 80%;
+    margin-top: 10px;
+}

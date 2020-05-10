@@ -4,7 +4,7 @@ class Leaderboard extends Component {
     render() {
         return (
             <div>
-                
+                aksdhfkajsd
             </div>
         );
     }
