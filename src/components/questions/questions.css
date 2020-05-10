@@ -50,3 +50,9 @@
 .option-one:active, .option-two:active {
     background-color: #E6B89C;
 }
+
+.pagination-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
