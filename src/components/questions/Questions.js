@@ -4,15 +4,22 @@ import SwipeableViews from 'react-swipeable-views'
 import Pagination from '@material-ui/lab/Pagination'
 import Vote from '../vote/Vote'
 import './questions.css'
+import { connect } from 'react-redux'
 
 const  QUESTION_NAME = 'Would you rather?'
+
+function mapStateToProps({ users }) {
+    return {
+        users,
+    }
+}
 
 class Questions extends Component {
     state = {
         activeQuestionIdx: 0,
         hoveredOptionIdx: null,
     }
-    changeActiveQuestionsIdx(evt, page) {
+    changeActiveQuestionsIdx(_evt, page) {
         if (page) {
             this.setState({
                 activeQuestionIdx: page - 1,
@@ -34,8 +41,7 @@ class Questions extends Component {
     }
     render() {
         const { activeQuestionIdx } = this.state
-        const { questions } = this.props
-        console.log(questions)
+        const { users, questions } = this.props
         return (
             <div className="question-container">
                 {questions && (
@@ -45,7 +51,8 @@ class Questions extends Component {
                             {questions.map((question) => (
                                 <Container key={question.id} className="question-widget" disableGutters>
                                     <div className="question-banner">
-                                        {QUESTION_NAME}
+                                        {users[question.author].name} asks
+                                        <div>{QUESTION_NAME}</div>
                                     </div>
                                     <div className="question-options">
                                         <div className="option-one" onMouseEnter={() => this.handleMouseEnter(0)} onMouseLeave={() => this.handleMouseLeave()}>
@@ -71,4 +78,4 @@ class Questions extends Component {
     }
 }
 
-export default Questions
+export default connect(mapStateToProps)(Questions)

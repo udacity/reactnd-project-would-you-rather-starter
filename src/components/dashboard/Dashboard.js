@@ -16,23 +16,50 @@ function mapStateToProps({ users, authedUser, questions }) {
     }
 }
 
+function setAuthedUserQuestions() {
+    const authedUserQuestionIds = this.props.users[this.props.authedUser].questions
+    const authedUserQuestions = []
+    authedUserQuestionIds.map((id) => { // eslint-disable-line
+        const questionObj = this.props.questions[id]
+        if (questionObj) {
+            authedUserQuestions.push(questionObj)
+        }
+    })
+    this.setState({
+        authedUserQuestions,
+    })
+}
+
+function setAvailableQuestions() {
+    const unAuthedUserQuestions = []
+    const unAuthedUserIds = Object.keys(this.props.users).filter(userKey => userKey !== this.props.authedUser)
+    if (unAuthedUserIds) {
+        unAuthedUserIds.forEach((key) => {
+            const userQuestionIds = this.props.users[key].questions
+            if (userQuestionIds) {
+                userQuestionIds.forEach((id) => {
+                    const questionObj = this.props.questions[id]
+                    if (questionObj) {
+                        unAuthedUserQuestions.push(questionObj)
+                    }
+                })
+            }
+        })
+    }
+    this.setState({
+        availableQuestions: unAuthedUserQuestions
+    })
+}
+
 class Dashboard extends Component {
     state = {
         authedUserQuestions: null,
+        availableQuestions: null,
         currentTab: DEFAULT_TAB_KEY,
     }
     componentDidMount() {
-        const authedUserQuestionIds = this.props.users[this.props.authedUser].questions
-        const authedUserQuestions = []
-        authedUserQuestionIds.map((id) => { // eslint-disable-line
-            const questionObj = this.props.questions[id]
-            if (questionObj) {
-                authedUserQuestions.push(questionObj)
-            }
-        })
-        this.setState({
-            authedUserQuestions,
-        })
+        setAuthedUserQuestions.call(this)
+        setAvailableQuestions.call(this)
     }
     activateTab(tabKey) {
         this.setState({
@@ -40,7 +67,7 @@ class Dashboard extends Component {
         })
     }
     render() {
-        const { authedUserQuestions, currentTab } = this.state
+        const { authedUserQuestions, availableQuestions, currentTab } = this.state
         return (
             <div className="dashboard">
                 <Tabs className="dashboard-tabs" value={currentTab} centered>
@@ -52,6 +79,9 @@ class Dashboard extends Component {
                     <TabPanel className="panel-content" key={tab.key} value={tab.key} index={currentTab}>
                         {tab.key === 'myQuestions' && (
                             <Questions questions={authedUserQuestions}></Questions>
+                        )}
+                        {tab.key === 'answerQuestions' && (
+                            <Questions questions={availableQuestions}></Questions>
                         )}
                         {tab.key === 'leaderboard' && (
                             <Leaderboard></Leaderboard>
