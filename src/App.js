@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 
-const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '75%'
+const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '50%'
 const SMALL_CONTAINER_TRANSITION_END_HEIGHT = '30%'
 const CONTENT_OPACITY_START = '0'
 const CONTENT_OPACITY_END = '1'

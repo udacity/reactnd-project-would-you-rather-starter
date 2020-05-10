@@ -43,7 +43,7 @@ class Dashboard extends Component {
         const { authedUserQuestions, currentTab } = this.state
         return (
             <div className="dashboard">
-                <Tabs value={currentTab} centered>
+                <Tabs className="dashboard-tabs" value={currentTab} centered>
                     {TABS_MAP.map((tab) => (
                         <Tab onClick={() => {  this.activateTab(tab.key) }} key={tab.key} label={tab.name} value={tab.key} />
                     ))}

@@ -6,7 +6,7 @@ export const TABS_MAP = [
         name: 'My Questions',
     },
     {
-        key: 'otherQuestions',
+        key: 'answerQuestions',
         name: 'Question Board',
     },
     {

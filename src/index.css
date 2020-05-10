@@ -47,6 +47,10 @@ code {
     transition: opacity 1.5s ease-in-out;
 }
 
+.dashboard-container {
+    height: 100%;
+}
+
 .logo-container {
     display: flex;
     align-items: center;
