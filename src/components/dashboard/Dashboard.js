@@ -24,6 +24,7 @@ class Dashboard extends Component {
         currentTab: DEFAULT_TAB_KEY,
     }
     componentDidMount() {
+
         this.props.dispatch(setAuthedUserQuestions(this.props))
         this.props.dispatch(setAvailableQuestions(this.props))
     }

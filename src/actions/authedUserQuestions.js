@@ -1,14 +1,18 @@
+import { isEmptyObject} from '../helpers'
+
 export const SET_AUTHED_USER_QUESTIONS = 'SET_AUTHED_USER_QUESTIONS'
 
 function _formatAuthedUserQuestions({ users, authedUser, questions }) {
-    const authedUserQuestionIds = users[authedUser].questions
     const authedUserQuestions = []
-    authedUserQuestionIds.map((id) => { // eslint-disable-line
-        const questionObj = questions[id]
-        if (questionObj) {
-            authedUserQuestions.push(questionObj)
-        }
-    })
+    if (!isEmptyObject(users && authedUser && questions)) {
+        const authedUserQuestionIds = users[authedUser].questions
+        authedUserQuestionIds.map((id) => { // eslint-disable-line
+            const questionObj = questions[id]
+            if (questionObj) {
+                authedUserQuestions.push(questionObj)
+            }
+        })
+    }
     return authedUserQuestions
 }
 
