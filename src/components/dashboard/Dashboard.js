@@ -5,7 +5,7 @@ import Leaderboard from '../leaderboard/Leaderboard'
 import { connect } from 'react-redux'
 import Tab from '@material-ui/core/Tab'
 import Tabs  from '@material-ui/core/Tabs'
-import TabPanel from '../material-ui/TabPanel/TabPanel'
+import TabPanel from '../styled/TabPanel/TabPanel'
 import { DEFAULT_TAB_KEY, TABS_MAP } from './constants'
 import { setAvailableQuestions, setAuthedUserQuestions } from '../../actions'
 
@@ -24,6 +24,7 @@ class Dashboard extends Component {
         currentTab: DEFAULT_TAB_KEY,
     }
     componentDidMount() {
+
         this.props.dispatch(setAuthedUserQuestions(this.props))
         this.props.dispatch(setAvailableQuestions(this.props))
     }

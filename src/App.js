@@ -6,11 +6,16 @@ import img from './logo.svg'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
+import LogoutSelector from './components/styled/LogoutSelector'
+import MenuItem from '@material-ui/core/MenuItem'
+import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
+import { isEmptyObject } from './helpers'
 
 const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '50%'
 const SMALL_CONTAINER_TRANSITION_END_HEIGHT = '30%'
 const CONTENT_OPACITY_START = '0'
 const CONTENT_OPACITY_END = '1'
+const LOGOUT_TEXT = 'Sign Out'
 
 const Logo = styled.div `
     width: 100px;
@@ -32,10 +37,11 @@ const AuthedUserIcon = styled.div`
     margin-top: 3px;
 `
 
-function mapStateToProps({ users, authedUser }) {
+function mapStateToProps({ users, authedUser, questions }) {
     return {
         showLogin: authedUser === null,
         authedUser: Object.values(users).find(user => user.id === authedUser),
+        questions: isEmptyObject(questions) ? null : questions
     }
 }
 
@@ -59,10 +65,14 @@ class App extends Component {
         this.dashboardContainer = React.createRef()
     }
     componentDidMount() {
+        const authedUser = this.props.dispatch(getAuthedUser()).id
         setOpacityLevels.call(this)
         setTimeout(() => {
             this.appContainer.current.style.height = SMALL_CONTAINER_TRANSITION_END_HEIGHT
+            if (authedUser) { this.expandContainer() }
         }, 1000)
+        this.props.dispatch(setAuthedUser(authedUser))
+        this.props.dispatch(getQuestions())
     }
     expandContainer() {
         this.appContainer.current.style.height = LARGE_CONTAINER_TRANSITION_END_HEIGHT
@@ -70,8 +80,13 @@ class App extends Component {
     onTransitionEnd() {
         setOpacityLevels.call(this, true)
     }
+    handleLogout() {
+        this.props.dispatch(removeAuthedUser())
+        this.props.dispatch(setAuthedUserQuestions({}))
+        this.props.dispatch(setAvailableQuestions({}))
+    }
     render() {
-        const { authedUser, showLogin } = this.props
+        const { authedUser, showLogin, questions } = this.props
         
         return (
             <React.Fragment>
@@ -83,7 +98,13 @@ class App extends Component {
                         <AccountCircleOutlinedIcon style={{fill: "white"}} fontSize="large"></AccountCircleOutlinedIcon>
                     )}
                     {authedUser && authedUser.avatarURL && (
-                        <AuthedUserIcon avatarURL={ authedUser.avatarURL } ></AuthedUserIcon>
+                        <AuthedUserIcon avatarURL={ authedUser.avatarURL }>
+                            <LogoutSelector
+                                labelId="logout-selector"
+                                id="logout-selector">
+                                    <MenuItem key="logout" onClick={ () => this.handleLogout() }>{LOGOUT_TEXT}</MenuItem>
+                            </LogoutSelector>
+                        </AuthedUserIcon>
                     )}
                 </div>
                 <div className="app-container" ref={this.appContainer} onTransitionEnd={() => { this.onTransitionEnd() } }>
@@ -92,7 +113,7 @@ class App extends Component {
                             <Login onSignIn={() => { this.expandContainer() }}></Login>
                         </div>
                     )}
-                    {!showLogin && (
+                    {!showLogin && questions && (
                         <div className="dashboard-container" ref={this.dashboardContainer}>
                             <Dashboard></Dashboard>
                         </div>

@@ -79,3 +79,7 @@ code {
         transform: rotate(360deg);
     }
 }
+
+#logout-selector {
+    display: none;
+}

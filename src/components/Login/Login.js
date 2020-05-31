@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import  { getUsers, getQuestions, setAuthedUser } from '../../actions'
+import { getUsers, setAuthedUser } from '../../actions'
 import './login.css'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import StyledButton from '../material-ui/StyledButton'
-import StyledLoader from '../material-ui/StyledLoader'
+import StyledButton from '../styled/StyledButton'
+import StyledLoader from '../styled/StyledLoader'
 
-const AUTHED_USER_ID = 'tylermcginnis'
+const DEFAULT_AUTHED_USER_ID = 'tylermcginnis'
 
 const Avatar = styled.div `
     display: inline-block;
@@ -32,10 +32,11 @@ class Login extends Component {
         authedUser:  null,
         signingIn: false,
     }
+
     componentDidMount() {
+        // set default authed user for selection
+        this.setState({authedUser: DEFAULT_AUTHED_USER_ID })
         this.props.dispatch(getUsers())
-        this.props.dispatch(getQuestions())
-        this.setState({ authedUser: AUTHED_USER_ID })
     }
 
     handleUserChange(evt) {
