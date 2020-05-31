@@ -7,59 +7,25 @@ import Tab from '@material-ui/core/Tab'
 import Tabs  from '@material-ui/core/Tabs'
 import TabPanel from '../material-ui/TabPanel/TabPanel'
 import { DEFAULT_TAB_KEY, TABS_MAP } from './constants'
+import { setAvailableQuestions, setAuthedUserQuestions } from '../../actions'
 
-function mapStateToProps({ users, authedUser, questions }) {
+function mapStateToProps({ users, authedUser, questions, authedUserQuestions, availableQuestions }) {
     return {
         users,
         authedUser,
-        questions,
-    }
-}
-
-function setAuthedUserQuestions() {
-    const authedUserQuestionIds = this.props.users[this.props.authedUser].questions
-    const authedUserQuestions = []
-    authedUserQuestionIds.map((id) => { // eslint-disable-line
-        const questionObj = this.props.questions[id]
-        if (questionObj) {
-            authedUserQuestions.push(questionObj)
-        }
-    })
-    this.setState({
         authedUserQuestions,
-    })
-}
-
-function setAvailableQuestions() {
-    const unAuthedUserQuestions = []
-    const unAuthedUserIds = Object.keys(this.props.users).filter(userKey => userKey !== this.props.authedUser)
-    if (unAuthedUserIds) {
-        unAuthedUserIds.forEach((key) => {
-            const userQuestionIds = this.props.users[key].questions
-            if (userQuestionIds) {
-                userQuestionIds.forEach((id) => {
-                    const questionObj = this.props.questions[id]
-                    if (questionObj) {
-                        unAuthedUserQuestions.push(questionObj)
-                    }
-                })
-            }
-        })
+        questions,
+        availableQuestions,
     }
-    this.setState({
-        availableQuestions: unAuthedUserQuestions
-    })
 }
 
 class Dashboard extends Component {
     state = {
-        authedUserQuestions: null,
-        availableQuestions: null,
         currentTab: DEFAULT_TAB_KEY,
     }
     componentDidMount() {
-        setAuthedUserQuestions.call(this)
-        setAvailableQuestions.call(this)
+        this.props.dispatch(setAuthedUserQuestions(this.props))
+        this.props.dispatch(setAvailableQuestions(this.props))
     }
     activateTab(tabKey) {
         this.setState({
@@ -67,7 +33,8 @@ class Dashboard extends Component {
         })
     }
     render() {
-        const { authedUserQuestions, availableQuestions, currentTab } = this.state
+        const { currentTab } = this.state
+        const { authedUserQuestions, availableQuestions  } = this.props
         return (
             <div className="dashboard">
                 <Tabs className="dashboard-tabs" value={currentTab} centered>

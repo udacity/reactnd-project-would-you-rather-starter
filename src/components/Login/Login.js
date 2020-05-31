@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import  { getUsers, getQuestions } from '../../actions/api'
-import { setAuthedUser } from '../../actions/authedUser'
+import  { getUsers, getQuestions, setAuthedUser } from '../../actions'
 import './login.css'
 import { connect } from 'react-redux'
 import styled from 'styled-components'

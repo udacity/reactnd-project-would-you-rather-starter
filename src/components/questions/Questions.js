@@ -46,8 +46,7 @@ class Questions extends Component {
             <div className="question-container">
                 {questions && (
                     <React.Fragment>
-                        <SwipeableViews index={activeQuestionIdx}
-                            enableMouseEvents>
+                        <SwipeableViews index={activeQuestionIdx}>
                             {questions.map((question) => (
                                 <Container key={question.id} className="question-widget" disableGutters>
                                     <div className="question-banner">
