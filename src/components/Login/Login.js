@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import StyledButton from '../material-ui/StyledButton'
-import StyledLoader from '../material-ui/StyledLoader'
+import StyledButton from '../styled/StyledButton'
+import StyledLoader from '../styled/StyledLoader'
 
 const DEFAULT_AUTHED_USER_ID = 'tylermcginnis'
 

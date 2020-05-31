@@ -1,6 +1,7 @@
 const storage = window.localStorage || {
     setItem: () => {},
-    getItem: () => {}
+    getItem: () => {},
+    removeItem: () => {}
 }
 
 function set (item, val) {
@@ -11,7 +12,12 @@ function get(item) {
     return storage.getItem(item)
 }
 
+function remove(item) {
+    storage.removeItem(item)
+}
+
 export const localStorage = {
     get,
-    set
+    set,
+    remove
 }

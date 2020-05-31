@@ -6,13 +6,16 @@ import img from './logo.svg'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
-import { getAuthedUser, setAuthedUser,  getQuestions } from './actions'
+import LogoutSelector from './components/styled/LogoutSelector'
+import MenuItem from '@material-ui/core/MenuItem'
+import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
 import { isEmptyObject } from './helpers'
 
 const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '50%'
 const SMALL_CONTAINER_TRANSITION_END_HEIGHT = '30%'
 const CONTENT_OPACITY_START = '0'
 const CONTENT_OPACITY_END = '1'
+const LOGOUT_TEXT = 'Sign Out'
 
 const Logo = styled.div `
     width: 100px;
@@ -77,6 +80,11 @@ class App extends Component {
     onTransitionEnd() {
         setOpacityLevels.call(this, true)
     }
+    handleLogout() {
+        this.props.dispatch(removeAuthedUser())
+        this.props.dispatch(setAuthedUserQuestions({}))
+        this.props.dispatch(setAvailableQuestions({}))
+    }
     render() {
         const { authedUser, showLogin, questions } = this.props
         
@@ -90,7 +98,13 @@ class App extends Component {
                         <AccountCircleOutlinedIcon style={{fill: "white"}} fontSize="large"></AccountCircleOutlinedIcon>
                     )}
                     {authedUser && authedUser.avatarURL && (
-                        <AuthedUserIcon avatarURL={ authedUser.avatarURL } ></AuthedUserIcon>
+                        <AuthedUserIcon avatarURL={ authedUser.avatarURL }>
+                            <LogoutSelector
+                                labelId="logout-selector"
+                                id="logout-selector">
+                                    <MenuItem key="logout" onClick={ () => this.handleLogout() }>{LOGOUT_TEXT}</MenuItem>
+                            </LogoutSelector>
+                        </AuthedUserIcon>
                     )}
                 </div>
                 <div className="app-container" ref={this.appContainer} onTransitionEnd={() => { this.onTransitionEnd() } }>
