@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
 import { isEmptyObject } from './helpers'
 
-const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '50%'
+const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '60%'
 const SMALL_CONTAINER_TRANSITION_END_HEIGHT = '30%'
 const CONTENT_OPACITY_START = '0'
 const CONTENT_OPACITY_END = '1'

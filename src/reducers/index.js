@@ -10,5 +10,5 @@ export default combineReducers({
     authedUser,
     questions,
     authedUserQuestions,
-    availableQuestions
+    availableQuestions,
 })

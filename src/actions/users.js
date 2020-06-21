@@ -6,3 +6,22 @@ export function receiveUsers(users) {
         users,
     }
 }
+
+function update(questionId, option, { authedUser, users }) {
+    const user = users[authedUser]
+    if (user) {
+        const answers = user.answers
+        if (answers[questionId] === option) {
+            delete answers[questionId]
+            return;
+        }
+        answers[questionId] = option
+    }
+}
+
+export function updateUserAnswers(questionId, option, props) {
+    update(questionId, option, props)
+    return (dispatch) => {
+        dispatch(receiveUsers(props.users))
+    }
+}

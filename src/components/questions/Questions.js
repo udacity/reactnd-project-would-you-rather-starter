@@ -4,12 +4,15 @@ import SwipeableViews from 'react-swipeable-views'
 import Pagination from '@material-ui/lab/Pagination'
 import Vote from '../vote/Vote'
 import './questions.css'
+import { updateQuestionsWithVotes } from '../../actions'
 import { connect } from 'react-redux'
 
 const  QUESTION_NAME = 'Would you rather?'
 
-function mapStateToProps({ users }) {
+function mapStateToProps({ authedUser, users, questions }) {
     return {
+        authedUser,
+        questions,
         users,
     }
 }
@@ -36,29 +39,37 @@ class Questions extends Component {
             hoveredOptionIdx: null,
         })
     }
+    handleContainerClick(questionId, option) {
+        this.props.dispatch(updateQuestionsWithVotes(questionId, option, this.props));
+    }
     activeIconColor(idx) {
         return idx === this.state.hoveredOptionIdx ? 'secondary' : 'action'
     }
     render() {
         const { activeQuestionIdx } = this.state
-        const { users, questions } = this.props
+        const { users, data } = this.props
         return (
             <div className="question-container">
-                {questions && (
+                {data && (
                     <React.Fragment>
                         <SwipeableViews index={activeQuestionIdx}>
-                            {questions.map((question) => (
+                            {data.map((question) => (
                                 <Container key={question.id} className="question-widget" disableGutters>
                                     <div className="question-banner">
                                         {users[question.author].name} asks
                                         <div>{QUESTION_NAME}</div>
                                     </div>
                                     <div className="question-options">
-                                        <div className="option-one" onMouseEnter={() => this.handleMouseEnter(0)} onMouseLeave={() => this.handleMouseLeave()}>
+                                        <div className="option-one"
+                                            onMouseEnter={() => this.handleMouseEnter(0)} onMouseLeave={() => this.handleMouseLeave()}
+                                            onClick={() => this.handleContainerClick(question.id, 'optionOne')}>
                                             {question.optionOne.text}
                                             <Vote votes={question.optionOne.votes} activeIconColor={this.activeIconColor(0)}></Vote>
                                         </div>
-                                        <div className="option-two"onMouseEnter={() => this.handleMouseEnter(1)} onMouseLeave={() => this.handleMouseLeave()}>
+                                        <div className="option-two"
+                                        onMouseEnter={() => this.handleMouseEnter(1)}
+                                        onMouseLeave={() => this.handleMouseLeave()}
+                                        onClick={() => this.handleContainerClick(question.id, 'optionTwo')}>
                                             {question.optionTwo.text}
                                             <Vote votes={question.optionTwo.votes} activeIconColor={this.activeIconColor(1)}></Vote>
                                         </div>
@@ -67,7 +78,7 @@ class Questions extends Component {
                             ))}
                         </SwipeableViews>
                         <Pagination className="pagination-counter" 
-                            count={questions.length}
+                            count={data.length}
                             onChange={(evt, page) => { this.changeActiveQuestionsIdx(evt, page)  }}
                         ></Pagination>
                     </React.Fragment>

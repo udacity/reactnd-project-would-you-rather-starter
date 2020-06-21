@@ -11,31 +11,38 @@ function mapStateToProps({ users }) {
     }
 }
 
+function setVoterObjects({ votes, users }) {
+     if (votes && users) {
+         let voterObjects = []
+         votes.forEach((voter) => {
+             const voterObj = Object.keys(users).map((key) => key === voter ? users[key] : undefined).filter((val) => val)
+             if (voterObj[0]) {
+                 voterObjects.push(voterObj[0])
+             }
+         })
+         return voterObjects;
+     }
+     return []
+}
+
 class Vote extends Component {
     state = {
         modalOpen: false,
         voterObjects: null,
     }
-    componentDidMount() {
-        if (this.props.votes && this.props.users) {
-            let voterObjects = []
-            this.props.votes.forEach((voter) => {
-                const voterObj = Object.keys(this.props.users).map((key) => key === voter ? this.props.users[key] : undefined).filter((val) => val)
-                if (voterObj[0]) {
-                    voterObjects.push(voterObj[0])
-                }
-            })
-            this.setState({
-                voterObjects,
-            })
+    static getDerivedStateFromProps(props) {
+        return {
+            voterObjects: setVoterObjects(props),
         }
     }
-    handleOpen() {
+    handleOpen(e) {
+        e.stopPropagation();
         this.setState({
             modalOpen: true
         })
     }
-    handleClose() {
+    handleClose(e) {
+        e.stopPropagation();
         this.setState({
             modalOpen: false
         })
@@ -61,9 +68,9 @@ class Vote extends Component {
                         {votes.length}
                     </div>
                 )}
-                <ThumbUpAltIcon color={activeIconColor} onClick={() => this.handleOpen()}></ThumbUpAltIcon>
+                <ThumbUpAltIcon color={activeIconColor} onClick={(e) => this.handleOpen(e)}></ThumbUpAltIcon>
                 <Modal className="vote-list-modal" open={modalOpen} 
-                    onClose={()  => this.handleClose()} 
+                    onClose={(e)  => this.handleClose(e)} 
                     BackdropComponent={Backdrop}>
                     <div className="vote-list-container">
                         <div className="vote-list-header">

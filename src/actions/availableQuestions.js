@@ -1,6 +1,7 @@
 import { isEmptyObject } from '../helpers'
 
 export const SET_AVAILABLE_QUESTIONS = 'SET_AVAILABLE_QUESTIONS'
+export const UPDATE_AVAILABLE_QUESTIONS = 'UPDATE_AVAILABLE_QUESTIONS'
 
 function _formatAvailableQuestions({ users, authedUser, questions }) {
     const unAuthedUserQuestions = []
@@ -28,5 +29,12 @@ export function setAvailableQuestions(props) {
     return {
         type: SET_AVAILABLE_QUESTIONS,
         availableQuestions
+    }
+}
+
+export function updateAvailableQuestions(questions) {
+    return {
+        type: UPDATE_AVAILABLE_QUESTIONS,
+        availableQuestions: questions,
     }
 }
