@@ -30,12 +30,14 @@ class Vote extends Component {
             })
         }
     }
-    handleOpen() {
+    handleOpen(e) {
+        e.stopPropagation();
         this.setState({
             modalOpen: true
         })
     }
-    handleClose() {
+    handleClose(e) {
+        e.stopPropagation();
         this.setState({
             modalOpen: false
         })
@@ -61,9 +63,9 @@ class Vote extends Component {
                         {votes.length}
                     </div>
                 )}
-                <ThumbUpAltIcon color={activeIconColor} onClick={() => this.handleOpen()}></ThumbUpAltIcon>
+                <ThumbUpAltIcon color={activeIconColor} onClick={(e) => this.handleOpen(e)}></ThumbUpAltIcon>
                 <Modal className="vote-list-modal" open={modalOpen} 
-                    onClose={()  => this.handleClose()} 
+                    onClose={(e)  => this.handleClose(e)} 
                     BackdropComponent={Backdrop}>
                     <div className="vote-list-container">
                         <div className="vote-list-header">
