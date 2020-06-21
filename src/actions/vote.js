@@ -2,15 +2,27 @@ import { setQuestions, updateAvailableQuestions, updateUserAnswers } from '../ac
 
 export const UPDATE_QUESTIONS_WITH_VOTES = 'UPDATE_QUESTIONS_WITH_VOTES'
 
+const OPTION_ONE = 'optionOne'
+const OPTION_TWO = 'optionTwo'
+
+function getOtherOption(option) {
+    return option === OPTION_TWO ? OPTION_ONE : OPTION_TWO
+}
+
 function update(questionId, option, { authedUser, data: availableQuestions }) {
     return availableQuestions.map((question) => {
-        if (question.id === questionId) {
-            let votes = question && question[option] && question[option].votes
-            if (votes) {
-                if (votes.indexOf(authedUser) === -1) {
-                    votes.push(authedUser)
+        if (question && question.id === questionId) {
+            let otherOption = getOtherOption(option)
+            if (question[option] && question[option].votes) {
+                if (question[option].votes.indexOf(authedUser) === -1) {
+                    question[option].votes.push(authedUser)
                 } else {
-                    question[option].votes = votes.splice(1, votes.indexOf(authedUser))
+                    question[option].votes.splice(question[option].votes.indexOf(authedUser), 1)
+                }
+            }
+            if (question[otherOption] && question[otherOption].votes) {
+                if (question[otherOption].votes.indexOf(authedUser) > -1) {
+                    question[otherOption].votes.splice(question[otherOption].votes.indexOf(authedUser) , 1)
                 }
             }
             return question

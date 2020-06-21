@@ -40,11 +40,7 @@ class Questions extends Component {
         })
     }
     handleContainerClick(questionId, option) {
-        if (!this.props.noClick) {
-            this.props.dispatch(updateQuestionsWithVotes(questionId, option, this.props));
-            return;
-        }
-        // alert('You cannot vote on your own question') // TODO: make this a better UI
+        this.props.dispatch(updateQuestionsWithVotes(questionId, option, this.props));
     }
     activeIconColor(idx) {
         return idx === this.state.hoveredOptionIdx ? 'secondary' : 'action'

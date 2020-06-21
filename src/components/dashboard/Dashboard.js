@@ -46,7 +46,7 @@ class Dashboard extends Component {
                 {TABS_MAP.map((tab) => (
                     <TabPanel className="panel-content" key={tab.key} value={tab.key} index={currentTab}>
                         {tab.key === 'myQuestions' && (
-                            <Questions data={authedUserQuestions} noClick></Questions>
+                            <Questions data={authedUserQuestions}></Questions>
                         )}
                         {tab.key === 'answerQuestions' && (
                             <Questions data={availableQuestions}></Questions>
