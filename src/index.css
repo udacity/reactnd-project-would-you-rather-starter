@@ -32,7 +32,7 @@ code {
 .made-by {
     position: absolute;
     bottom: 0;
-    right: 0;
+    left: 0;
     color: white;
     font-size: 15px;
     padding: 10px 20px;
@@ -82,4 +82,17 @@ code {
 
 #logout-selector {
     display: none;
+}
+
+.add-question-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 50%;
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+}
+
+.add-question-btn:active {
+    box-shadow: none;
 }

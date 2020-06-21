@@ -6,7 +6,7 @@ import img from './logo.svg'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
-import LogoutSelector from './components/styled/LogoutSelector'
+import { LogoutSelector, AddQuestionButton } from './components/styled'
 import MenuItem from '@material-ui/core/MenuItem'
 import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
 import { isEmptyObject } from './helpers'
@@ -115,7 +115,10 @@ class App extends Component {
                     )}
                     {!showLogin && questions && (
                         <div className="dashboard-container" ref={this.dashboardContainer}>
-                            <Dashboard></Dashboard>
+                            <React.Fragment>
+                                <Dashboard></Dashboard>
+                                <AddQuestionButton tooltipText="Add Question"></AddQuestionButton>
+                            </React.Fragment>
                         </div>
                     )}
                 </div>
