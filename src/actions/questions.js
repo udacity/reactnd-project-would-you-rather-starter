@@ -8,9 +8,9 @@ export function receiveQuestions(questions) {
     }
 }
 
-export function setQuestions(questions) {
+export function setQuestions(question) {
     return {
         type: SET_QUESTIONS,
-        questions,
+        question,
     }
 }

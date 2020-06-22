@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import './dashboard.css'
 import Questions from '../questions/Questions'
 import Leaderboard from '../leaderboard/Leaderboard'
+import AddQuestion from '../questions/AddQuestion'
 import { connect } from 'react-redux'
 import Tab from '@material-ui/core/Tab'
 import Tabs  from '@material-ui/core/Tabs'
 import  { TabPanel } from '../styled'
 import { DEFAULT_TAB_KEY, TABS_MAP } from './constants'
 import { setAvailableQuestions, setAuthedUserQuestions } from '../../actions'
+import {  Route } from 'react-router-dom'
 
 function mapStateToProps({ users, authedUser, questions, authedUserQuestions, availableQuestions }) {
     return {
@@ -38,24 +40,29 @@ class Dashboard extends Component {
         const { authedUserQuestions, availableQuestions  } = this.props
         return (
             <div className="dashboard">
-                <Tabs className="dashboard-tabs" value={currentTab} centered>
-                    {TABS_MAP.map((tab) => (
-                        <Tab onClick={() => {  this.activateTab(tab.key) }} key={tab.key} label={tab.name} value={tab.key} />
-                    ))}
-                </Tabs>
-                {TABS_MAP.map((tab) => (
-                    <TabPanel className="panel-content" key={tab.key} value={tab.key} index={currentTab}>
-                        {tab.key === 'myQuestions' && (
-                            <Questions data={authedUserQuestions}></Questions>
-                        )}
-                        {tab.key === 'answerQuestions' && (
-                            <Questions data={availableQuestions}></Questions>
-                        )}
-                        {tab.key === 'leaderboard' && (
-                            <Leaderboard></Leaderboard>
-                        )}
-                    </TabPanel>
-                ))}
+                    <Route exact path='/'>
+                        <Tabs className="dashboard-tabs" value={currentTab} centered>
+                            {TABS_MAP.map((tab) => (
+                                <Tab onClick={() => {  this.activateTab(tab.key) }} key={tab.key} label={tab.name} value={tab.key} />
+                            ))}
+                        </Tabs>
+                        {TABS_MAP.map((tab) => (
+                            <TabPanel className="panel-content" key={tab.key} value={tab.key} index={currentTab}>
+                                {tab.key === 'myQuestions' && (
+                                    <Questions data={authedUserQuestions}></Questions>
+                                )}
+                                {tab.key === 'answerQuestions' && (
+                                    <Questions data={availableQuestions}></Questions>
+                                )}
+                                {tab.key === 'leaderboard' && (
+                                    <Leaderboard></Leaderboard>
+                                )}
+                            </TabPanel>
+                        ))}
+                </Route>
+                <Route exact path='/add'>
+                    <AddQuestion></AddQuestion>
+                </Route>
             </div>
         );
     }

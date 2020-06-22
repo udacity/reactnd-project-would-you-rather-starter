@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
-export  function SignInButton (props) {
+export  function SecondaryColorBtn (props) {
     const useStyles = makeStyles({
         root: {
             backgroundColor: '#f08080',
@@ -22,7 +22,7 @@ export  function SignInButton (props) {
     return <Button className={classes.root} children={children} onClick={onClick}></Button>
 }
 
-export function AddQuestionButton(props) {
+export function CircularAddBtn(props) {
     const useStyles = makeStyles({
         root: {
             backgroundColor: '#04406D',
