@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Box from '@material-ui/core/Box'
 import './tab-panel.css'
 
-class TabPanel extends Component {
+export class TabPanel extends Component {
     render() {
         const { value, index, children } = this.props
         return (
@@ -20,5 +20,3 @@ class TabPanel extends Component {
         )
     }
 }
-
-export default  TabPanel

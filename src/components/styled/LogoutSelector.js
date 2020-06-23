@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function LogoutSelector(props) {
+export function LogoutSelector(props) {
     const classes = useStyles()
     const { children } = props
     return <Select className ={`${classes.underline} ${classes.icon}`} children={children}></Select>

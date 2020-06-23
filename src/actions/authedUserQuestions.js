@@ -23,3 +23,12 @@ export function setAuthedUserQuestions(props) {
         authedUserQuestions: authedUserQuestions,
     }
 }
+
+export function addAuthedUserQuestion(store, formattedQuestion) {
+    const authedUserQuestions = store.authedUserQuestions || []
+    authedUserQuestions.push(formattedQuestion)
+    return {
+        type: SET_AUTHED_USER_QUESTIONS,
+        authedUserQuestions: authedUserQuestions,
+    }
+}

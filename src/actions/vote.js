@@ -1,4 +1,4 @@
-import { setQuestions, updateAvailableQuestions, updateUserAnswers } from '../actions'
+import { receiveQuestions, updateAvailableQuestions, updateUserAnswers } from '../actions'
 
 export const UPDATE_QUESTIONS_WITH_VOTES = 'UPDATE_QUESTIONS_WITH_VOTES'
 
@@ -34,7 +34,7 @@ function update(questionId, option, { authedUser, data: availableQuestions }) {
 export function updateQuestionsWithVotes(questionId, option, props) {
     update(questionId, option, props)
     return (dispatch) => {
-        dispatch(setQuestions(props.questions))
+        dispatch(receiveQuestions(props.questions))
         dispatch(updateAvailableQuestions(props.data))
         dispatch(updateUserAnswers(questionId, option, props))
     }

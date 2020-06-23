@@ -6,12 +6,15 @@ import reducer from './reducers'
 import middleware from './middleware'
 import App from './App'
 import './index.css'
+import { BrowserRouter } from 'react-router-dom'
 
 const store = createStore(reducer, middleware)
 
 ReactDOM.render(
-<Provider store={store}>
-    <App></App>
-</Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <App></App>
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );

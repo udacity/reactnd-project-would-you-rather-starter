@@ -25,3 +25,13 @@ export function updateUserAnswers(questionId, option, props) {
         dispatch(receiveUsers(props.users))
     }
 }
+
+export function updateUserQuestions(store, questionId) {
+    if (store.users[store.authedUser].questions && store.users[store.authedUser].questions.indexOf(questionId) === -1) {
+        store.users[store.authedUser].questions.push(questionId)
+    }
+    return {
+        type: RECEIVE_USERS,
+        users: store.users,
+    }
+}

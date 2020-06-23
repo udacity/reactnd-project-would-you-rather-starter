@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function StyledLoader(props) {
+export function StyledLoader() {
     const classes = useStyles()
     return <CircularProgress className={classes.root}></CircularProgress>
 }

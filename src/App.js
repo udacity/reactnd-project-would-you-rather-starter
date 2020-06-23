@@ -6,16 +6,18 @@ import img from './logo.svg'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
-import LogoutSelector from './components/styled/LogoutSelector'
+import { LogoutSelector, CircularAddBtn } from './components/styled'
 import MenuItem from '@material-ui/core/MenuItem'
 import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
 import { isEmptyObject } from './helpers'
+import {  Route, Link } from 'react-router-dom'
 
 const LARGE_CONTAINER_TRANSITION_END_HEIGHT = '60%'
 const SMALL_CONTAINER_TRANSITION_END_HEIGHT = '30%'
 const CONTENT_OPACITY_START = '0'
 const CONTENT_OPACITY_END = '1'
 const LOGOUT_TEXT = 'Sign Out'
+const TOOLTIP_TEXT = 'Ask a Question'
 
 const Logo = styled.div `
     width: 100px;
@@ -115,7 +117,14 @@ class App extends Component {
                     )}
                     {!showLogin && questions && (
                         <div className="dashboard-container" ref={this.dashboardContainer}>
-                            <Dashboard></Dashboard>
+                            <React.Fragment>
+                                <Dashboard></Dashboard>
+                                <Route exact path='/'>
+                                    <Link to='/add'>
+                                        <CircularAddBtn tooltipText={TOOLTIP_TEXT}></CircularAddBtn>
+                                    </Link>
+                                </Route>
+                            </React.Fragment>
                         </div>
                     )}
                 </div>
