@@ -60,9 +60,7 @@ class Dashboard extends Component {
                             </TabPanel>
                         ))}
                 </Route>
-                <Route exact path='/add'>
-                    <AddQuestion></AddQuestion>
-                </Route>
+                <Route exact path='/add' render={({ history }) =><AddQuestion history={history}/>}/>
             </div>
         );
     }

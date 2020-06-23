@@ -1,6 +1,5 @@
 import {  _getUsers, _getQuestions, _saveQuestion } from '../api/_DATA'
-import { receiveUsers } from './users'
-import { receiveQuestions, setQuestions } from './questions'
+import { receiveUsers, receiveQuestions, setQuestions, addAuthedUserQuestion, updateUserQuestions } from '../actions'
 
 export function getUsers() {
     return (dispatch) => {
@@ -21,10 +20,13 @@ export function getQuestions() {
 }
 
 export function addQuestion({ author, optionOneText, optionTwoText }) {
-    return (dispatch) => {
+    return (dispatch, store) => {
         return _saveQuestion({ author, optionOneText, optionTwoText })
             .then((formattedQuestion) => {
                 dispatch(setQuestions(formattedQuestion))
+                dispatch(addAuthedUserQuestion(store(), formattedQuestion))
+                dispatch(updateUserQuestions(store(), formattedQuestion.id))
+                return Promise.resolve()
             })
     }
 }
