@@ -1,4 +1,4 @@
-import { receiveQuestions, updateAvailableQuestions, updateUserAnswers } from '../actions'
+import { receiveQuestions, setAvailableQuestions, updateUserAnswers } from '../actions'
 
 export const UPDATE_QUESTIONS_WITH_VOTES = 'UPDATE_QUESTIONS_WITH_VOTES'
 
@@ -9,8 +9,8 @@ function getOtherOption(option) {
     return option === OPTION_TWO ? OPTION_ONE : OPTION_TWO
 }
 
-function update(questionId, option, { authedUser, data: availableQuestions }) {
-    return availableQuestions.map((question) => {
+function update(questionId, option, { authedUser, questions }) {
+    return Object.values(questions).map((question) => {
         if (question && question.id === questionId) {
             let otherOption = getOtherOption(option)
             if (question[option] && question[option].votes) {
@@ -35,7 +35,7 @@ export function updateQuestionsWithVotes(questionId, option, props) {
     update(questionId, option, props)
     return (dispatch) => {
         dispatch(receiveQuestions(props.questions))
-        dispatch(updateAvailableQuestions(props.data))
         dispatch(updateUserAnswers(questionId, option, props))
+        dispatch(setAvailableQuestions(props))
     }
 }

@@ -4,24 +4,18 @@ export const SET_AVAILABLE_QUESTIONS = 'SET_AVAILABLE_QUESTIONS'
 export const UPDATE_AVAILABLE_QUESTIONS = 'UPDATE_AVAILABLE_QUESTIONS'
 
 function _formatAvailableQuestions({ users, authedUser, questions }) {
-    const unAuthedUserQuestions = []
     if (!isEmptyObject(users && authedUser && questions)) {
-        const unAuthedUserIds = Object.keys(users).filter(userKey => userKey !== authedUser)
-        if (unAuthedUserIds) {
-            unAuthedUserIds.forEach((key) => {
-                const userQuestionIds = users[key].questions
-                if (userQuestionIds) {
-                    userQuestionIds.forEach((id) => {
-                        const questionObj = questions[id]
-                        if (questionObj) {
-                            unAuthedUserQuestions.push(questionObj)
-                        }
-                    })
-                }
-            })
+        const answeredQuestions = Object.values(questions).filter((question) => users[authedUser].answers[question.id])
+        const unansweredQuestions = Object.values(questions).filter((question) => !users[authedUser].answers[question.id])
+        return {
+            answeredQuestions,
+            unansweredQuestions 
         }
     }
-    return unAuthedUserQuestions
+    return {
+        answeredQuestions: [],
+        unansweredQuestions: []
+    }
 }
 
 export function setAvailableQuestions(props) {

@@ -9,11 +9,12 @@ import { connect } from 'react-redux'
 
 const  QUESTION_NAME = 'Would you rather?'
 
-function mapStateToProps({ authedUser, users, questions }) {
+function mapStateToProps({ authedUser, users, questions, availableQuestions }) {
     return {
         authedUser,
         questions,
         users,
+        availableQuestions,
     }
 }
 

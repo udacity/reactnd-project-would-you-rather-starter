@@ -1,5 +1,12 @@
 import {  _getUsers, _getQuestions, _saveQuestion } from '../api/_DATA'
-import { receiveUsers, receiveQuestions, setQuestions, addAuthedUserQuestion, updateUserQuestions } from '../actions'
+import {
+    receiveUsers,
+    receiveQuestions,
+    setQuestions,
+    addAuthedUserQuestion,
+    updateUserQuestions,
+    setAvailableQuestions
+} from '../actions'
 
 export function getUsers() {
     return (dispatch) => {
@@ -26,6 +33,7 @@ export function addQuestion({ author, optionOneText, optionTwoText }) {
                 dispatch(setQuestions(formattedQuestion))
                 dispatch(addAuthedUserQuestion(store(), formattedQuestion))
                 dispatch(updateUserQuestions(store(), formattedQuestion.id))
+                dispatch(setAvailableQuestions(store()))
                 return Promise.resolve()
             })
     }

@@ -26,7 +26,6 @@ class Dashboard extends Component {
         currentTab: DEFAULT_TAB_KEY,
     }
     componentDidMount() {
-
         this.props.dispatch(setAuthedUserQuestions(this.props))
         this.props.dispatch(setAvailableQuestions(this.props))
     }
@@ -51,8 +50,11 @@ class Dashboard extends Component {
                                 {tab.key === 'myQuestions' && (
                                     <Questions data={authedUserQuestions}></Questions>
                                 )}
-                                {tab.key === 'answerQuestions' && (
-                                    <Questions data={availableQuestions}></Questions>
+                                {tab.key === 'answeredQuestions' && availableQuestions && (
+                                    <Questions data={availableQuestions.answeredQuestions}></Questions>
+                                )}
+                                {tab.key === 'unansweredQuestions' && availableQuestions && (
+                                    <Questions data={availableQuestions.unansweredQuestions}></Questions>
                                 )}
                                 {tab.key === 'leaderboard' && (
                                     <Leaderboard></Leaderboard>

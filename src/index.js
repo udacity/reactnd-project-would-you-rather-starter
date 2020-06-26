@@ -8,7 +8,13 @@ import App from './App'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 
-const store = createStore(reducer, middleware)
+let store;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+if (typeof composeEnhancers === 'function') {
+  store = createStore(reducer, composeEnhancers(middleware))
+} else {
+  store = createStore(reducer, middleware)
+}
 
 ReactDOM.render(
   <BrowserRouter>
