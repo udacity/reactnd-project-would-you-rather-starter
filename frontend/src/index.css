@@ -105,5 +105,38 @@ button {
   border-bottom: 0.2rem var(--default) solid;
   height: 40px;
   text-align: center;
+  background: #c3c3c5;
 }
 .leader-title>div:hover{ background:var(--primary); color: var(--white);}
+.leader-title>div {
+  border-right: 0.2rem var(--default) solid;
+}
+.panel.question{
+margin: 16px; 
+height: auto;
+}
+.user-icon { 
+border-right: 0.2rem var(--white) solid;
+margin: 8px;
+}
+.question-detail{ 
+  display:grid;
+  grid-template-columns: repeat(2, 30% 70%);
+  padding-bottom: 16px;
+}
+.secondary-light{ 
+  border: 0.2rem var(--default) solid;
+  background: white;
+  color: black;
+  font-weight: 900;
+  width: 98%;
+  cursor: pointer;
+}
+label{
+  padding:5px;  
+  margin: 10px;  
+}
+.flex-inline {
+  display: inline-flex;
+}
+.h-md {height: 300px;}
