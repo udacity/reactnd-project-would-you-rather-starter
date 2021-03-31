@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+:root{
+  --primary: #4a47a3;
+  --text-primary: #fff;
+  --default: #153e90;
+  --white: #f1f1f1;
+}
+#root {
+   display: grid;
+   height: 100vh;
+   grid-template-rows: auto 1fr;
+   grid-template-areas: 'header',
+                       'main';
+  scroll-behavior: smooth;
+}
+header {
+  border-bottom: 5px var(--primary) solid;
+  padding-top: 1rem;
+}
+ .nav {  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+
+ }
+.nav .item {
+  font-size: 1.4rem;
+  font-weight:bold;
+  color: black;
+  text-decoration: none;
+  padding: 8px 32px;
+ 
+}
+.nav .item:hover{
+  background: var(--primary);
+  color: var(--text-primary);
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+main {
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+ 
+}
+/* panel */
+.panel{
+  border: 0.2rem var(--default) solid;
+  max-width: 400px;
+  border-radius: 4px;  
+  max-height:500px;
+ 
+  
+  
+}
+.panel-title { background: var(--white);border-bottom: 0.2rem var(--default) solid; padding: 8px;}
+.panel-title h2, .panel-title p {margin:0; text-align: center; }
+.panel-body{  display:flex;
+justify-content: space-around;
+flex-direction: column;
+margin: 32px 8px;
+}
+/* input */
+input, select { border: 0.2rem var(--default) solid;}
+input, select,button{
+ border-radius: 4px;
+ height: 40px;
+}
+button {
+  margin-top: 8px;
+  background: var(--primary);
+  color: var(--text-primary)
+}
+/* question icon */
+.react-redux-icon {
+ background: url('./images/react_redux.jpg') no-repeat center;
+ background-size: cover;
+ overflow: hidden;
+ height:230px;
+ width: 300px;
+}
+.center {
+  text-align: center;
+}
+.w-md {
+  min-width: 500px;
+  
+}
+.leader-title{ 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 0.2rem var(--default) solid;
+  height: 40px;
+  text-align: center;
+}
+.leader-title>div:hover{ background:var(--primary); color: var(--white);}
