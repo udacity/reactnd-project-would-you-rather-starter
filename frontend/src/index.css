@@ -16,6 +16,8 @@ code {
   --text-primary: #fff;
   --default: #153e90;
   --white: #f1f1f1;
+  --dark:#262b35 solid;
+  --lightblue: #86c5d8;
 }
 #root {
    display: grid;
@@ -140,3 +142,36 @@ label{
   display: inline-flex;
 }
 .h-md {height: 300px;}
+progress {
+  height: 100px;
+  width: 90%;
+}
+progress::before{
+  content: '43%';
+  position: relative;
+  left: 60%;
+  top: 28px;
+  
+  font-size: 40px;
+  color: black;
+}
+.voted {
+  background:#f0f8ff;
+   padding:16px 32px;
+   border-radius: 8px;
+   border:2px var(--lightblue) solid;
+}
+.text-voted {
+  color: var(--lightblue);
+}
+.alert-voted {
+  border-radius:50%;
+  background: #ffdb6e;
+  min-height: 50px;
+  min-width: 50px;
+  left: 64%;
+  bottom:70%;
+  text-align: center;
+  position: absolute;
+}
+

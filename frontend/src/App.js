@@ -6,6 +6,7 @@ import NewQuestion from './containers/NewQuestion'
 import Signin from './containers/Signin';
 import LeaderBoard from './containers/LeaderBoard';
 import AnswerQuestion from './containers/AnswerQuestion';
+import ResultPage from './containers/ResultPage';
 
 class App extends React.Component {
   render() {
@@ -25,6 +26,7 @@ class App extends React.Component {
       <main>
         <Route path="/question" component={NewQuestion} />
         <Route path="/answer" component={AnswerQuestion} />  {/** Todo: path has to be /question/question/id */}
+        <Route path="/results" component={ResultPage} />
         <Route path="/signin" component={Signin} />
         <Route path="/leaderboard" component={LeaderBoard} />
       </main>

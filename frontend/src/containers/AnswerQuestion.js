@@ -1,6 +1,6 @@
 import PanelTitle from '../components/PanelTitle';
 
-function AnswerQuestion(){
+function AnswerQuestion(props){
     //TODO: get question id and recordd answer chosen by a user
   
     return(         
@@ -17,9 +17,9 @@ function AnswerQuestion(){
                       </div>
                       <div className="flex-inline">
                             <input type="radio" name="answer" /> <label for="answer"> Option 1 </label>
-                      </div>
+                      </div> 
                       
-                      <button type="submit">Submit</button>
+                      <button type="submit" onClick={props.history.push("/results")}>Submit</button>
                   </div>
               </div>
           </div>
