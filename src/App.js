@@ -16,8 +16,10 @@ class App extends React.Component {
     this.props.dispatch(getInitialData())
    }
   render() {
-    const {users, questions} = this.props;
-    //console.log(Object.keys(users)); // login 
+    const {users, questions, signUser } = this.props;
+  
+    const authedUser = Object.values(users).filter(user => user.id ===signUser);   
+    
     return (
       <BrowserRouter>    
       <header>
@@ -25,8 +27,16 @@ class App extends React.Component {
           <Link className="item" to="/">Home</Link>
           <Link className="item" to="/question">New Question</Link>
           <Link className="item" to="/leaderboard">Leader Board</Link>
-          <Link className="item">Hello Logged in user</Link>
-          <Link className="item" to="/signin">Logout</Link>
+          {authedUser ? authedUser.map(({id, name})=> (
+            <>            
+              <Link className="item">Hello {name}</Link>
+              <Link className="item" to="/signin">Logout</Link>
+            </>
+            
+          )):(
+            <Link className="item" to="/signin">Signin</Link>
+          )}
+          
           
         </div>
         
@@ -37,7 +47,7 @@ class App extends React.Component {
         <Route path="/results" component={ResultPage} />
         <Route path="/signin" component={Signin} />
         <Route path="/leaderboard" component={LeaderBoard} />
-        <Route path="/" component={HomePage} exact/>
+        <Route path="/" component={HomePage} exact authUser={authedUser} />
       </main>
       
      
@@ -46,5 +56,6 @@ class App extends React.Component {
   }
 }
 const mapStateToProps = ({users, questions, signUser}) =>({ users, questions, signUser });
+
  //Todo: if signed user redirect to homepage else redirect to login
 export default connect(mapStateToProps)(App);

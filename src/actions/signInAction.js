@@ -1,2 +1,2 @@
 import { AUTHORIZE_USER } from '../constants';
-export const signInAction =(userId)=> ({type: AUTHORIZE_USER, userId})
+export const signInAction =(user)=> ({type: AUTHORIZE_USER, user});

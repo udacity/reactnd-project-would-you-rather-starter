@@ -1,20 +1,21 @@
 import React from  'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+
 import { signInAction } from '../actions/signInAction';
 import PanelTitle from '../components/PanelTitle';
 
 class Signin extends React.Component{
     state = {
-        userId:''
+        user:''
     }
      handleLogin= (e) => {
-        e.preventDefault();       
-        const { dispatch } = this.props;
-        dispatch(signInAction(this.state.userId))
+        e.preventDefault();     
+         
+        const { dispatch } = this.props;        
+        dispatch(signInAction(this.state.user))
         this.props.history.push('/');
     }
-    selectUser = (loggedInUserId) =>this.setState(()=>({userId: loggedInUserId}));
+    selectUser = (loggedInuser) => this.setState(()=>({user: loggedInuser}));
      
     render() {
       
