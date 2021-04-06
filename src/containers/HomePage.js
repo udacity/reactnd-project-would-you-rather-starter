@@ -1,6 +1,6 @@
 import PanelTitle from '../components/PanelTitle';
 
-function LeaderBoard(props){
+function HomePage(props){
    // TODO: FILter then display answered question and unanswered question.
   // TODO: we have two forms if a user clicks unanswered question they will be displayed and vice versa;
     return(
@@ -26,4 +26,4 @@ function LeaderBoard(props){
         </div>
     )
 }
-export default LeaderBoard;
+export default HomePage;

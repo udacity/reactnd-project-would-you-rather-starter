@@ -59,15 +59,13 @@ main {
  
 }
 /* panel */
-.panel{
-  border: 0.2rem var(--default) solid;
-  max-width: 400px;
+.panel,.panel-lg{
+  border: 0.2rem var(--default) solid;  
   border-radius: 4px;  
-  max-height:500px;
- 
-  
-  
+   
 }
+.panel {  max-height:500px;max-width: 400px;}
+.panel-lg{height: auto; width: auto;}
 .panel-title { background: var(--white);border-bottom: 0.2rem var(--default) solid; padding: 8px;}
 .panel-title h2, .panel-title p {margin:0; text-align: center; }
 .panel-body{  display:flex;
@@ -77,15 +75,8 @@ margin: 32px 8px;
 }
 /* input */
 input, select { border: 0.2rem var(--default) solid;}
-input, select,button{
- border-radius: 4px;
- height: 40px;
-}
-button {
-  margin-top: 8px;
-  background: var(--primary);
-  color: var(--text-primary)
-}
+input, select,button{ border-radius: 4px; height: 40px;}
+button {  margin-top: 8px;  background: var(--primary);  color: var(--text-primary)}
 /* question icon */
 .react-redux-icon {
  background: url('./images/react_redux.jpg') no-repeat center;
@@ -94,13 +85,8 @@ button {
  height:230px;
  width: 300px;
 }
-.center {
-  text-align: center;
-}
-.w-md {
-  min-width: 500px;
-  
-}
+.center {  text-align: center;}
+.w-md {  min-width: 500px; }
 .leader-title{ 
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -110,17 +96,9 @@ button {
   background: #c3c3c5;
 }
 .leader-title>div:hover{ background:var(--primary); color: var(--white);}
-.leader-title>div {
-  border-right: 0.2rem var(--default) solid;
-}
-.panel.question{
-margin: 16px; 
-height: auto;
-}
-.user-icon { 
-border-right: 0.2rem var(--white) solid;
-margin: 8px;
-}
+.leader-title>div {  border-right: 0.2rem var(--default) solid;}
+.panel.question{margin: 16px; height: auto;}
+.user-icon { border-right: 0.2rem var(--white) solid; margin: 8px;}
 .question-detail{ 
   display:grid;
   grid-template-columns: repeat(2, 30% 70%);
@@ -134,36 +112,28 @@ margin: 8px;
   width: 98%;
   cursor: pointer;
 }
-label{
-  padding:5px;  
-  margin: 10px;  
-}
-.flex-inline {
-  display: inline-flex;
-}
-.h-md {height: 300px;}
-progress {
-  height: 100px;
-  width: 90%;
-}
+label{  padding:5px;    margin: 10px; }
+.flex-inline {  display: inline-flex;}
+.h-md {height: 350px;}
+.h-lg {height:auto;}
+progress {  height: 100px;  width: 90%;}
 progress::before{
   content: '43%';
   position: relative;
   left: 60%;
   top: 28px;
-  
   font-size: 40px;
   color: black;
 }
-.voted {
-  background:#f0f8ff;
-   padding:16px 32px;
+.voted, .voted-by-other {
+   padding:8px 32px;
    border-radius: 8px;
-   border:2px var(--lightblue) solid;
+   margin-bottom: 32px;
 }
-.text-voted {
-  color: var(--lightblue);
-}
+.voted {  border:2px var(--lightblue) solid;  background:#f0f8ff;}
+.voted-by-other {  border:2px var(--white) solid;}
+
+.text-voted {  color: var(--lightblue);}
 .alert-voted {
   border-radius:50%;
   background: #ffdb6e;
@@ -174,4 +144,63 @@ progress::before{
   text-align: center;
   position: absolute;
 }
+/* leader-board */
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 600px;
+ 
+}
+.content{  
+  min-height: 200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  border: 2px #ccc solid;
+  
+  padding: 16px 4px;
+}
+.content > div {  
+  padding: 16px;
+}
+.content > div:nth-child(2){
+ border-right: 0.2rem var(--white) solid;
+ border-left: 0.2rem var(--white) solid;
+ min-width: 250px;
+}
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+}
 
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.border-bottom{  border-bottom: 0.2rem var(--white) solid;}
+div.user-icon{ 
+  /* border-left: 4rem var(--white) solid; */
+}
+.score {  border: 0.2rem var(--white) solid; }
+.score-title { 
+  border-bottom:  0.2rem black solid;
+  padding: 2px 0;
+  justify-content:stretch;
+  
+
+}
+.score-body{ 
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+.score-circle{ 
+  background: var(--default);
+  color: var(--text-primary);
+  padding: 32px;
+  font-size:larger;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 50%;
+}
