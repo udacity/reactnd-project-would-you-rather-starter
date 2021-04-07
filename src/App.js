@@ -10,6 +10,7 @@ import ResultPage from './containers/ResultPage';
 import HomePage from './containers/HomePage';
 import { connect } from 'react-redux';
 import { getInitialData } from './actions/shared';
+import Question from './components/Question';
 
 class App extends React.Component {
    componentDidMount() {
@@ -47,6 +48,7 @@ class App extends React.Component {
         <Route path="/results" component={ResultPage} />
         <Route path="/signin" component={Signin} />
         <Route path="/leaderboard" component={LeaderBoard} />
+        <Route path="/unanswered" component={Question} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />
       </main>
       

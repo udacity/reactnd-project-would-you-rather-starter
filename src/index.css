@@ -46,6 +46,7 @@ header {
   padding: 8px 32px;
  
 }
+
 .nav .item:hover{
   background: var(--primary);
   color: var(--text-primary);
@@ -65,7 +66,7 @@ main {
    
 }
 .panel {  max-height:500px;max-width: 400px;}
-.panel-lg{height: auto; width: auto;}
+.panel-lg{height: auto; width: auto; overflow-y: scroll;}
 .panel-title { background: var(--white);border-bottom: 0.2rem var(--default) solid; padding: 8px;}
 .panel-title h2, .panel-title p {margin:0; text-align: center; }
 .panel-body{  display:flex;
@@ -94,6 +95,8 @@ button {  margin-top: 8px;  background: var(--primary);  color: var(--text-prima
   height: 40px;
   text-align: center;
   background: #c3c3c5;
+  position: sticky;
+  top: 0px;
 }
 .leader-title>div:hover{ background:var(--primary); color: var(--white);}
 .leader-title>div {  border-right: 0.2rem var(--default) solid;}
