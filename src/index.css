@@ -204,3 +204,6 @@ div.user-icon{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 50%;
 }
+.show-or-hide{ 
+  display:none;
+}
