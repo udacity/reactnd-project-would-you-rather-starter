@@ -11,10 +11,15 @@ import HomePage from './containers/HomePage';
 import { connect } from 'react-redux';
 import { getInitialData } from './actions/shared';
 import Question from './components/Question';
+import { logoutAction } from './actions/signInAction'
 
 class App extends React.Component {
    componentDidMount() {
     this.props.dispatch(getInitialData())
+   }
+   logoutHandler() {
+     const {dispatch} = this.props;
+     dispatch(logoutAction());
    }
   render() {
     const {users, questions, signUser } = this.props;
@@ -31,7 +36,7 @@ class App extends React.Component {
           {authedUser ? authedUser.map(({id, name})=> (
             <>            
               <Link className="item">Hello {name}</Link>
-              <Link className="item" to="/signin">Logout</Link>
+              <Link className="item" onClick={(e)=>this.logoutHandler()}>Logout</Link>
             </>
             
           )):(
