@@ -1,4 +1,4 @@
-import serialize from 'form-serialize';
+
 import React from  'react';
 import { connect } from 'react-redux';
 import { saveQuestion } from '../actions/questions';
@@ -11,8 +11,7 @@ class NewQuestion extends React.Component{
 
    handleSubmit =(e) =>{
     e.preventDefault();
-   const form= document.querySelector('#form-data');
-   const question = serialize(form);
+  
 
    const { dispatch } = this.props;
    const {optionOneText, optionTwoText} = this.state;
