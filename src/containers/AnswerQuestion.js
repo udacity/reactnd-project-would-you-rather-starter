@@ -2,7 +2,7 @@ import PanelTitle from '../components/PanelTitle';
 
 function AnswerQuestion(props){
     //TODO: get question id and recordd answer chosen by a user
-  
+     
     return(         
           <div className="panel w-md">
               <PanelTitle title={'Username Asks '} />
