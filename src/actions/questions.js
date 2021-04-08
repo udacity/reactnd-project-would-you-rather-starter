@@ -7,6 +7,7 @@ export const fetchQuestions= (questions) => (dispatch) =>{
 export const saveQuestion= (question) => (dispatch, getState) =>{
   const { signUser:author, users } = getState();
   const {optionOneText, optionTwoText} = question; 
+  
   api.saveQuestion({optionOneText, optionTwoText,author}).then(question=>{   
     
     dispatch({ type:SAVE_QUESTION, question, author,users });
