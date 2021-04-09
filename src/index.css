@@ -101,7 +101,14 @@ button {  margin-top: 8px;  background: var(--primary);  color: var(--text-prima
 .leader-title>div:hover{ background:var(--primary); color: var(--white);}
 .leader-title>div {  border-right: 0.2rem var(--default) solid;}
 .panel.question{margin: 16px; height: auto;}
-.user-icon { border-right: 0.2rem var(--white) solid; margin: 8px;}
+.user-icon { 
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;                                            
+  background-position: 50% 50%;
+  background-size: cover;
+  top: 50%;
+}
 .question-detail{ 
   display:grid;
   grid-template-columns: repeat(2, 30% 70%);

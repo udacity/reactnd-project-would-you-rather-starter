@@ -8,13 +8,19 @@ export default function Question(props){
         {questions.map((question)=>(
             <div className="panel question" >
                 { users.map((user) => user.id === question.author &&(
-                         <PanelTitle title={`${user.name} Asks`} />
+                         <PanelTitle title={`${user.name} Asks`}  key={user.id} />
                     ))                    
                 }
             
                 <div className="question-detail">
                     <div  className="user-icon">
-                        <img src={'../images/mother.png'} />
+                        { users.map(user => user.id === question.author && (
+                            // style={{backgroundImage: `url(${'/icons/user3.jpg'})` }} /> 
+                        <div  key={user.id} alt="user icon" className="user-icon"
+                              style={{backgroundImage: `url(${user.avatarURL})` }} />                                
+                        ))                               
+                                              
+                        }
                     </div>
                     <div className="question-text">
                         <h2>Would You rather ...</h2>

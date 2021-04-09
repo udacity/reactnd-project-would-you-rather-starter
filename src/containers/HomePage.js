@@ -1,10 +1,5 @@
-// TODO: ENABLE TOGGLE BETWEEN ANSWERED AND NOT ANSWERED QUESTION
-// FILTER QUESTION AND SHOW ANSWERED QUESTIONS BY SIGNEDIN USER INTO ANSWERED COMPONENT ✅
-
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { Link,useLocation } from 'react-router-dom';
-import PanelTitle from '../components/PanelTitle';
 import Question from '../components/Question';
 import Signin from './Signin';
 
@@ -13,10 +8,11 @@ class HomePage extends Component {
         toggle: false
     }
 
-    handleToggle =()=>this.setState(() => ({ toggle: !this.state.toggle }))
+    showAnswered =()=>this.setState(() => ({ toggle: true }))
+    hideAnswered =()=>this.setState(() => ({ toggle: false }))
 
     render() {
-        const { toggle } = this.state;
+    const { toggle } = this.state;
     const { questions, users, signUser }= this.props;
    
     const answeredQuestion = Object.values(questions).filter((question) =>{
@@ -37,26 +33,24 @@ class HomePage extends Component {
         <div className="panel-lg w-md"> 
             <div className="leader-title">
 
-                <div onClick={this.handleToggle}>
+                <div onClick={this.hideAnswered}>
                     Unanswered Question
                 </div> 
-                <div onClick={this.handleToggle}>
+                <div onClick={this.showAnswered}>
                     Answered Question
                 </div> 
-                
             </div>  
-              {  toggle ? <Question questions={answeredQuestion} users={Object.values(users)}/>  :
+              {  toggle===true ? <Question questions={answeredQuestion} users={Object.values(users)}/>  :
                  <Question questions={notAnsweredQuestion} users={Object.values(users)} />
              }
         </div>
-         
 
     )
 }
 }
 //const mapStateToProps =({questions, users, signUser}) =>({questions, users, signUser});
 function mapStateToProps({questions, users, signUser}){
-    console.log('questions',Object.values(questions));
+    //console.log('questions',Object.values(questions));
     //let test to print text of the option one
    // alert(JSON.stringify(signUser))
 

@@ -10,7 +10,6 @@ import ResultPage from './containers/ResultPage';
 import HomePage from './containers/HomePage';
 import { connect } from 'react-redux';
 import { getInitialData } from './actions/shared';
-import Question from './components/Question';
 import { logoutAction } from './actions/signInAction'
 
 class App extends React.Component {
@@ -22,7 +21,8 @@ class App extends React.Component {
      dispatch(logoutAction());
    }
   render() {
-    const {users, questions, signUser } = this.props;
+    // const {users, questions, signUser } = this.props;
+    const {users,signUser } = this.props;
   
     const authedUser = Object.values(users).filter(user => user.id ===signUser);   
     
@@ -53,12 +53,6 @@ class App extends React.Component {
         <Route path="/results" component={ResultPage} />
         <Route path="/signin" component={Signin} />
         <Route path="/leaderboard" component={LeaderBoard} />
-        {/* <Route path="/answered" render={()=>(
-          <div> answered </div>
-         )} />
-         <Route path="/unanswered" exact render={()=>(
-          <div> Not answered </div>
-         )} /> */}
         <Route path="/" component={HomePage} exact authUser={authedUser} />
       </main>
       
