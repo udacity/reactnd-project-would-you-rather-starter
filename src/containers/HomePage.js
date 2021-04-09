@@ -40,7 +40,7 @@ class HomePage extends Component {
                     Answered Question
                 </div> 
             </div>  
-              {  toggle===true ? <Question questions={answeredQuestion} users={Object.values(users)}/>  :
+              {  toggle ? <Question questions={answeredQuestion} users={Object.values(users)}/>  :
                  <Question questions={notAnsweredQuestion} users={Object.values(users)} />
              }
         </div>
