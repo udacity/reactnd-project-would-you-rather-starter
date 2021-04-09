@@ -2,7 +2,7 @@
 // FILTER QUESTION AND SHOW ANSWERED QUESTIONS BY SIGNEDIN USER INTO ANSWERED COMPONENT ✅
 
 import { connect } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import PanelTitle from '../components/PanelTitle';
 import Question from '../components/Question';
 import Signin from './Signin';
@@ -28,18 +28,20 @@ function HomePage(props){
         <div className="panel-lg w-md"> 
             <div className="leader-title">
 
-                <Link to="/unanswered">
+                <Link from='/answered' to="/unanswered">
                     Unanswered Question
                 </Link> 
-                <Link to="/answered">
+                <Link from='/unanswered' to="/unanswered">
                     Answered Question
                 </Link> 
                 
-            </div>   
-            <Question questions={answeredQuestion} users={Object.values(users)} className="answered" />
-            
-           
-                
+            </div>  
+             {/*answered questions  */}
+             
+                <Question questions={answeredQuestion} users={Object.values(users)}/>            
+                {/* unanswered questions */}
+                <Question questions={notAnsweredQuestion} users={Object.values(users)} />
+
         </div>
          
 
