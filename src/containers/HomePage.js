@@ -15,16 +15,15 @@ function HomePage(props){
                 (question.optionTwo.votes && question.optionTwo.votes.find(vote => vote === signUser))
     });
     const notAnsweredQuestion = Object.values(questions).filter((question) =>{
-        return (!question.optionOne.votes && question.optionOne.votes.find(vote => vote !== signUser)) || 
-                 (!question.optionTwo.votes && question.optionTwo.votes.find(vote => vote !== signUser))
+        return (question.optionOne.votes.find(vote => vote !== signUser)) || 
+                 (question.optionTwo.votes.find(vote => vote !== signUser))
      });
-     alert(JSON.stringify(notAnsweredQuestion));
+     
     if(!signUser.length){
     return <Signin />
    }
  
     return( 
-        
 
         <div className="panel-lg w-md"> 
             <div className="leader-title">
