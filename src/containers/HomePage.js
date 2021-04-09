@@ -1,14 +1,23 @@
 // TODO: ENABLE TOGGLE BETWEEN ANSWERED AND NOT ANSWERED QUESTION
 // FILTER QUESTION AND SHOW ANSWERED QUESTIONS BY SIGNEDIN USER INTO ANSWERED COMPONENT ✅
 
+import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import { Link,useLocation } from 'react-router-dom';
 import PanelTitle from '../components/PanelTitle';
 import Question from '../components/Question';
 import Signin from './Signin';
 
-function HomePage(props){
-    const { questions, users, signUser }= props;
+class HomePage extends Component {
+    state = {
+        toggle: false
+    }
+
+    handleToggle =()=>this.setState(() => ({ toggle: !this.state.toggle }))
+
+    render() {
+        const { toggle } = this.state;
+    const { questions, users, signUser }= this.props;
    
     const answeredQuestion = Object.values(questions).filter((question) =>{
        return (question.optionOne.votes && question.optionOne.votes.find(vote => vote === signUser)) || 
@@ -28,24 +37,22 @@ function HomePage(props){
         <div className="panel-lg w-md"> 
             <div className="leader-title">
 
-                <Link from='/answered' to="/unanswered">
+                <div onClick={this.handleToggle}>
                     Unanswered Question
-                </Link> 
-                <Link from='/unanswered' to="/unanswered">
+                </div> 
+                <div onClick={this.handleToggle}>
                     Answered Question
-                </Link> 
+                </div> 
                 
             </div>  
-             {/*answered questions  */}
-             
-                <Question questions={answeredQuestion} users={Object.values(users)}/>            
-                {/* unanswered questions */}
-                <Question questions={notAnsweredQuestion} users={Object.values(users)} />
-
+              {  toggle ? <Question questions={answeredQuestion} users={Object.values(users)}/>  :
+                 <Question questions={notAnsweredQuestion} users={Object.values(users)} />
+             }
         </div>
          
 
     )
+}
 }
 //const mapStateToProps =({questions, users, signUser}) =>({questions, users, signUser});
 function mapStateToProps({questions, users, signUser}){
@@ -55,4 +62,5 @@ function mapStateToProps({questions, users, signUser}){
 
     return {questions, users, signUser};
 }
+
 export default connect(mapStateToProps)(HomePage);
