@@ -8,8 +8,9 @@ export const saveQuestion= (question) => (dispatch, getState) =>{
   const { signUser:author, users } = getState();
   const {optionOneText, optionTwoText} = question; 
   
-  api.saveQuestion({optionOneText, optionTwoText,author}).then(question=>{   
-    
+  api.saveQuestion({optionOneText, optionTwoText,author}).then((question)=>{   
+    alert(`QUESTIONS: ${JSON.stringify(question)}`);
+    //alert(`USERS: ${JSON.stringify(users)}`);
     dispatch({ type:SAVE_QUESTION, question, author,users });
   });
 

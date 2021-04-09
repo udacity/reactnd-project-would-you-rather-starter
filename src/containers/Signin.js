@@ -28,7 +28,7 @@ class Signin extends React.Component{
                 <h2 className="center"> Signin</h2>
                  
                         <select onChange={(e)=>this.selectUser(e.target.value)}>     
-                            <option disabled>Select User</option>
+                            <option>Select User</option>
                             {
                                 Object.values(this.props.users).map(user =>(
                                     <option key={user.id} value={user.id}>{user.name}</option>

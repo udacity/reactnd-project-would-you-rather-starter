@@ -53,7 +53,12 @@ class App extends React.Component {
         <Route path="/results" component={ResultPage} />
         <Route path="/signin" component={Signin} />
         <Route path="/leaderboard" component={LeaderBoard} />
-        <Route path="/unanswered" component={Question} />
+        {/* <Route path="/answered" render={()=>(
+          <div> answered </div>
+         )} />
+         <Route path="/unanswered" exact render={()=>(
+          <div> Not answered </div>
+         )} /> */}
         <Route path="/" component={HomePage} exact authUser={authedUser} />
       </main>
       
