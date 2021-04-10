@@ -6,17 +6,18 @@ import PanelTitle from '../components/PanelTitle';
 class AnswerQuestion extends Component {
     //TODO: get question id and recordd answer chosen by a user
     render() {
-        const {signUser,question, name} = this.props; 
-        
+        const {signUser,question, user} = this.props; 
+      
+        const {name, avatarURL} = Object.values(user)[0];
         return(         
             <div className="panel w-md">
-                {  Object.values(question).map(({author, optionOne, optionTwo})=>(
+                {  Object.values(question).map(({id, optionOne, optionTwo})=>(
 
                         <>
-                            <PanelTitle title={`${author} Asks `} /> 
+                            <PanelTitle title={`${name} Asks `} /> 
                             <div className="question-detail">                    
                                 <div alt="user icon" className="user-icon"
-                                        style={{backgroundImage: `url(${''})` }} />                                
+                                        style={{backgroundImage: `url(${avatarURL})` }} />                                
                                 
                                 
                                 <div className="panel-body h-md">
@@ -44,10 +45,16 @@ class AnswerQuestion extends Component {
     }
     
 }
-//const mapStateToProps = (signUser, users, questions)=>({signUser, users, questions});
+
 function mapStateToProps({signUser, users, questions},{questionId}){
     const question = Object.values(questions).filter(({id})=>id === questionId)
-    console.log(JSON.stringify(question))
-    return {signUser, users, question};
+    const user = Object.values(users).map(user =>{
+        if(user.questions.find((question)=>question === questionId )){            
+            return user
+                
+        }
+    }).filter(x=>x !== undefined); // all question belongs are retrieved with null as value for the questions which doesn't match the condition so this line skipps null values
+
+    return {signUser, user, question};
 }
 export default connect(mapStateToProps)(AnswerQuestion);
