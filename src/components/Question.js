@@ -1,7 +1,10 @@
+//TODO: CHECK IF QUESTION IS ANSWERED THEN Redirect /questions/:id
+//        OTHER WISE REDIRECT TO WHERE 
+import { Link } from "react-router-dom";
 import PanelTitle from "./PanelTitle";
 
 export default function Question(props){
-    const { questions, users } = props;
+    const { questions, users, type } = props;
 
   return (
   <>
@@ -15,7 +18,7 @@ export default function Question(props){
                 <div className="question-detail">
                     <div  className="user-icon">
                         { users.map(user => user.id === question.author && (
-                            // style={{backgroundImage: `url(${'/icons/user3.jpg'})` }} /> 
+                           
                         <div  key={user.id} alt="user icon" className="user-icon"
                               style={{backgroundImage: `url(${user.avatarURL})` }} />                                
                         ))                               
@@ -25,9 +28,14 @@ export default function Question(props){
                     <div className="question-text">
                         <h2>Would You rather ...</h2>
                         <p> ...{question.optionOne.text.substring(1, 15)}... </p>
-                        {/* This is a button which will be used to take question id that a user is going to respond */}
-                        <button className="secondary-light">View Poll</button>
-                        {/* <button className="secondary-light" onClick={(e)=> props.history.push('/answer')}>View Poll</button> */}
+                        
+                        <Link to={`${type!=='answered' ? `/questions/${question.id}`:'/answeredRoute'}`}> {/** I fill answered questions here */}
+                             <button className="secondary-light">View Poll</button>
+                            </Link> 
+                        
+                        
+                  
+
                     </div>
                 </div>
              </div>

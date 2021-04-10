@@ -24,34 +24,33 @@ class App extends React.Component {
     // const {users, questions, signUser } = this.props;
     const {users,signUser } = this.props;
   
-    const authedUser = Object.values(users).filter(user => user.id ===signUser);   
-    
+    const authedUser = Object.values(users).filter(user => user.id ===signUser);  
+    const name = authedUser.map(({name})=> name); 
+   // alert(name)
     return (
       <BrowserRouter>    
       <header>
         <div className="nav">
           <Link className="item" to="/">Home</Link>
-          <Link className="item" to="/question">New Question</Link>
+          <Link className="item" to="/add">New Question</Link>
           <Link className="item" to="/leaderboard">Leader Board</Link>
-          {authedUser ? authedUser.map(({id, name})=> (
+          {name.length ?(
             <>            
               <Link className="item">Hello {name}</Link>
               <Link className="item" onClick={(e)=>this.logoutHandler()}>Logout</Link>
             </>
             
-          )):(
-            <Link className="item" to="/signin">Signin</Link>
-          )}
+          ):<> </>}
           
           
         </div>
         
       </header>
       <main>
-        <Route path="/question" component={NewQuestion} />
-        <Route path="/answer" component={AnswerQuestion} />  {/** Todo: path has to be /question/question/id */}
-        <Route path="/results" component={ResultPage} />
-        <Route path="/signin" component={Signin} />
+        <Route path="/add" component={NewQuestion} />
+        <Route path="/questions/:question_id" render={(props)=>(
+            <AnswerQuestion name={name} questionId={props.match.params.question_id}/>)} />  {/* ÷÷÷÷* Todo: path has to be /question/question/id */ }
+        
         <Route path="/leaderboard" component={LeaderBoard} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />
       </main>

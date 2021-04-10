@@ -1,28 +1,53 @@
+import React, { Component} from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import PanelTitle from '../components/PanelTitle';
 
-function AnswerQuestion(props){
+class AnswerQuestion extends Component {
     //TODO: get question id and recordd answer chosen by a user
-     
-    return(         
-          <div className="panel w-md">
-              <PanelTitle title={'Username Asks '} />
-              <div className="question-detail">
-                  <div  className="user-icon">
-                      <img src='../images/mother.png' />
-                  </div>
-                  <div className="panel-body h-md">
-                      <h2>Would You Rather ...</h2>
-                      <div className="flex-inline">
-                         <input type="radio" name="answer" /> <label for="answer"> Option 1 </label>
-                      </div>
-                      <div className="flex-inline">
-                            <input type="radio" name="answer" /> <label for="answer"> Option 1 </label>
-                      </div> 
-                      
-                      <button type="submit" onClick={props.history.push("/results")}>Submit</button>
-                  </div>
-              </div>
-          </div>
-       )
+    render() {
+        const {signUser,question, name} = this.props; 
+        
+        return(         
+            <div className="panel w-md">
+                {  Object.values(question).map(({author, optionOne, optionTwo})=>(
+
+                        <>
+                            <PanelTitle title={`${author} Asks `} /> 
+                            <div className="question-detail">                    
+                                <div alt="user icon" className="user-icon"
+                                        style={{backgroundImage: `url(${''})` }} />                                
+                                
+                                
+                                <div className="panel-body h-md">
+                                    <h2>Would You Rather ...</h2>
+                                    <div className="flex-inline">
+                                    <input type="radio" name="answer" /> 
+                                    <label for="answer"> 
+                                        {optionOne.text} 
+                                    </label>
+                                    </div>
+                                    <div className="flex-inline">
+                                        <input type="radio" name="answer" /> <label for="answer"> {optionTwo.text} </label>
+                                    </div> 
+                                    
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </>
+                    ))    
+                    
+                
+                }
+            </div>
+         )
+    }
+    
 }
-export default AnswerQuestion;
+//const mapStateToProps = (signUser, users, questions)=>({signUser, users, questions});
+function mapStateToProps({signUser, users, questions},{questionId}){
+    const question = Object.values(questions).filter(({id})=>id === questionId)
+    console.log(JSON.stringify(question))
+    return {signUser, users, question};
+}
+export default connect(mapStateToProps)(AnswerQuestion);
