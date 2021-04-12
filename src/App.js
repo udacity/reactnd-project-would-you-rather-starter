@@ -3,7 +3,6 @@ import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import './App.css';
 import NewQuestion from './containers/NewQuestion'
-import Signin from './containers/Signin';
 import LeaderBoard from './containers/LeaderBoard';
 import AnswerQuestion from './containers/AnswerQuestion';
 import ResultPage from './containers/ResultPage';

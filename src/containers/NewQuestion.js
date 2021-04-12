@@ -51,7 +51,7 @@ class NewQuestion extends React.Component{
   }
     
 }
-const mapStateToProps =()=>{
+const mapStateToProps =()=>({
 
-}
+})
 export default connect(mapStateToProps)(NewQuestion);

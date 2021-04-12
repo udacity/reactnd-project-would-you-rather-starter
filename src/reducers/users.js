@@ -5,6 +5,18 @@ export const users =(state= {}, action) =>{
     switch(action.type){
         case constant.FETCH_USERS:        
             return {...state, ...action.users};
+
+        case constant.APPEND_QUESTION_ON_USER: 
+            const {author, question} = action
+            return {
+                ...users,
+                [author]: {
+                    ...users[author],
+                    questions: users[author].questions.concat([question.id])
+
+                }
+            }
+        
         case constant.SAVE_QUESTION_ANSWER:
             let {authedUser, qid,  answer} = action;
            

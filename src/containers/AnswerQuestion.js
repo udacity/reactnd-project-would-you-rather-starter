@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import {saveQuestionAnswer} from '../actions/questions'
+import {saveQuestionAnswer} from '../actions/users'
 import PanelTitle from '../components/PanelTitle';
 
 class AnswerQuestion extends Component {
@@ -24,7 +24,7 @@ class AnswerQuestion extends Component {
       
    }
     render() {
-        const {signUser,question, user} = this.props; 
+        const {question, user} = this.props; 
       
         const {name, avatarURL} = Object.values(user)[0];
         return(         
@@ -33,7 +33,7 @@ class AnswerQuestion extends Component {
 
                         <>  
                             <PanelTitle title={`${name} Asks `} /> 
-                            <div className="question-detail">                    
+                            <div className="question-detail" key={id}>                    
                                 <div alt="user icon" className="user-icon"
                                         style={{backgroundImage: `url(${avatarURL})` }} />                                
                                 

@@ -16,12 +16,12 @@ class HomePage extends Component {
     const { questions, users, signUser }= this.props;
    
     const answeredQuestion = Object.values(questions).filter((question) =>{
-       return (question.optionOne.votes && question.optionOne.votes.find(vote => vote === signUser)) || 
-                (question.optionTwo.votes && question.optionTwo.votes.find(vote => vote === signUser))
+       return (question.optionOne && question.optionOne.votes.find(vote => vote === signUser)) || 
+                (question.optionTwo && question.optionTwo.votes.find(vote => vote === signUser))
     });
     const notAnsweredQuestion = Object.values(questions).filter((question) =>{
-        return (question.optionOne.votes.find(vote => vote !== signUser)) || 
-                 (question.optionTwo.votes.find(vote => vote !== signUser))
+        return (question.optionTwo && question.optionOne.votes.find(vote => vote !== signUser)) || 
+                 (question.optionTwo && question.optionTwo.votes.find(vote => vote !== signUser))
      });
      
     if(!signUser.length){
