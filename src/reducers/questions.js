@@ -16,7 +16,7 @@ export const questions =(state={}, action) =>{
         } 
         case constant.SAVE_QUESTION_ANSWER:
             let {authedUser, qid,  answer} = action;
-          users= updatedUser = {
+          users= {
                ...users,
                [authedUser]:{
                    ...users[authedUser],
@@ -27,9 +27,18 @@ export const questions =(state={}, action) =>{
                 }
             }
          
-           console.log(JSON.stringify(users));
+           //console.log(JSON.stringify(users));
           
-           return { users}
+           return  {
+                ...users,
+                [authedUser]:{
+                    ...users[authedUser],
+                    answers: {
+                    ...users[authedUser].answers,
+                    [qid]: answer
+                    }
+                }
+           };
          
             
         default:
