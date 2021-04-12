@@ -1,4 +1,4 @@
-import { FETCH_QUESTIONS, SAVE_QUESTION } from "../constants/index";
+import { FETCH_QUESTIONS, SAVE_QUESTION, SAVE_QUESTION_ANSWER } from "../constants/index";
 import * as api from "../utils/api";
 
 export const fetchQuestions= (questions) => (dispatch) =>{
@@ -15,11 +15,11 @@ export const saveQuestion= (question) => (dispatch, getState) =>{
   });
 }
 export const saveQuestionAnswer =(qid, answer) =>(dispatch, getState) =>{
- const { signUser } = getState();
- alert(signUser)
+ const { signUser:authedUser, users } = getState();
+
  
- api.saveQuestionAnswer({signUser, qid, answer}).then((answer)=>{
-   alert(JSON.stringify(answer));
+ api.saveQuestionAnswer({authedUser, qid, answer}).then(()=>{   
+  dispatch({ type:SAVE_QUESTION_ANSWER,authedUser, qid, answer, users });
  }).catch(err=> alert(err));
  
 }

@@ -21,7 +21,7 @@ class AnswerQuestion extends Component {
        const { dispatch } = this.props;
        const {answer, id} = this.state;
        dispatch(saveQuestionAnswer(id, answer));
-       //alert(`ANSWER:${this.state.answer} ID: ${this.state.id}`);
+      
    }
     render() {
         const {signUser,question, user} = this.props; 
@@ -31,7 +31,7 @@ class AnswerQuestion extends Component {
             <div className="panel w-md">
                 {  Object.values(question).map(({id, optionOne, optionTwo})=>(
 
-                        <>  {/* this.setId(id) */}
+                        <>  
                             <PanelTitle title={`${name} Asks `} /> 
                             <div className="question-detail">                    
                                 <div alt="user icon" className="user-icon"
