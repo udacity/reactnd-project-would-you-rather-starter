@@ -27,18 +27,9 @@ export const questions =(state={}, action) =>{
                 }
             }
          
-           //console.log(JSON.stringify(users));
+           console.log(JSON.stringify(users));
           
-           return  {
-                ...users,
-                [authedUser]:{
-                    ...users[authedUser],
-                    answers: {
-                    ...users[authedUser].answers,
-                    [qid]: answer
-                    }
-                }
-           };
+           return  {users};
          
             
         default:
