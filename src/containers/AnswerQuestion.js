@@ -1,10 +1,28 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import {saveQuestionAnswer} from '../actions/questions'
 import PanelTitle from '../components/PanelTitle';
 
 class AnswerQuestion extends Component {
-    //TODO: get question id and recordd answer chosen by a user
+    /*TODO: vote for a question 
+        1. add question to user votes and
+        2. use save answer from api.js
+    */
+   state =  {
+       answer: '',
+       id: '',
+   }
+   changeAnswer =(id, answer) =>this.setState(()=>({id, answer}));
+   
+   
+   handleSubmit = (e)=>{
+       e.preventDefault();
+
+       const { dispatch } = this.props;
+       const {answer, id} = this.state;
+       dispatch(saveQuestionAnswer(id, answer));
+       //alert(`ANSWER:${this.state.answer} ID: ${this.state.id}`);
+   }
     render() {
         const {signUser,question, user} = this.props; 
       
@@ -13,7 +31,7 @@ class AnswerQuestion extends Component {
             <div className="panel w-md">
                 {  Object.values(question).map(({id, optionOne, optionTwo})=>(
 
-                        <>
+                        <>  {/* this.setId(id) */}
                             <PanelTitle title={`${name} Asks `} /> 
                             <div className="question-detail">                    
                                 <div alt="user icon" className="user-icon"
@@ -21,18 +39,22 @@ class AnswerQuestion extends Component {
                                 
                                 
                                 <div className="panel-body h-md">
-                                    <h2>Would You Rather ...</h2>
-                                    <div className="flex-inline">
-                                    <input type="radio" name="answer" /> 
-                                    <label for="answer"> 
-                                        {optionOne.text} 
-                                    </label>
-                                    </div>
-                                    <div className="flex-inline">
-                                        <input type="radio" name="answer" /> <label for="answer"> {optionTwo.text} </label>
-                                    </div> 
                                     
-                                    <button type="submit">Submit</button>
+                                        <h2>Would You Rather ...</h2>
+                                        <div className="flex-inline">
+                                        <input type="radio" name="answer"  onChange={(e)=>this.changeAnswer(id, e.target.value) } value="optionOne" /> 
+                                        <label for="answer"> 
+                                            {optionOne.text} 
+                                        </label>
+                                        </div>
+                                        <div className="flex-inline">
+                                            <input type="radio" name="answer" onChange={(e)=>this.changeAnswer(id, e.target.value) } value="optionTwo"/> 
+                                            <label for="answer">
+                                                 {optionTwo.text} 
+                                            </label>
+                                        </div>
+                                        <button type="submit" onClick={this.handleSubmit}>Submit</button>
+                                   
                                 </div>
                             </div>
                         </>

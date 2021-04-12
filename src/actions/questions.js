@@ -13,5 +13,13 @@ export const saveQuestion= (question) => (dispatch, getState) =>{
     //alert(`USERS: ${JSON.stringify(users)}`);
     dispatch({ type:SAVE_QUESTION, question, author,users });
   });
-
+}
+export const saveQuestionAnswer =(qid, answer) =>(dispatch, getState) =>{
+ const { signUser } = getState();
+ alert(signUser)
+ 
+ api.saveQuestionAnswer({signUser, qid, answer}).then((answer)=>{
+   alert(JSON.stringify(answer));
+ }).catch(err=> alert(err));
+ 
 }
