@@ -27,9 +27,9 @@ export const questions =(state={}, action) =>{
                 }
             }
          
-           console.log(JSON.stringify(users));
+           console.log({...state, ...users});
           
-           return  {users};
+           return  {...state, users};
          
             
         default:

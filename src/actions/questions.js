@@ -17,7 +17,6 @@ export const saveQuestion= (question) => (dispatch, getState) =>{
 export const saveQuestionAnswer =(qid, answer) =>(dispatch, getState) =>{
  const { signUser:authedUser, users } = getState();
 
- 
  api.saveQuestionAnswer({authedUser, qid, answer}).then(()=>{   
   dispatch({ type:SAVE_QUESTION_ANSWER,authedUser, qid, answer, users });
  }).catch(err=> alert(err));
