@@ -6,6 +6,6 @@ import { signUser } from './signUser';
 
 export default combineReducers({
     questions,
-    users, 
+    users:users, 
     signUser
 })

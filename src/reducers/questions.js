@@ -14,24 +14,7 @@ export const questions =(state={}, action) =>{
                 questions: users[author].questions.concat(question.id)
             }
         } 
-        case constant.SAVE_QUESTION_ANSWER:
-            let {authedUser, qid,  answer} = action;
-          users= {
-               ...users,
-               [authedUser]:{
-                   ...users[authedUser],
-                   answers: {
-                    ...users[authedUser].answers,
-                    [qid]: answer
-                   }
-                }
-            }
-         
-           console.log({...state, ...users});
-          
-           return  {...state, users};
-         
-            
+       
         default:
             return state;
     }
