@@ -5,15 +5,18 @@ export const questions =(state={}, action) =>{
         case constant.FETCH_QUESTIONS:
             return {...state, ...action.questions};
         case constant.SAVE_QUESTION:           
-           const {author, question} = action;
-         
-        return  {
-            ...users,
-            [author]:{
-                ...users[author],
-                questions: users[author].questions.concat(question.id)
+           const { id, author, timestamp,optionOne,optionTwo, questions} = action;
+           
+        return {
+            ...questions,
+            [id]: {
+                id,
+                author, 
+                timestamp,
+                optionOne,
+                optionTwo,
             }
-        } 
+        }   
        
         default:
             return state;
