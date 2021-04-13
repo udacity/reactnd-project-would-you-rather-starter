@@ -163,13 +163,13 @@ progress::before{
  
 }
 .content{  
-  min-height: 200px;
+  max-height: 250px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   border: 2px #ccc solid;
   
-  padding: 16px 4px;
+  padding: 8px 4px;
 }
 .content > div {  
   padding: 16px;

@@ -4,10 +4,7 @@ import {saveQuestionAnswer} from '../actions/users'
 import PanelTitle from '../components/PanelTitle';
 
 class AnswerQuestion extends Component {
-    /*TODO: vote for a question 
-        1. add question to user votes and
-        2. use save answer from api.js
-    */
+
    state =  {
        answer: '',
        id: '',
@@ -34,7 +31,7 @@ class AnswerQuestion extends Component {
                         <>  
                             <PanelTitle title={`${name} Asks `} /> 
                             <div className="question-detail" key={id}>                    
-                                <div alt="user icon" className="user-icon"
+                                <div className="user-icon"
                                         style={{backgroundImage: `url(${avatarURL})` }} />                                
                                 
                                 
