@@ -3,6 +3,7 @@ import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import './App.css';
 import NewQuestion from './containers/NewQuestion'
+import Signin from './containers/Signin';
 import LeaderBoard from './containers/LeaderBoard';
 import AnswerQuestion from './containers/AnswerQuestion';
 import ResultPage from './containers/ResultPage';
@@ -48,7 +49,11 @@ class App extends React.Component {
       <main>
         <Route path="/add" component={NewQuestion} />
         <Route path="/questions/:question_id" render={(props)=>(
-            <AnswerQuestion name={name} questionId={props.match.params.question_id}/>)} />  {/* ÷÷÷÷* Todo: path has to be /question/question/id */ }
+         
+            props.showResult ===true ? <AnswerQuestion name={name} questionId={props.match.params.question_id}/> :
+            <ResultPage />
+          
+          )} />
         
         <Route path="/leaderboard" component={LeaderBoard} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />

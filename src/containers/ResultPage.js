@@ -2,6 +2,7 @@ import PanelTitle from '../components/PanelTitle';
 
 function ResultPage(){
     //TODO: get question id and recordd answer chosen by a user
+   // display a question and percentage of it's votes
   
     return(         
           <div className="panel-lg">
