@@ -11,6 +11,7 @@ import HomePage from './containers/HomePage';
 import { connect } from 'react-redux';
 import { getInitialData } from './actions/shared';
 import { logoutAction } from './actions/signInAction'
+import AnswerOrQuestionRoute from './components/AnswerOrQuestionRoute';
 
 class App extends React.Component {
    componentDidMount() {
@@ -48,12 +49,8 @@ class App extends React.Component {
       </header>
       <main>
         <Route path="/add" component={NewQuestion} />
-        <Route path="/questions/:question_id" render={(props)=>(
-         
-            props.showResult ===true ? <AnswerQuestion name={name} questionId={props.match.params.question_id}/> :
-            <ResultPage />
-          
-          )} />
+        <AnswerOrQuestionRoute path="/questions/:question_id"/>
+       
         
         <Route path="/leaderboard" component={LeaderBoard} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />
