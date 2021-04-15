@@ -108,6 +108,7 @@ button {  margin-top: 8px;  background: var(--primary);  color: var(--text-prima
   background-position: 50% 50%;
   background-size: cover;
   top: 50%;
+
 }
 .question-detail{ 
   display:grid;
@@ -128,12 +129,28 @@ label{  padding:5px;    margin: 10px; }
 .h-lg {height:auto;}
 progress {  height: 100px;  width: 90%;}
 progress::before{
-  content: '43%';
+  /* content: '43%'; percentage of vote on this choice */
   position: relative;
   left: 60%;
   top: 28px;
   font-size: 40px;
   color: black;
+}
+.wrap-result{
+  background: #c4c2c3;
+  height: 32px;
+  border-radius: 8px;
+
+}
+.wrap-content{
+  background: blue;
+  color: white;
+  margin: 0;
+  text-align: center;
+  height: 100%;
+  border-radius: 4px;
+  font-weight: bold;
+
 }
 .voted, .voted-by-other {
    padding:8px 32px;
@@ -216,4 +233,29 @@ div.user-icon{
 }
 .show-or-hide{ 
   display:none;
+}
+.chosen{ 
+  /* background: #; */
+  border: 5px #ff9a00 solid;
+  height: 64px;
+  width: 64px;
+  margin-top:16px;
+  text-align: center;
+  border-radius: 50%;
+  animation: anim 5s ease-out ;
+}
+@keyframes anim {
+  0% {
+    height: 16px;
+    width: 16px;
+  }
+  60%{
+    background: #ff9a00;
+    height: 16px;
+    width: 16px;
+  }
+  100% {
+    height: 64px;
+    width: 64px;
+  }
 }

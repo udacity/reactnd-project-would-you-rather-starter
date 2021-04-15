@@ -6,13 +6,7 @@ import PanelTitle from "./PanelTitle";
 import ResultPage from "../containers/ResultPage"
 
 class Question extends Component{
-    state = {
-        showResult:  false
-    }
-    openResultPage  (url) {      
-      console.log(url);
-     this.setState({showResult:true})
-    };
+   
     render(){
     const { questions, users, type } = this.props;
     
@@ -41,11 +35,11 @@ class Question extends Component{
                         <h2>Would You rather ...</h2>
                         <p> ...{question.optionOne.text.substring(1, 15)}... </p>
                         {type!=='answered' ?(
-                            <Link to={`/questions/${question.id}`} showResult={false}> 
+                            <Link to={`/questions/${question.id}`}> 
                                <button className="secondary-light">View Poll </button>
                             </Link> 
                             ):(
-                                <Link to={`/questions/${question.id}`} showResult={true}> 
+                                <Link to={`/result/${question.id}`}> 
                                <button className="secondary-light">View Poll </button>
                             </Link> 
                             )

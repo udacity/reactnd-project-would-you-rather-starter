@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import {saveQuestionAnswer} from '../actions/users'
 import PanelTitle from '../components/PanelTitle';
+import ResultPage from './ResultPage';
 
 class AnswerQuestion extends Component {
 
@@ -24,6 +25,8 @@ class AnswerQuestion extends Component {
         const {question, user} = this.props; 
       
         const {name, avatarURL} = Object.values(user)[0];
+        
+        
         return(         
             <div className="panel w-md">
                 {  Object.values(question).map(({id, optionOne, optionTwo})=>(

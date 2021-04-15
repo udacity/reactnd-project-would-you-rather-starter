@@ -11,7 +11,7 @@ import HomePage from './containers/HomePage';
 import { connect } from 'react-redux';
 import { getInitialData } from './actions/shared';
 import { logoutAction } from './actions/signInAction'
-import AnswerOrQuestionRoute from './components/AnswerOrQuestionRoute';
+
 
 class App extends React.Component {
    componentDidMount() {
@@ -27,7 +27,7 @@ class App extends React.Component {
   
     const authedUser = Object.values(users).filter(user => user.id ===signUser);  
     const name = authedUser.map(({name})=> name); 
-   // alert(name)
+   
     return (
       <BrowserRouter>    
       <header>
@@ -49,8 +49,12 @@ class App extends React.Component {
       </header>
       <main>
         <Route path="/add" component={NewQuestion} />
-        <AnswerOrQuestionRoute path="/questions/:question_id"/>
-       
+        <Route path="/questions/:question_id" render={(props)=>(         
+         <AnswerQuestion name={name} questionId={props.match.params.question_id}/> 
+        )}/>
+       <Route path="/result/:question_id" render={(props)=>(         
+         <ResultPage name={name} questionId={props.match.params.question_id}/> 
+        )}/>
         
         <Route path="/leaderboard" component={LeaderBoard} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />
