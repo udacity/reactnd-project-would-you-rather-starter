@@ -16,6 +16,7 @@ class NewQuestion extends React.Component{
    const { dispatch } = this.props;
    const {optionOneText, optionTwoText} = this.state;
    dispatch(saveQuestion({ optionOneText, optionTwoText}))
+   this.props.history.push("/");
   }
 
   handleOptionOneChange =(optionOneText)=>this.setState(()=>({optionOneText}));

@@ -27,6 +27,7 @@ class App extends React.Component {
   
     const authedUser = Object.values(users).filter(user => user.id ===signUser);  
     const name = authedUser.map(({name})=> name); 
+   // if(this.props.params.question)
    
     return (
       <BrowserRouter>    
