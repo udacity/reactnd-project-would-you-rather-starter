@@ -1,4 +1,4 @@
-import { FETCH_QUESTIONS, SAVE_QUESTION,APPEND_QUESTION_ON_USER } from "../constants/index";
+import { FETCH_QUESTIONS, SAVE_QUESTION } from "../constants/index";
 import * as api from "../utils/api";
 
 export const fetchQuestions= (questions) => (dispatch) =>{
@@ -12,6 +12,6 @@ export const saveQuestion= (question) => (dispatch, getState) =>{
     
    const {id, optionOne, optionTwo, timestamp } = question;
     dispatch({ type:SAVE_QUESTION, question, author,users, id, optionOne, optionTwo, timestamp, questions });
-    //dispatch({type: APPEND_QUESTION_ON_USER, question, author})
+    dispatch({ type:FETCH_QUESTIONS, question})
   });
 }

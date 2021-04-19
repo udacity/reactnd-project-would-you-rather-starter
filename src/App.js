@@ -3,7 +3,6 @@ import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import './App.css';
 import NewQuestion from './containers/NewQuestion'
-import Signin from './containers/Signin';
 import LeaderBoard from './containers/LeaderBoard';
 import AnswerQuestion from './containers/AnswerQuestion';
 import ResultPage from './containers/ResultPage';
@@ -27,7 +26,7 @@ class App extends React.Component {
   
     const authedUser = Object.values(users).filter(user => user.id ===signUser);  
     const name = authedUser.map(({name})=> name); 
-   // if(this.props.params.question)
+ 
    
     return (
       <BrowserRouter>    
@@ -67,6 +66,4 @@ class App extends React.Component {
   }
 }
 const mapStateToProps = ({users, questions, signUser}) =>({ users, questions, signUser });
-
- //Todo: if signed user redirect to homepage else redirect to login
 export default connect(mapStateToProps)(App);

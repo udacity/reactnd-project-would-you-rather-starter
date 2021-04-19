@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import PanelTitle from '../components/PanelTitle';
 import Signin from '../containers/Signin';
 function LeaderBoard(props){
    // TODO: COUNT ANSWERED QUESTIONS AND ANSWERED QUESTIONS
@@ -11,6 +10,7 @@ function LeaderBoard(props){
     return(<div className="leaderboard-container"> 
             {
                  Object.values(users).map(({name, avatarURL, questions, answers}) =>(
+                     
                     <div className="content">
                         <div className="score-body">
                             <div className="user-icon" style={{backgroundImage: `url(${avatarURL})` }}></div>
@@ -41,7 +41,7 @@ function LeaderBoard(props){
                             </div>
                         </div>
                     </div>
-               ))
+               )).sort((a, b)=> a-b)
             } 
             
          </div>
@@ -49,10 +49,10 @@ function LeaderBoard(props){
     ) 
 }
 function mapStateToProps ({signUser, questions, users}){
-   
+ 
     return {
         signUser, 
-        questions, 
+        questions,
         users
     }
 }
