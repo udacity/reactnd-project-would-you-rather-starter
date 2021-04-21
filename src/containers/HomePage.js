@@ -40,19 +40,17 @@ class HomePage extends Component {
                     Answered Question
                 </div> 
             </div>  
-              {  toggle ? <Question questions={answeredQuestion} users={Object.values(users)} type={'answered'} />  :
-                 <Question questions={notAnsweredQuestion} users={Object.values(users)} type={'unanswered'} />
+              {  toggle ? <Question questions={answeredQuestion} users={Object.values(users)}  />  :
+                 <Question questions={notAnsweredQuestion} users={Object.values(users)} />
              }
         </div>
 
     )
 }
 }
-//const mapStateToProps =({questions, users, signUser}) =>({questions, users, signUser});
+
 function mapStateToProps({questions, users, signUser}){
-    //console.log('questions',Object.values(questions));
-    //let test to print text of the option one
-   // alert(JSON.stringify(signUser))
+   
 
     return {questions, users, signUser};
 }

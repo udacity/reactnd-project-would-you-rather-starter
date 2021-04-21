@@ -10,6 +10,7 @@ import HomePage from './containers/HomePage';
 import { connect } from 'react-redux';
 import { getInitialData } from './actions/shared';
 import { logoutAction } from './actions/signInAction'
+import ShowQuestion from './containers/ShowQuestion';
 
 
 class App extends React.Component {
@@ -49,16 +50,11 @@ class App extends React.Component {
       </header>
       <main>
         <Route path="/add" component={NewQuestion} />
-        <Route path="/questions/:question_id" render={(props)=>(         
-         <AnswerQuestion name={name} questionId={props.match.params.question_id}/> 
-        )}/>
-       <Route path="/result/:question_id" render={(props)=>(         
-         <ResultPage name={name} questionId={props.match.params.question_id}/> 
-        )}/>
-        
+        <Route path="/questions/:question_id" component={ShowQuestion} /> 
+  
         <Route path="/leaderboard" component={LeaderBoard} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />
-      </main>
+      </main>  
       
      
     </BrowserRouter>

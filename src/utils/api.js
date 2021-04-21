@@ -10,3 +10,5 @@ export const initialData = () =>{
 export const saveQuestion=(info)=>_saveQuestion(info); //question
 
 export const saveQuestionAnswer=(info)=>_saveQuestionAnswer(info); // { authedUser, qid, answer }
+
+export const isQuestionAnswered =(optionOne, optionTwo, signUser)=>optionOne.votes.concat(optionTwo.votes).includes(signUser) // {}

@@ -1,22 +1,11 @@
-import { connect } from 'react-redux';
+
 import PanelTitle from '../components/PanelTitle';
-
 function ResultPage(props){
-    //TODO: get question id and recordd answer chosen by a user
-   // display a question and percentage of it's votes
-  
-   const {question, user, signUser} = props; 
-   
-   console.log(JSON.stringify(question))
-   //console.log(JSON.stringify(user))
-
-   // CHECK IF QUESTION ID  INCLUDE IN  LOGGED IN USER ANSWERS
-   // CHECK THAT QUESTION ID AND SAY IT'S THE SAME AS LOGGED IN USER CHOICE
-   //COUNT VOTES ON EVERY QUESTION OPTION    
-    
-    if(Object.values(user)[0]){
-      const {name, avatarURL} = Object.values(user)[0];
-   
+  const {signUser, question, user } = props;
+  const {id, optionOne, optionTwo} = question;
+  const {name, avatarURL} = user;
+  const percent1 = ((optionOne.votes.length * 100)/ (optionOne.votes.length + optionTwo.votes.length));
+  const percent2 = ((optionTwo.votes.length * 100)/ (optionTwo.votes.length + optionOne.votes.length));
     return(         
           <div className="panel-lg">
               <PanelTitle title={`Asked By ${name}`} />
@@ -24,8 +13,7 @@ function ResultPage(props){
                   <div  className="user-icon" style={{backgroundImage: `url(${avatarURL})`, alignText: 'center' }}>
                       
                   </div>
-                  {  Object.values(question).map(({id, optionOne, optionTwo})=>(
-                    <>
+
                       <div className="panel-body" key={id}>
                           <h2>Results: </h2>
                           
@@ -38,10 +26,8 @@ function ResultPage(props){
                             <div className="wrap-result"> 
                              
                               <div className="wrap-content" 
-                                   style={{width: `${optionOne.votes && (optionOne.votes.length * 100)/
-                                     (optionTwo.votes.length + optionOne.votes.length)}%` }}>
-                                  {optionOne.votes && (optionOne.votes.length * 100)/
-                                     (optionTwo.votes.length + optionOne.votes.length)} %
+                                   style={{width: `${percent1}%` }}>
+                                  {percent1.toFixed(2)} %
                               </div>
                             </div>
                             <strong> {optionOne.votes.length} Out Of {optionTwo.votes.length + optionOne.votes.length} Votes</strong>
@@ -54,9 +40,8 @@ function ResultPage(props){
                             
                             <div className="wrap-result"> 
                                 
-                              <div className="wrap-content" style={{width:`${ optionTwo.votes && (optionTwo.votes.length * 100)/ 
-                              (optionTwo.votes.length + optionOne.votes.length) }%`}}>
-                                  {(optionTwo.votes.length * 100)/ (optionTwo.votes.length + optionOne.votes.length)} %
+                              <div className="wrap-content" style={{width:`${ percent2 }%`}}>
+                                  {percent2.toFixed(2)} %
                               </div>
                             </div>
                             <strong> {optionTwo.votes.length} Out Of {optionTwo.votes.length + optionOne.votes.length} Votes</strong>
@@ -66,23 +51,10 @@ function ResultPage(props){
                   </div>
                     
                   </div>
-                    </>
-                  ))}
+
                 </div>
                    
           </div>
        )
     }
-}
-function mapStateToProps({signUser, users, questions},{questionId}){
-  const question = Object.values(questions).filter(({id})=>id === questionId)
-  const user = Object.values(users).map(user =>{
-      if(user.questions.find((question)=>question === questionId )){            
-          return user
-              
-      }
-  }).filter(x=>x !== undefined); // all question belongs are retrieved with null as value for the questions which doesn't match the condition so this line skipps null values
-
-  return {signUser, user, question};
-}
-export default connect(mapStateToProps)(ResultPage);
+export default ResultPage;
