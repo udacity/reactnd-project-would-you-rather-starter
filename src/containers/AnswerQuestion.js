@@ -33,13 +33,13 @@ class AnswerQuestion extends Component {
                             <h2>Would You Rather ...</h2>
                             <div className="flex-inline">
                             <input type="radio" name="answer"  onChange={(e)=>this.changeAnswer(id, e.target.value) } value="optionOne" /> 
-                            <label for="answer"> 
+                            <label htmlFor="answer"> 
                                 {optionOne.text} 
                             </label>
                             </div>
                             <div className="flex-inline">
                                 <input type="radio" name="answer" onChange={(e)=>this.changeAnswer(id, e.target.value) } value="optionTwo"/> 
-                                <label for="answer">
+                                <label htmlFor="answer">
                                         {optionTwo.text} 
                                 </label>
                             </div>

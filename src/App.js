@@ -15,11 +15,10 @@ import ShowQuestion from './containers/ShowQuestion';
 
 class App extends React.Component {
    componentDidMount() {
-    this.props.dispatch(getInitialData())
+    this.props.getInitialData()
    }
    logoutHandler() {
-     const {dispatch} = this.props;
-     dispatch(logoutAction());
+    this.props.logoutAction();
    }
   render() {
     // const {users, questions, signUser } = this.props;
@@ -62,4 +61,8 @@ class App extends React.Component {
   }
 }
 const mapStateToProps = ({users, questions, signUser}) =>({ users, questions, signUser });
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  getInitialData: ()=>dispatch(getInitialData()),
+  logoutAction: () => dispatch(logoutAction())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);

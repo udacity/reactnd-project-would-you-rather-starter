@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import Question from '../components/Question';
+import { isQuestionAnswered } from '../utils/api';
 import Signin from './Signin';
 
 class HomePage extends Component {
@@ -13,20 +14,14 @@ class HomePage extends Component {
 
     render() {
     const { toggle } = this.state;
-    const { questions, users, signUser }= this.props;
+    const {answeredQuestion,notAnsweredQuestion, users, signUser }= this.props;
    
-    const answeredQuestion = Object.values(questions).filter((question) =>{
-       return (question.optionOne && question.optionOne.votes.find(vote => vote === signUser)) || 
-                (question.optionTwo && question.optionTwo.votes.find(vote => vote === signUser))
-    });
-    const notAnsweredQuestion = Object.values(questions).filter((question) =>{
-        return (question.optionTwo && question.optionOne.votes.find(vote => vote !== signUser)) || 
-                 (question.optionTwo && question.optionTwo.votes.find(vote => vote !== signUser))
-     });
+  
      
     if(!signUser.length){
     return <Signin />
    }
+    
  
     return( 
 
@@ -50,9 +45,16 @@ class HomePage extends Component {
 }
 
 function mapStateToProps({questions, users, signUser}){
-   
+ const answeredQuestion = Object.values(questions).filter(({optionOne, optionTwo}) =>  isQuestionAnswered(optionOne,optionTwo, signUser))
+ const notAnsweredQuestion = Object.values(questions).filter(({optionOne, optionTwo}) =>  !isQuestionAnswered(optionOne,optionTwo, signUser))
 
-    return {questions, users, signUser};
+    return {
+        answeredQuestion,
+        notAnsweredQuestion,
+         users, 
+         signUser,
+         questions
+        };
 }
 
 export default connect(mapStateToProps)(HomePage);
