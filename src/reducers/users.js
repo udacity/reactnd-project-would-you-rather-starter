@@ -6,16 +6,6 @@ export const users =(state= {}, action) =>{
         case constant.FETCH_USERS:        
             return {...state, ...action.users};
 
-        case constant.SAVE_QUESTION: 
-            const {author, question} = action
-            return {
-                ...users,
-                [author]:{
-                    ...users[author],
-                    questions: users[author].questions.concat(question.id)
-                }
-            } 
-        
         case constant.SAVE_QUESTION_ANSWER:
             let {authedUser, qid,  answer} = action;
            
