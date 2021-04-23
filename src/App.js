@@ -26,10 +26,13 @@ class App extends React.Component {
     const authedUser = Object.values(users).filter(user => user.id ===signUser);  
     const name = authedUser.map(({name})=> name); 
  
-   
+ 
     return (
-      <BrowserRouter>    
+      <BrowserRouter>   
+      
       <header>
+      {
+         signUser.length &&(
         <div className="nav">
           <Link className="item" to="/">Home</Link>
           <Link className="item" to="/add">New Question</Link>
@@ -44,7 +47,7 @@ class App extends React.Component {
           
           
         </div>
-        
+         )} 
       </header>
       <main>
         <Route path="/add" component={NewQuestion} />

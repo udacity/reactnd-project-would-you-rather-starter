@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { isQuestionAnswered } from "../utils/api";
 import AnswerQuestion from "./AnswerQuestion";
 import ResultPage from "./ResultPage";
@@ -8,8 +9,11 @@ import ResultPage from "./ResultPage";
 class ShowQuestion extends Component {
 
 render(){
-    const {question, user, isAnswered} = this.props; 
-    
+    const {question, user, isAnswered, signUser} = this.props; 
+    if(!signUser.length){
+        this.props.history.push("/")
+    }
+        
         return (
             isAnswered?
                 <ResultPage question={question} signUser={this.props.signUser} user={user}/>
@@ -31,4 +35,4 @@ function mapStateToProps({signUser, users, questions}, ownProps) {
          isAnswered: isQuestionAnswered(optionTwo, optionOne, signUser)
         };
 }
-export default connect(mapStateToProps)(ShowQuestion);
+export default withRouter(connect(mapStateToProps)(ShowQuestion));

@@ -1,8 +1,10 @@
 
 import React from  'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { saveQuestion } from '../actions/questions';
 import PanelTitle from '../components/PanelTitle';
+
 class NewQuestion extends React.Component{
   state = {
     optionOneText: '',
@@ -21,9 +23,14 @@ class NewQuestion extends React.Component{
 
   handleOptionOneChange =(optionOneText)=>this.setState(()=>({optionOneText}));
   handleOptionTwoChange =(optionTwoText)=>this.setState(()=>({optionTwoText}));
+    
 
   render(){
+    if(!this.props.signUser.length){
+      this.props.history.push("/");
+    }
     return(
+       
       <form onSubmit={this.handleSubmit} id='form-data'>
         <div className="panel">
           <PanelTitle title="New Question"/>
@@ -52,7 +59,5 @@ class NewQuestion extends React.Component{
   }
     
 }
-const mapStateToProps =()=>({
-
-})
-export default connect(mapStateToProps)(NewQuestion);
+const mapStateToProps =({signUser})=>({ signUser})
+export default withRouter(connect(mapStateToProps)(NewQuestion));

@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Signin from '../containers/Signin';
 function LeaderBoard(props){
    // TODO: COUNT ANSWERED QUESTIONS AND ANSWERED QUESTIONS
    const {user, signUser, users} = props;
 
-   if(typeof signUser === 'object'){
-       return <Signin />
-   }
+    if(!signUser.length){
+        props.history.push("/");
+    }
     return(<div className="leaderboard-container"> 
             {
                  Object.values(users).map(({name, avatarURL, questions, answers}) =>(
@@ -56,4 +57,4 @@ function mapStateToProps ({signUser, questions, users}){
         users
     }
 }
-export default connect(mapStateToProps)(LeaderBoard);
+export default withRouter(connect(mapStateToProps)(LeaderBoard));
