@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 function LeaderBoard(props){
-   // TODO: COUNT ANSWERED QUESTIONS AND ANSWERED QUESTIONS
+   
    let {signUser, users} = props;
    users = Object.values(users).sort((a, b)=> (Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + b.questions.length))
     if(!signUser.length){
@@ -12,7 +12,7 @@ function LeaderBoard(props){
             {
                  Object.values(users).map(({name, avatarURL, questions, answers}) =>(
                      
-                    <div className="content">
+                    <div className="content" key={name}>
                         <div className="score-body">
                             <div className="user-icon" style={{backgroundImage: `url(${avatarURL})` }}></div>
 

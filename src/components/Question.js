@@ -1,18 +1,14 @@
-//TODO: CHECK IF QUESTION IS ANSWERED THEN Redirect /questions/:id
-//        OTHER WISE REDIRECT TO WHERE 
+
 import React,{ Component} from 'react';
 import { Link } from "react-router-dom";
 import PanelTitle from "./PanelTitle";
-import ResultPage from "../containers/ResultPage"
 
 class Question extends Component{
    
     render(){
     const { questions, users, type } = this.props;
-    
 
   return (
-
     <>
         {questions.map((question)=>(
             <div className="panel question" >

@@ -19,7 +19,7 @@ function ResultPage(props){
                           <h2>Results: </h2>
                           
                          { 
-                           optionOne.votes.map((v) => v === signUser&& (<div className="chosen">Your Vote</div>))
+                           optionOne.votes.map((v) => v === signUser&& (<div className="chosen" key={v}>Your Vote</div>))
                          }
                           <div className="voted">
                             <h3 className="text-voted">Would you rather {optionOne.text}</h3>                        
