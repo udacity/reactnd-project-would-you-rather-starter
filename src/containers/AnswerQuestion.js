@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
-import {saveQuestionAnswer} from '../actions/users'
+import {saveQuestionAnswer} from '../actions/questions'
 import PanelTitle from '../components/PanelTitle';
+import ResultPage from './ResultPage';
 
 class AnswerQuestion extends Component {
 
@@ -21,16 +21,16 @@ class AnswerQuestion extends Component {
        this.setState({answered: true})
    }
     render() {
-    const {  question, user } = this.props;
+    const {  question, user,signUser } = this.props;
       const {id, optionOne, optionTwo} = question;
         const {name, avatarURL} = user;
         const {answered} = this.state;
             if(answered){
-                return <Redirect to={`/questions/${id}`} />
-              //this.props.history.push(`${id}`)
+                return <ResultPage question={question} signUser={signUser} user={user}/>
+              
             }
         return ( <> 
-            {/* { answered ? (<Redirect to={`/questions/${id}`} />):( */}
+            
             <div className="panel w-md">
                 <PanelTitle title={`${name} Asks: `} /> 
                 <div className="question-detail" key={id}>                    
@@ -56,16 +56,14 @@ class AnswerQuestion extends Component {
                     </div>
                
             </div>
-            {/* )} */}
+            
         </> 
         )
     }
     
 }
-const mapStateToProps =({question, signUser})=> ({
-    
-})
+// const
 const mapDispatchToProps = dispatch => ({
     saveQuestionAnswer: (id, answer) => dispatch(saveQuestionAnswer(id, answer))
 })
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AnswerQuestion));
+export default connect(null, mapDispatchToProps)(AnswerQuestion);

@@ -1,4 +1,5 @@
 
+import { connect } from 'react-redux';
 import PanelTitle from '../components/PanelTitle';
 function ResultPage(props){
   const {signUser, question, user } = props;
@@ -57,4 +58,12 @@ function ResultPage(props){
           </div>
        )
     }
-export default ResultPage;
+  const mapStateToProps =({questions, users, signUser}, ownProps)=>{
+    const question = questions[ownProps.question.id] || questions[ownProps.question];
+   return {
+     question,
+     user: users[question.author],
+     signUser
+   }
+  }
+export default connect(mapStateToProps)(ResultPage);
