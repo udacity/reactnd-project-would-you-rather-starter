@@ -44,8 +44,8 @@ class HomePage extends Component {
 }
 
 function mapStateToProps({questions, users, signUser}){
- const answeredQuestion = Object.values(questions).filter(({optionOne, optionTwo}) =>  isQuestionAnswered(optionOne,optionTwo, signUser))
- const notAnsweredQuestion = Object.values(questions).filter(({optionOne, optionTwo}) =>  !isQuestionAnswered(optionOne,optionTwo, signUser))
+ const answeredQuestion = Object.values(questions).filter(({optionOne, optionTwo}) =>  isQuestionAnswered(optionOne,optionTwo, signUser)).sort((a, b)=>b.timestamp - a.timestamp)
+ const notAnsweredQuestion = Object.values(questions).filter(({optionOne, optionTwo}) =>  !isQuestionAnswered(optionOne,optionTwo, signUser)).sort((a, b)=>b.timestamp - a.timestamp)
 
     return {
         answeredQuestion,
