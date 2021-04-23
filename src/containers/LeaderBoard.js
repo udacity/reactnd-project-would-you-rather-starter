@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Signin from '../containers/Signin';
+
 function LeaderBoard(props){
    // TODO: COUNT ANSWERED QUESTIONS AND ANSWERED QUESTIONS
-   const {user, signUser, users} = props;
+   const {signUser, users} = props;
 
     if(!signUser.length){
         props.history.push("/");
@@ -42,19 +42,18 @@ function LeaderBoard(props){
                             </div>
                         </div>
                     </div>
-               )).sort((a, b)=> a-b)
+               ))
             } 
             
          </div>
        
     ) 
 }
-function mapStateToProps ({signUser, questions, users}){
- 
-    return {
-        signUser, 
-        questions,
-        users
+function mapStateToProps ({signUser, users}){
+    
+    return {        
+        users, 
+        signUser
     }
 }
 export default withRouter(connect(mapStateToProps)(LeaderBoard));
