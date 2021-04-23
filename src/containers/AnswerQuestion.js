@@ -15,9 +15,9 @@ class AnswerQuestion extends Component {
 
    handleSubmit = (e)=>{
        e.preventDefault();
-       const { dispatch } = this.props;
+      
        const {answer, id} = this.state;
-       dispatch(saveQuestionAnswer(id, answer));
+       this.props.saveQuestionAnswer(id, answer);
        this.setState({answered: true})
    }
     render() {
@@ -26,7 +26,8 @@ class AnswerQuestion extends Component {
         const {name, avatarURL} = user;
         const {answered} = this.state;
             if(answered){
-                this.props.history.push(`${id}`)
+                return <Redirect to={`/questions/${id}`} />
+              //this.props.history.push(`${id}`)
             }
         return ( <> 
             {/* { answered ? (<Redirect to={`/questions/${id}`} />):( */}
@@ -61,5 +62,10 @@ class AnswerQuestion extends Component {
     }
     
 }
-const mapStateToProps =({})=> ({})
-export default withRouter(connect(mapStateToProps)(AnswerQuestion));
+const mapStateToProps =({question, signUser})=> ({
+    
+})
+const mapDispatchToProps = dispatch => ({
+    saveQuestionAnswer: (id, answer) => dispatch(saveQuestionAnswer(id, answer))
+})
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AnswerQuestion));

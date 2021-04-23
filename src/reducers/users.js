@@ -8,9 +8,9 @@ export const users =(state= {}, action) =>{
 
         case constant.SAVE_QUESTION_ANSWER:
             let {authedUser, qid,  answer} = action;
-           
+            console.log({...state})
             return  {
-                ...users,
+                ...state,
                 [authedUser]:{
                     ...users[authedUser],
                     answers: {

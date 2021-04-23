@@ -19,10 +19,9 @@ class HomePage extends Component {
   
      
     if(!signUser.length){
-    return <Signin />
+      return <Signin />
    }
-    
- 
+
     return( 
 
         <div className="panel-lg w-md"> 
