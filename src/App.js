@@ -20,19 +20,16 @@ class App extends React.Component {
     this.props.logoutAction();
    }
   render() {
-    // const {users, questions, signUser } = this.props;
     const {users,signUser } = this.props;
-  
     const authedUser = Object.values(users).filter(user => user.id ===signUser);  
     const name = authedUser.map(({name})=> name); 
- 
- 
+
     return (
       <BrowserRouter>   
       
       <header>
-      {
-         signUser.length &&(
+        {
+      signUser.length &&(
         <div className="nav">
           <Link className="item" to="/">Home</Link>
           <Link className="item" to="/add">New Question</Link>
@@ -45,7 +42,6 @@ class App extends React.Component {
             
           ):<> </>}
           
-          
         </div>
          )} 
       </header>
@@ -56,8 +52,7 @@ class App extends React.Component {
         <Route path="/leaderboard" component={LeaderBoard} />
         <Route path="/" component={HomePage} exact authUser={authedUser} />
       </main>  
-      
-     
+
     </BrowserRouter>
     ) 
   }

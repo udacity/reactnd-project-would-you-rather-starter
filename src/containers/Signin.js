@@ -13,8 +13,7 @@ class Signin extends React.Component{
          
         const { dispatch } = this.props;        
         dispatch(signInAction(this.state.user))
-       // this.props.history.push('/');
-      // window.location.assign('/');
+     
     }
     selectUser = (loggedInuser) => this.setState(()=>({user: loggedInuser}));
      
