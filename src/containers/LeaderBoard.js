@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 function LeaderBoard(props){
    // TODO: COUNT ANSWERED QUESTIONS AND ANSWERED QUESTIONS
-   const {signUser, users} = props;
-
+   let {signUser, users} = props;
+   users = Object.values(users).sort((a, b)=> (Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + b.questions.length))
     if(!signUser.length){
         props.history.push("/");
     }
