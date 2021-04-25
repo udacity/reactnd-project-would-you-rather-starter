@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom';
-import './App.css';
 import NewQuestion from './containers/NewQuestion'
 import LeaderBoard from './containers/LeaderBoard';
 
@@ -62,4 +61,5 @@ const mapDispatchToProps = dispatch => ({
   getInitialData: ()=>dispatch(getInitialData()),
   logoutAction: () => dispatch(logoutAction())
 });
+export {App as MyApp} 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

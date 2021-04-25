@@ -200,3 +200,6 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
     }, 500)
   })
 }
+
+// Todo: export data for testing purpose
+export {users, questions}
