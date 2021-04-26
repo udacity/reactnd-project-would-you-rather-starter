@@ -18,7 +18,7 @@ const initialState = {users, questions, authedUser: 'tylermcginnis'};
 test('renders learn react link', () => {
   renderWithState(<MyApp />,initialState );
 
-  // expect(screen.getByText('Home')).toBeInTheDocument();
+  //w\ expect(screen.getByText('Home')).toBeInTheDocument();
   // expect(screen.getByText('New Question')).toBeInTheDocument();
   // expect(screen.getByText('Leader Board')).toBeInTheDocument();
   // expect(screen.getByText('Hello')).toBeInTheDocument();
