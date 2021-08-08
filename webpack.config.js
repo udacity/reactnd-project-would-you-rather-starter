@@ -66,6 +66,10 @@ module.exports = {
           to: "src/img",
           context: "src/img",
         },
+        {
+          from: "src/.htaccess",
+          to: "./",
+        },
       ],
     }),
   ],
