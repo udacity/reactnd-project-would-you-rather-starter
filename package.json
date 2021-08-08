@@ -1,0 +1,62 @@
+{
+  "name": "udacity-react-nanodegree--project--would-you-rather",
+  "version": "1.0.0",
+  "description": "Udacity. React nanodegree. Would you rather?",
+  "private": true,
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack --mode=development",
+    "lint": "stylelint --fix && eslint --cache --fix && prettier --write",
+    "lint:stylelint": "stylelint --fix",
+    "lint:eslint": "eslint --cache --fix",
+    "lint:prettier": "prettier --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/o2sevruk/udacity-react-nanodegree--project--would-you-rather.git"
+  },
+  "author": "o2sevruk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/o2sevruk/udacity-react-nanodegree--project--would-you-rather/issues"
+  },
+  "homepage": "https://github.com/o2sevruk/udacity-react-nanodegree--project--would-you-rather#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.13.8",
+    "@babel/preset-env": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^6.4.1",
+    "css-loader": "^5.0.2",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "html-webpack-plugin": "^4.5.2",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
+    "mini-css-extract-plugin": "^1.3.6",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.6",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^2.0.0",
+    "stylelint": "^13.12.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-standard": "^22.0.0",
+    "webpack": "4.46.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2",
+    "write-file-webpack-plugin": "^4.5.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": "eslint --cache --fix",
+    "*.{css,sass,scss}": "stylelint --fix",
+    "*.{js,jsx,html}": "prettier --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# Ignore settings files:
+prettier.config.js
+stylelint.config.js
+webpack.config.js
