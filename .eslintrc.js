@@ -4,6 +4,7 @@ module.exports = {
     es2021: true,
   },
   extends: [
+    "eslint-config-react-app",
     "airbnb-base",
     "prettier",
   ],
