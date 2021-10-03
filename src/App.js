@@ -1,19 +1,9 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers } from "./actions/users";
+import SignIn from "./pages/SignIn";
 
 function App() {
-  const users = useSelector((state) => state.users.users);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
   return (
     <div className="App">
-      {users.map((user) => (
-        <p></p>
-      ))}
+      <SignIn />
     </div>
   );
 }

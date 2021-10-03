@@ -1,7 +1,7 @@
 import * as actions from "../actions/users";
 
 const initialState = {
-  users: [],
+  users: {},
   loading: false,
 };
 export default function users(state = initialState, action) {

@@ -13,3 +13,14 @@ export function signOutUser() {
     type: SIGN_OUT_USER,
   };
 }
+
+export function authUser(id) {
+  return (dispatch) => {
+    dispatch(signInUser(id));
+  };
+}
+export function logOut(id) {
+  return (dispatch) => {
+    dispatch(signOutUser());
+  };
+}
