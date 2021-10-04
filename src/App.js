@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Leaderboard from "./pages/Leaderboard";
+import NewPoll from "./pages/NewPoll";
 import SignIn from "./pages/SignIn";
 
 function App() {
@@ -10,6 +12,8 @@ function App() {
         <Route exact path="/" component={SignIn} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/leaderboard" component={Leaderboard} />
+        <Route exact path="/new-poll" component={NewPoll} />
       </Switch>
     </Router>
   );

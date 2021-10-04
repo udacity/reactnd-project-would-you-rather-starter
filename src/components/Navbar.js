@@ -17,9 +17,9 @@ const NavWrapper = styled.nav`
     justify-content: space-evenly;
   }
   a:link,
-  a:visited,
-  a:active {
-    color: inherit;
+  a:visited {
+    padding: 7px 20px;
+    color: #fff;
     text-decoration: none;
   }
   .user-profile {
@@ -37,9 +37,10 @@ const NavWrapper = styled.nav`
     margin-right: 10px;
     font-size: smaller;
   }
-  .curent {
-    padding: 5px 10px;
+  a.current {
     background-color: #fff;
+    color: #272727;
+    border-radius: 16px;
   }
 `;
 
@@ -53,9 +54,9 @@ function Navbar() {
           Home
         </NavLink>
         <NavLink activeClassName="current" to="/leaderboard">
-          Leaderbord
+          Leaderboard
         </NavLink>
-        <NavLink activeClassName="current" to="/newpoll">
+        <NavLink activeClassName="current" to="/new-poll">
           Create Poll
         </NavLink>
       </div>
