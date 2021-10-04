@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const QuestionWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   height: 180px;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,8 @@ const QuestionWrapper = styled.div`
   overflow: hidden;
   border: none;
   border-radius: 3px;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
 
   .options {
     width: 100%;
