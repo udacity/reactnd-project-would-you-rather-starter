@@ -41,8 +41,10 @@ function Navbar() {
         <Link to="/newpoll">Create Poll</Link>
       </div>
       <div className="user-profile">
-        <div>{/* <img src={authedUser.avatarURL} alt="user pic" /> */}</div>
-        <p>Username</p>
+        <div>
+          <img src={authedUser.avatarURL} alt="user pic" />
+        </div>
+        <p>{authedUser.id}</p>
       </div>
       <Link className="logout" to="/signin">
         Logout
