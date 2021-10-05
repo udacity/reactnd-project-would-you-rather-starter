@@ -6,6 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const QuestionsWrapper = styled.div`
   margin-top: 30px;
@@ -15,6 +16,12 @@ const QuestionsWrapper = styled.div`
   align-items: center;
   .tab-container {
     width: 50%;
+  }
+  a:link,
+  a:visited,
+  a:active {
+    text-decoration: none;
+    color: #272727;
   }
 `;
 
@@ -48,7 +55,9 @@ const Questions = () => {
               )
               .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
               .map((queId) => (
-                <Question key={queId} queId={queId} questions={questions} />
+                <Link key={queId} to={`/questions/${queId}`}>
+                  <Question queId={queId} questions={questions} />
+                </Link>
               ))}
           </div>
         </TabPanel>
@@ -62,7 +71,9 @@ const Questions = () => {
               )
               .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
               .map((queId) => (
-                <Question key={queId} queId={queId} questions={questions} />
+                <Link key={queId} to={`/questions/${queId}`}>
+                  <Question queId={queId} questions={questions} />
+                </Link>
               ))}
           </div>
         </TabPanel>
