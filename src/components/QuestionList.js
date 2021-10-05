@@ -46,6 +46,7 @@ const Questions = () => {
                   !questions[queId].optionOne.votes.includes(authedUser.id) &&
                   !questions[queId].optionTwo.votes.includes(authedUser.id)
               )
+              .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
               .map((queId) => (
                 <Question key={queId} queId={queId} questions={questions} />
               ))}
@@ -59,6 +60,7 @@ const Questions = () => {
                   questions[queId].optionOne.votes.includes(authedUser.id) ||
                   questions[queId].optionTwo.votes.includes(authedUser.id)
               )
+              .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
               .map((queId) => (
                 <Question key={queId} queId={queId} questions={questions} />
               ))}
