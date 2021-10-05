@@ -27,7 +27,14 @@ const DetailsWrapper = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       text-align: center;
+
+      .vote--btn {
+        cursor: pointer;
+        width: 50%;
+        padding: 10px;
+      }
     }
     .option__text {
       font-weight: bold;
@@ -142,7 +149,20 @@ const QuestionDetails = () => {
             </div>
           </div>
         ) : (
-          <div>I never vote</div>
+          <div className="options">
+            <div className="option option--one">
+              <p className="option__text">
+                {questions[question_id].optionOne.text}
+              </p>
+              <button className="vote--btn">vote</button>
+            </div>
+            <div className="option option--two">
+              <p className="option__text">
+                {questions[question_id].optionTwo.text}
+              </p>
+              <button className="vote--btn">vote</button>
+            </div>
+          </div>
         )}
         <small>Posted by:</small>
         <div className="user-profile">
