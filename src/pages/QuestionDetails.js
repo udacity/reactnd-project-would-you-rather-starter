@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 
+import AnsweredQuestion from "../components/AnsweredQuestion";
+import UnansweredQuestion from "../components/UnansweredQuestion";
+
 const DetailsWrapper = styled.div`
   width: 100%;
   height: 90vh;
@@ -55,7 +58,7 @@ const DetailsWrapper = styled.div`
   }
 `;
 
-const Marker = styled.span`
+export const Marker = styled.span`
   position: absolute;
   top: 5px;
   right: 10px;
@@ -92,77 +95,13 @@ const QuestionDetails = () => {
 
         {questions[question_id].optionOne.votes.includes(authedUser.id) ||
         questions[question_id].optionTwo.votes.includes(authedUser.id) ? (
-          <div className="options">
-            <div className="option option--one">
-              {questions[question_id].optionOne.votes.includes(
-                authedUser.id
-              ) ? (
-                <Marker>✔</Marker>
-              ) : (
-                ""
-              )}
-              <p className="option__text">
-                {questions[question_id].optionOne.text}
-              </p>
-
-              <p>
-                {questions[question_id].optionOne.votes.length}{" "}
-                {questions[question_id].optionTwo.votes.length <= 1
-                  ? " person "
-                  : " people "}
-                voted this option
-              </p>
-              <p>
-                {(questions[question_id].optionOne.votes.length /
-                  (questions[question_id].optionOne.votes.length +
-                    questions[question_id].optionTwo.votes.length)) *
-                  100}
-                % of the people voted this option
-              </p>
-            </div>
-            <div className="option option--two">
-              {questions[question_id].optionTwo.votes.includes(
-                authedUser.id
-              ) ? (
-                <Marker>✔</Marker>
-              ) : (
-                ""
-              )}
-              <p className="option__text">
-                {questions[question_id].optionTwo.text}
-              </p>
-
-              <p>
-                {questions[question_id].optionTwo.votes.length}
-                {questions[question_id].optionTwo.votes.length <= 1
-                  ? " person "
-                  : " people "}
-                voted this option
-              </p>
-              <p>
-                {(questions[question_id].optionTwo.votes.length /
-                  (questions[question_id].optionTwo.votes.length +
-                    questions[question_id].optionOne.votes.length)) *
-                  100}
-                % of the people voted this option
-              </p>
-            </div>
-          </div>
+          <AnsweredQuestion
+            questions={questions}
+            question_id={question_id}
+            authedUser={authedUser}
+          />
         ) : (
-          <div className="options">
-            <div className="option option--one">
-              <p className="option__text">
-                {questions[question_id].optionOne.text}
-              </p>
-              <button className="vote--btn">vote</button>
-            </div>
-            <div className="option option--two">
-              <p className="option__text">
-                {questions[question_id].optionTwo.text}
-              </p>
-              <button className="vote--btn">vote</button>
-            </div>
-          </div>
+          <UnansweredQuestion question_id={question_id} questions={questions} />
         )}
         <small>Posted by:</small>
         <div className="user-profile">

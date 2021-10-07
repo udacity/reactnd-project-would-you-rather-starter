@@ -13,6 +13,7 @@ export default function questions(state = initialState, action) {
       return { questions: action.questions, loading: false };
     case actions.GET_QUESTIONS_FAILURE:
       return { ...state, loading: false };
+
     default:
       return state;
   }

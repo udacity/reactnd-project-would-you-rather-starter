@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { withRouter } from "react-router";
+
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestions } from "../actions/questions";
 import Question from "../components/Question";
@@ -82,4 +82,4 @@ const Questions = () => {
     </QuestionsWrapper>
   );
 };
-export default withRouter(Questions);
+export default Questions;

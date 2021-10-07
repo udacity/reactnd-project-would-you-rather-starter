@@ -60,10 +60,20 @@ function Navbar() {
           Create Poll
         </NavLink>
       </div>
-      <div className="user-profile">
-        <img width="40" height="40" src={authedUser.avatarURL} alt="user pic" />
 
-        <p>{authedUser.id}</p>
+      <div className="user-profile">
+        {authedUser && (
+          <>
+            <img
+              width="40"
+              height="40"
+              src={authedUser.avatarURL}
+              alt="user pic"
+            />
+
+            <p>{authedUser.id}</p>
+          </>
+        )}
       </div>
       <Link className="logout" to="/signin">
         Logout
