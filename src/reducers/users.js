@@ -15,6 +15,10 @@ export default function users(state = initialState, action) {
     case actions.GET_USERS_FAILURE:
       return { ...state, loading: false };
 
+    case "SAVE_QUESTIONS_ANSWER":
+      console.log("from user reducer ");
+      return state;
+
     default:
       return state;
   }

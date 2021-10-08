@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { useParams } from "react-router-dom";
@@ -78,9 +78,6 @@ const QuestionDetails = () => {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
   const questions = useSelector((state) => state.questions.questions);
   const users = useSelector((state) => state.users.users);
-  useEffect(() => {
-    console.log(questions, question_id, questions[question_id]);
-  });
 
   return (
     <div>
@@ -101,7 +98,11 @@ const QuestionDetails = () => {
             authedUser={authedUser}
           />
         ) : (
-          <UnansweredQuestion question_id={question_id} questions={questions} />
+          <UnansweredQuestion
+            question_id={question_id}
+            questions={questions}
+            authedUser={authedUser}
+          />
         )}
         <small>Posted by:</small>
         <div className="user-profile">

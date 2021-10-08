@@ -3,6 +3,7 @@ import { _getUsers } from "../_DATA";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_FAILURE = "GET_USERS_FAILURE";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
+// export const SAVE_QUESTIONS_ANSWER = "SAVE_QUESTIONS_ANSWER";
 
 export const getUsers = () => {
   return {
@@ -26,7 +27,7 @@ export const fetchUsers = () => {
     dispatch(getUsers());
     try {
       const response = await _getUsers();
-      const data = await response;
+      const data = response;
       dispatch(getUsersSuccess(data));
     } catch (error) {
       dispatch(getUsersFailure());

@@ -32,19 +32,19 @@ export function fetchQuestions() {
   };
 }
 
-export const saveQuestionAnswer = () => {
-  return { type: SAVE_QUESTIONS_ANSWER };
+export const saveQuestionAnswer = ({ authedUser, quId, answer }) => {
+  return { type: SAVE_QUESTIONS_ANSWER, authedUser, quId, answer };
 };
 export const saveQuestionAnswerFailure = () => {
   return { type: SAVE_QUESTIONS_ANSWER_FAILURE };
 };
 
-export function saveAnswer(answerObject) {
+export function saveAnswer({ authedUser, quId, answer }) {
   return async (dispatch) => {
     try {
-      await _saveQuestionAnswer(answerObject);
+      await _saveQuestionAnswer({ authedUser, quId, answer });
 
-      dispatch(saveQuestionAnswer(answerObject));
+      dispatch(saveQuestionAnswer({ authedUser, quId, answer }));
     } catch (error) {}
   };
 }
