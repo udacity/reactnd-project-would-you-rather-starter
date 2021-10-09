@@ -1,56 +1,55 @@
 import React from "react";
 import { Marker } from "../pages/QuestionDetails";
 
-const AnsweredQuestion = ({ questions, question_id, authedUser }) => (
-  <div className="options">
-    <div className="option option--one">
-      {questions[question_id].optionOne.votes.includes(authedUser.id) ? (
-        <Marker>✔</Marker>
-      ) : (
-        ""
-      )}
-      <p className="option__text">{questions[question_id].optionOne.text}</p>
+const AnsweredQuestion = ({ questions, question_id, authedUser }) => {
+  const question = questions[question_id];
+  return (
+    <div className="options">
+      <div className="option option--one">
+        {question.optionOne.votes.includes(authedUser.id) ? (
+          <Marker>✔</Marker>
+        ) : (
+          ""
+        )}
+        <p className="option__text">{question.optionOne.text}</p>
 
-      <p>
-        {questions[question_id].optionOne.votes.length}{" "}
-        {questions[question_id].optionTwo.votes.length <= 1
-          ? " person "
-          : " people "}
-        voted this option
-      </p>
-      <p>
-        {Math.round(
-          questions[question_id].optionOne.votes.length /
-            (questions[question_id].optionOne.votes.length +
-              questions[question_id].optionTwo.votes.length)
-        ) * 100}
-        % of the people voted this option
-      </p>
-    </div>
-    <div className="option option--two">
-      {questions[question_id].optionTwo.votes.includes(authedUser.id) ? (
-        <Marker>✔</Marker>
-      ) : (
-        ""
-      )}
-      <p className="option__text">{questions[question_id].optionTwo.text}</p>
+        <p>
+          {question.optionOne.votes.length}{" "}
+          {question.optionTwo.votes.length <= 1 ? " person " : " people "}
+          voted this option
+        </p>
+        <p>
+          {Math.round(
+            question.optionOne.votes.length /
+              (question.optionOne.votes.length +
+                question.optionTwo.votes.length)
+          ) * 100}
+          % of the people voted this option
+        </p>
+      </div>
+      <div className="option option--two">
+        {question.optionTwo.votes.includes(authedUser.id) ? (
+          <Marker>✔</Marker>
+        ) : (
+          ""
+        )}
+        <p className="option__text">{question.optionTwo.text}</p>
 
-      <p>
-        {questions[question_id].optionTwo.votes.length}
-        {questions[question_id].optionTwo.votes.length <= 1
-          ? " person "
-          : " people "}
-        voted this option
-      </p>
-      <p>
-        {Math.round(
-          questions[question_id].optionTwo.votes.length /
-            (questions[question_id].optionTwo.votes.length +
-              questions[question_id].optionOne.votes.length)
-        ) * 100}
-        % of the people voted this option
-      </p>
+        <p>
+          {question.optionTwo.votes.length}
+          {question.optionTwo.votes.length <= 1 ? " person " : " people "}
+          voted this option
+        </p>
+        <p>
+          {Math.round(
+            question.optionTwo.votes.length /
+              (question.optionTwo.votes.length +
+                question.optionOne.votes.length)
+          ) * 100}
+          % of the people voted this option
+        </p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 export default AnsweredQuestion;
