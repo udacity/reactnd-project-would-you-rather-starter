@@ -14,12 +14,13 @@ export default function questions(state = initialState, action) {
     case actions.GET_QUESTIONS_FAILURE:
       return { ...state, loading: false };
     case actions.SAVE_QUESTIONS_ANSWER:
-      const question = state.questions[action.quId];
+      const question = state.questions[action.qid];
+      console.log("from question reducer");
       return {
         ...state,
         questions: {
           ...state.questions,
-          [action.quId]: {
+          [action.qid]: {
             ...question,
             [action.answer]: {
               ...question[action.answer],

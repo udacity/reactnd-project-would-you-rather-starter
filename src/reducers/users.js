@@ -16,8 +16,20 @@ export default function users(state = initialState, action) {
       return { ...state, loading: false };
 
     case "SAVE_QUESTIONS_ANSWER":
-      console.log("from user reducer ");
-      return state;
+      console.log("from users reducer");
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [action.authedUser]: {
+            ...state.users[action.authedUser],
+            answers: {
+              ...state.users[action.authedUser].answers,
+              [action.qid]: action.answer,
+            },
+          },
+        },
+      };
 
     default:
       return state;

@@ -4,18 +4,15 @@ import { saveAnswer } from "../actions/questions";
 
 const UnansweredQuestion = ({ questions, question_id, authedUser }) => {
   const authedUserId = authedUser.id;
+  const qid = question_id;
   const dispatch = useDispatch();
 
   function voteOption(e) {
     e.preventDefault();
-    const answerObject = {
-      authedUser: authedUserId,
-      qid: question_id,
-      answer: e.target.value,
-    };
+    let answer = e.target.value;
 
-    console.log(e.target.value);
-    dispatch(saveAnswer(answerObject));
+    console.log(typeof authedUserId, qid, answer);
+    dispatch(saveAnswer({ authedUser: authedUserId, qid, answer }));
     console.log("hi there");
   }
   return (

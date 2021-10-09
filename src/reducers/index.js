@@ -5,8 +5,7 @@ import questions from "./questions";
 
 const rootReducers = combineReducers({
   authedUser,
-
-  questions,
   users,
+  questions,
 });
 export default rootReducers;
