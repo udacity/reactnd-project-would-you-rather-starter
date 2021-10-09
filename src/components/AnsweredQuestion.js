@@ -19,10 +19,11 @@ const AnsweredQuestion = ({ questions, question_id, authedUser }) => (
         voted this option
       </p>
       <p>
-        {(questions[question_id].optionOne.votes.length /
-          (questions[question_id].optionOne.votes.length +
-            questions[question_id].optionTwo.votes.length)) *
-          100}
+        {Math.round(
+          questions[question_id].optionOne.votes.length /
+            (questions[question_id].optionOne.votes.length +
+              questions[question_id].optionTwo.votes.length)
+        ) * 100}
         % of the people voted this option
       </p>
     </div>
@@ -42,10 +43,11 @@ const AnsweredQuestion = ({ questions, question_id, authedUser }) => (
         voted this option
       </p>
       <p>
-        {(questions[question_id].optionTwo.votes.length /
-          (questions[question_id].optionTwo.votes.length +
-            questions[question_id].optionOne.votes.length)) *
-          100}
+        {Math.round(
+          questions[question_id].optionTwo.votes.length /
+            (questions[question_id].optionTwo.votes.length +
+              questions[question_id].optionOne.votes.length)
+        ) * 100}
         % of the people voted this option
       </p>
     </div>
