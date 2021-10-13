@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Marker } from "../pages/QuestionDetails";
 
-const AnsweredQuestion = ({ questions, question_id, authedUser }) => {
+const AnsweredQuestion = ({ question_id }) => {
+  const questions = useSelector((state) => state.questions.questions);
+  const authedUser = useSelector((state) => state.authedUser.authedUser);
   const question = questions[question_id];
   return (
     <div className="options">
@@ -20,10 +23,11 @@ const AnsweredQuestion = ({ questions, question_id, authedUser }) => {
         </p>
         <p>
           {Math.round(
-            question.optionOne.votes.length /
+            (question.optionOne.votes.length /
               (question.optionOne.votes.length +
-                question.optionTwo.votes.length)
-          ) * 100}
+                question.optionTwo.votes.length)) *
+              100
+          )}
           % of the people voted this option
         </p>
       </div>
@@ -42,10 +46,11 @@ const AnsweredQuestion = ({ questions, question_id, authedUser }) => {
         </p>
         <p>
           {Math.round(
-            question.optionTwo.votes.length /
+            (question.optionTwo.votes.length /
               (question.optionTwo.votes.length +
-                question.optionOne.votes.length)
-          ) * 100}
+                question.optionOne.votes.length)) *
+              100
+          )}
           % of the people voted this option
         </p>
       </div>

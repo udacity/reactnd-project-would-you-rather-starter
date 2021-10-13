@@ -1,9 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveAnswer } from "../actions/questions";
 
-const UnansweredQuestion = ({ questions, question_id, authedUser }) => {
+const UnansweredQuestion = ({ question_id }) => {
+  const authedUser = useSelector((state) => state.authedUser.authedUser);
   const authedUserId = authedUser.id;
+  const questions = useSelector((state) => state.questions.questions);
   const qid = question_id;
   const question = questions[question_id];
   const dispatch = useDispatch();

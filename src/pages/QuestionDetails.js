@@ -98,11 +98,7 @@ const QuestionDetails = () => {
             authedUser={authedUser}
           />
         ) : (
-          <UnansweredQuestion
-            question_id={question_id}
-            questions={questions}
-            authedUser={authedUser}
-          />
+          <UnansweredQuestion question_id={question_id} />
         )}
         <small>Posted by:</small>
         <div className="user-profile">
