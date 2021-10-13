@@ -4,7 +4,6 @@ import { useHistory } from "react-router";
 import { authUser } from "../actions/authedUser";
 import { fetchUsers } from "../actions/users";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const SignWrapper = styled.div`
   width: 100%;
@@ -79,7 +78,6 @@ function SignIn() {
           ))}
         </select>
         <button onClick={handleAuthUser}>Sign In</button>
-        <Link to="/home">Home</Link>
       </SignInCard>
     </SignWrapper>
   );
