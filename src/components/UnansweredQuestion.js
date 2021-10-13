@@ -28,7 +28,7 @@ const UnansweredQuestion = ({ question_id }) => {
       </div>
       <div className="option option--two">
         <p className="option__text">{question.optionTwo.text}</p>
-        <button value="optiontwo" onClick={voteOption} className="vote--btn">
+        <button value="optionTwo" onClick={voteOption} className="vote--btn">
           vote
         </button>
       </div>
