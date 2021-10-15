@@ -15,7 +15,7 @@ function App() {
         <Route exact path="/home" component={Home} />
 
         <Route exact path="/leaderboard" component={Leaderboard} />
-        <Route exact path="/new-poll" component={NewPoll} />
+        <Route exact path="/add" component={NewPoll} />
         <Route
           exact
           path="/questions/:question_id"

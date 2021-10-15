@@ -15,7 +15,7 @@ export default function users(state = initialState, action) {
     case actions.GET_USERS_FAILURE:
       return { ...state, loading: false };
 
-    case "SAVE_QUESTIONS_ANSWER":
+    case actions.SAVE_QUESTIONS_ANSWER:
       console.log("from users reducer");
       return {
         ...state,
@@ -27,6 +27,17 @@ export default function users(state = initialState, action) {
               ...state.users[action.authedUser].answers,
               [action.qid]: action.answer,
             },
+          },
+        },
+      };
+    case actions.SAVE_QUESTION:
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [action.author]: {
+            ...state.users[action.author],
+            questions: state.users[action.author].questions.concat(action.id),
           },
         },
       };

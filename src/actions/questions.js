@@ -1,8 +1,9 @@
-import { _getQuestions, _saveQuestionAnswer } from "../_DATA";
+import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from "../_DATA";
 
 export const GET_QUESTIONS = "GET_QUESTIONS";
 export const GET_QUESTIONS_FAILURE = "GET_QUESTIONS_FAILURE";
 export const GET_QUESTIONS_SUCCESS = "GET_QUESTIONS_SUCCESS";
+export const SAVE_QUESTION = "SAVE_QUESTION";
 export const SAVE_QUESTIONS_ANSWER = "SAVE_QUESTIONS_ANSWER";
 export const SAVE_QUESTIONS_ANSWER_FAILURE = "SAVE_QUESTIONS_ANSWER_FAILURE";
 
@@ -46,5 +47,45 @@ export function saveAnswer({ authedUser, qid, answer }) {
 
       dispatch(saveQuestionAnswer({ authedUser, qid, answer }));
     } catch (error) {}
+  };
+}
+
+export const saveQuestion = ({
+  id,
+  author,
+  optionOne,
+  optionTwo,
+  timestamp,
+}) => {
+  return {
+    type: SAVE_QUESTION,
+    id,
+    author,
+    optionOne,
+    optionTwo,
+    timestamp,
+  };
+};
+
+export function postQuestion({ author, optionOneText, optionTwoText }) {
+  return async (dispatch) => {
+    try {
+      const response = await _saveQuestion({
+        author,
+        optionOneText,
+        optionTwoText,
+      });
+      dispatch(
+        saveQuestion(
+          response.id,
+          response.author,
+          response.optionOne,
+          response.optionTwo,
+          response.timestamp
+        )
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

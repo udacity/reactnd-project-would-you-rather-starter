@@ -56,7 +56,7 @@ function Navbar() {
         <NavLink activeClassName="current" to="/leaderboard">
           Leaderboard
         </NavLink>
-        <NavLink activeClassName="current" to="/new-poll">
+        <NavLink activeClassName="current" to="/add">
           Create Poll
         </NavLink>
       </div>
