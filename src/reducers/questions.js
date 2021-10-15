@@ -34,13 +34,7 @@ export default function questions(state = initialState, action) {
         ...state,
         questions: {
           ...state.questions,
-          [action.id]: {
-            id: action.id,
-            author: action.author,
-            timestamp: action.timestamp,
-            optionOne: action.optionOne,
-            optionTwo: action.optionTwo,
-          },
+          [action.question.id]: action.question,
         },
       };
 

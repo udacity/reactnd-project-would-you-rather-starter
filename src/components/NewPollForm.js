@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { saveQuestion } from "../actions/questions";
+import { postQuestion } from "../actions/questions";
 
 const NewPollWrapper = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const NewPollWrapper = styled.div`
 
 const NewPollForm = () => {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
-  const authedUserId = authedUser.id;
+  const author = authedUser.id;
   const dispatch = useDispatch();
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
@@ -29,10 +29,10 @@ const NewPollForm = () => {
     e.preventDefault();
 
     dispatch(
-      saveQuestion({
-        author: authedUserId,
-        optionOneText: optionOneText,
-        optionTwoText: optionTwoText,
+      postQuestion({
+        author,
+        optionOneText,
+        optionTwoText,
       })
     );
     setOptionOneText("");

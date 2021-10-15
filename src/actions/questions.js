@@ -50,40 +50,22 @@ export function saveAnswer({ authedUser, qid, answer }) {
   };
 }
 
-export const saveQuestion = ({
-  id,
-  author,
-  optionOne,
-  optionTwo,
-  timestamp,
-}) => {
+export const saveQuestion = (question) => {
   return {
     type: SAVE_QUESTION,
-    id,
-    author,
-    optionOne,
-    optionTwo,
-    timestamp,
+    question,
   };
 };
 
 export function postQuestion({ author, optionOneText, optionTwoText }) {
   return async (dispatch) => {
     try {
-      const response = await _saveQuestion({
+      const question = await _saveQuestion({
         author,
         optionOneText,
         optionTwoText,
       });
-      dispatch(
-        saveQuestion(
-          response.id,
-          response.author,
-          response.optionOne,
-          response.optionTwo,
-          response.timestamp
-        )
-      );
+      dispatch(saveQuestion(question));
     } catch (error) {
       console.log(error);
     }
