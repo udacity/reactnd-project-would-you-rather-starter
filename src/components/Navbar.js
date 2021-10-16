@@ -50,7 +50,7 @@ function Navbar() {
   return (
     <NavWrapper>
       <div className="links">
-        <NavLink activeClassName="current" to="/home">
+        <NavLink exact activeClassName="current" to="/">
           Home
         </NavLink>
         <NavLink activeClassName="current" to="/leaderboard">

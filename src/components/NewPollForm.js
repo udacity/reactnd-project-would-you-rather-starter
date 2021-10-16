@@ -21,6 +21,10 @@ const NewPollWrapper = styled.div`
     * {
       width: 70%;
       padding: 15px 0;
+      margin-bottom: 20px;
+    }
+    h2 {
+      padding: 0;
     }
     span {
       padding: 0;
