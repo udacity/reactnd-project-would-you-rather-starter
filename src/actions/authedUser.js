@@ -19,7 +19,7 @@ export function authUser(id) {
     dispatch(signInUser(id));
   };
 }
-export function logOut(id) {
+export function logOut() {
   return (dispatch) => {
     dispatch(signOutUser());
   };

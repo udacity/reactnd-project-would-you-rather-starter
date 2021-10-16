@@ -1,7 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+
+import { logOut } from "../actions/authedUser";
 
 const NavWrapper = styled.nav`
   width: 100vw;
@@ -32,10 +35,14 @@ const NavWrapper = styled.nav`
       margin-right: 5px;
     }
   }
-  .logout {
+  button.logout {
+    cursor: pointer;
     margin-left: 10px;
     margin-right: 10px;
     font-size: smaller;
+    color: #fff;
+    background-color: #272727;
+    border: none;
   }
   a.current {
     background-color: #fff;
@@ -46,6 +53,16 @@ const NavWrapper = styled.nav`
 
 function Navbar() {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  function logout(e) {
+    e.preventDefault();
+    dispatch(logOut());
+    if (!authedUser) {
+      history.replace("/signin");
+    }
+  }
 
   return (
     <NavWrapper>
@@ -75,9 +92,9 @@ function Navbar() {
           </>
         )}
       </div>
-      <Link className="logout" to="/signin">
+      <button className="logout" onClick={logout}>
         Logout
-      </Link>
+      </button>
     </NavWrapper>
   );
 }
