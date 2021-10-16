@@ -29,7 +29,6 @@ export default function questions(state = initialState, action) {
         },
       };
     case actions.SAVE_QUESTION:
-      console.log("about to save question");
       return {
         ...state,
         questions: {

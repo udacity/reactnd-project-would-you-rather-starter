@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import { postQuestion } from "../actions/questions";
 
@@ -8,6 +9,35 @@ const NewPollWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 450px;
+    height: 500px;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+
+    * {
+      width: 70%;
+      padding: 15px 0;
+    }
+    span {
+      padding: 0;
+    }
+    button {
+      cursor: pointer;
+      width: 100%;
+      border: 0;
+      background-color: #249cff;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    }
+    button:hover {
+      transform: translateY(-1px);
+    }
+  }
 `;
 
 const NewPollForm = () => {
@@ -16,6 +46,7 @@ const NewPollForm = () => {
   const dispatch = useDispatch();
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
+  const history = useHistory();
 
   function handleInputOptionOne(e) {
     e.preventDefault();
@@ -35,13 +66,14 @@ const NewPollForm = () => {
         optionTwoText,
       })
     );
+    history.push("/");
     setOptionOneText("");
     setOptionTwoText("");
   }
   return (
     <NewPollWrapper>
       <form onSubmit={uploadQuestion}>
-        <h3>Would you rather...?</h3>
+        <h2>Would you rather...?</h2>
         <input
           type="text"
           onChange={handleInputOptionOne}
@@ -49,7 +81,7 @@ const NewPollForm = () => {
           placeholder="Option 1"
           required
         />
-        <p>OR</p>
+        <span>OR</span>
         <input
           type="text"
           onChange={handleInputOptionTwo}
@@ -57,7 +89,9 @@ const NewPollForm = () => {
           placeholder="Option 2"
           required
         />
-        <button>Post Question</button>
+        <div>
+          <button>Post Question</button>
+        </div>
       </form>
     </NewPollWrapper>
   );
