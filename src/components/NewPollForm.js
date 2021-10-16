@@ -29,6 +29,7 @@ const NewPollWrapper = styled.div`
       cursor: pointer;
       width: 100%;
       border: 0;
+      border-radius: 3px;
       background-color: #249cff;
       font-weight: bold;
       color: #fff;
