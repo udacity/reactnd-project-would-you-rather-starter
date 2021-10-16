@@ -55,14 +55,17 @@ function SignIn() {
 
   function handleAuthUser() {
     dispatch(authUser(users[id]));
-    if (authedUser) {
-      history.replace("/");
-    }
   }
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (authedUser) {
+      history.replace("/");
+    }
+  });
 
   return (
     <SignWrapper>
