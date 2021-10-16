@@ -20,8 +20,13 @@ const NewPollWrapper = styled.div`
 
     * {
       width: 70%;
-      padding: 15px 0;
+      padding: 15px 5px;
       margin-bottom: 20px;
+    }
+    input:focus {
+      outline: 0;
+      border: 0;
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
     }
     h2 {
       padding: 0;
