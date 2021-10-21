@@ -5,6 +5,7 @@ import Leaderboard from "./pages/Leaderboard";
 import NewPoll from "./pages/NewPoll";
 import QuestionDetails from "./pages/QuestionDetails";
 import SignIn from "./pages/SignIn";
+import ErrorComponent from "./components/Error";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           path="/questions/:question_id"
           component={QuestionDetails}
         />
+        <Route component={ErrorComponent} />
       </Switch>
     </Router>
   );
