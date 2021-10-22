@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
 import Navbar from "../components/Navbar";
 import Questions from "../components/QuestionList";
-
+import ErrorBoundary from "../components/ErrorBoundary";
 const Home = () => {
   const history = useHistory();
   const authedUser = useSelector((state) => state.authedUser.authedUser);
@@ -16,7 +15,9 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <Questions />
+      <ErrorBoundary>
+        <Questions />
+      </ErrorBoundary>
     </div>
   );
 };

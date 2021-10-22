@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { authUser } from "../actions/authedUser";
 import { fetchUsers } from "../actions/users";
+import { computeQueryParameters } from "../utils/url.utils";
 import styled from "styled-components";
 
 const SignWrapper = styled.div`
@@ -50,6 +51,8 @@ function SignIn() {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const { next } = computeQueryParameters(location.search) || {};
   const users = useSelector((state) => state.users.users);
   const usersId = Object.keys(users);
 
@@ -63,7 +66,7 @@ function SignIn() {
 
   useEffect(() => {
     if (authedUser) {
-      history.replace("/");
+      history.replace(next || "/");
     }
   });
 

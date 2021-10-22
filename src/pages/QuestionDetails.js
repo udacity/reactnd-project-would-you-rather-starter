@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-
 import AnsweredQuestion from "../components/AnsweredQuestion";
 import UnansweredQuestion from "../components/UnansweredQuestion";
 
@@ -78,20 +77,23 @@ const QuestionDetails = () => {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
   const questions = useSelector((state) => state.questions.questions);
   const users = useSelector((state) => state.users.users);
+  const question = questions[question_id];
+
+  useEffect(() => {
+    if (!question) {
+      throw new Error("Page not found");
+    }
+  });
 
   return (
     <div>
       <Navbar />
+
       <DetailsWrapper>
         <h2>Would You Rather...?</h2>
-        {/* If LoggedInUser has voted:
-            just show Details of vote
 
-        else:
-            make voting possible */}
-
-        {questions[question_id].optionOne.votes.includes(authedUser.id) ||
-        questions[question_id].optionTwo.votes.includes(authedUser.id) ? (
+        {question.optionOne.votes.includes(authedUser.id) ||
+        question.optionTwo.votes.includes(authedUser.id) ? (
           <AnsweredQuestion
             questions={questions}
             question_id={question_id}
@@ -105,7 +107,7 @@ const QuestionDetails = () => {
           <img
             width="40"
             height="40"
-            src={users[questions[question_id].author].avatarURL}
+            src={users[question.author].avatarURL}
             alt="user pic"
           />
         </div>

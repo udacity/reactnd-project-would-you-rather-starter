@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Route, useHistory, withRouter } from "react-router";
+import { Route, useHistory, useLocation, withRouter } from "react-router";
 
 function ProtectedRoute({ component: Component, ...restofProps }) {
   const authedUser = useSelector((state) => state.authedUser.authedUser);
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <Route
@@ -13,7 +14,7 @@ function ProtectedRoute({ component: Component, ...restofProps }) {
         authedUser !== null ? (
           <Component {...props} />
         ) : (
-          history.replace(`/signin`)
+          history.replace(`/signin?next=${location.pathname}`)
         )
       }
     />

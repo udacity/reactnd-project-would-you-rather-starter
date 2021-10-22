@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ErrorBoundary from "./ErrorBoundary";
 
 const QuestionWrapper = styled.div`
   width: 100%;
@@ -40,14 +41,20 @@ const QuestionWrapper = styled.div`
 
 const Question = ({ queId, questions }) => {
   return (
-    <QuestionWrapper>
-      <h3>Would you rather...?</h3>
-      <b>OR</b>
-      <div className="options">
-        <p className="option option--one">{questions[queId].optionOne.text}</p>
-        <p className="option option--two">{questions[queId].optionTwo.text}</p>
-      </div>
-    </QuestionWrapper>
+    <ErrorBoundary>
+      <QuestionWrapper>
+        <h3>Would you rather...?</h3>
+        <b>OR</b>
+        <div className="options">
+          <p className="option option--one">
+            {questions[queId].optionOne.text}
+          </p>
+          <p className="option option--two">
+            {questions[queId].optionTwo.text}
+          </p>
+        </div>
+      </QuestionWrapper>
+    </ErrorBoundary>
   );
 };
 export default Question;
