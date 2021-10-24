@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOut } from "../actions/authedUser";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Errror404 from "../assets/not-on-map.png";
 
@@ -23,10 +25,18 @@ const NotFoundWrapper = styled.div`
 `;
 
 const NotFound = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  function routeToSignIn(e) {
+    e.preventDefault();
+    dispatch(logOut());
+    history.replace("/signin");
+  }
   return (
     <NotFoundWrapper>
       <h1>Oops! You missed your way</h1>
-      <Link to="/signin">Back to sign in</Link>
+      <button onClick={routeToSignIn}>Back to sign in</button>
       <div className="notfound-bg"></div>
     </NotFoundWrapper>
   );
