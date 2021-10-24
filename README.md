@@ -1,100 +1,37 @@
-# Would You Rather Project
+# Would You Rather
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+Would You Rather is a web application that allows users to be able to vote preferred option for a question. The app allows the user the following:
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+- Sign in
+- View all polls
+- Select a particular poll and view its details
+- Vote for a particular option in a poll
+- Create a poll
+- View the leaderboard
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+![Home page polls](./sample_images/home.png)
+![Leaderboard page](./sample_images/leaderboard.png)
+![New Poll page](./sample_images/new-poll.png)
+![Answered Poll](./sample_images/answered.png)
+![Vote page](./sample_images/vote.png)
 
-## Data
+## Installation
 
-There are two types of objects stored in our database:
+- install all project dependencies with `npm install`
 
-* Users
-* Questions
+- start the development server with `npm start`
 
-### Users
+```
+npm install
+npm start
+```
 
-Users include:
+## Resources Used
 
-| Attribute    | Type             | Description           |
-|-----------------|------------------|-------------------         |
-| id                 | String           | The user’s unique identifier |
-| name          | String           | The user’s first name  and last name     |
-| avatarURL  | String           | The path to the image file |
-| questions | Array | A list of ids of the polling questions this user created|
-| answers      | Object         |  The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either `'optionOne'` or `'optionTwo'` since each question has two options.
+I learnt how to use create protected routes from [ Implementing Protected Route and Authentication in React-JS](https://dev.to/olumidesamuel_/implementing-protected-route-and-authentication-in-react-js-3cl4) by [Olumide Samuel](https://dev.to/olumidesamuel_)
 
-### Questions
+I also benefitted from the guidance of a friend [Qasim-Yusuf](https://github.com/Qausim) who tried as much as possible to make sure I stop doubting myself and just write code. Plus also making fun of me as us.
 
-Questions include:
+## Comments & Collaboration
 
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| id                  | String | The question’s unique identifier |
-| author        | String | The author’s unique identifier |
-| timestamp | String | The time when the question was created|
-| optionOne | Object | The first voting option|
-| optionTwo | Object | The second voting option|
-
-### Voting Options
-
-Voting options are attached to questions. They include:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| votes             | Array | A list that contains the id of each user who voted for that option|
-| text                | String | The text of the option |
-
-Your code will talk to the database via 4 methods:
-
-* `_getUsers()`
-* `_getQuestions()`
-* `_saveQuestion(question)`
-* `_saveQuestionAnswer(object)`
-
-1) `_getUsers()` Method
-
-*Description*: Get all of the existing users from the database.  
-*Return Value*: Object where the key is the user’s id and the value is the user object.
-
-2) `_getQuestions()` Method
-
-*Description*: Get all of the existing questions from the database.  
-*Return Value*: Object where the key is the question’s id and the value is the question object.
-
-3) `_saveQuestion(question)` Method
-
-*Description*: Save the polling question in the database.  
-*Parameters*:  Object that includes the following properties: `author`, `optionOneText`, and `optionTwoText`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| author | String | The id of the user who posted the question|
-| optionOneText| String | The text of the first option |
-| optionTwoText | String | The text of the second option |
-
-*Return Value*:  An object that has the following properties: `id`, `author`, `optionOne`, `optionTwo`, `timestamp`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| id | String | The id of the question that was posted|
-| author | String | The id of the user who posted the question|
-| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
-| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
-|timestamp|String | The time when the question was created|
-
-4) `_saveQuestionAnswer(object)` Method
-
-*Description*: Save the answer to a particular polling question in the database.
-*Parameters*: Object that contains the following properties: `authedUser`, `qid`, and `answer`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| authedUser | String | The id of the user who answered the question|
-| qid | String | The id of the question that was answered|
-| answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
-
-## Contributing
-
-This repository is the starter code for *all* Udacity students. Therefore, we most likely will not accept pull requests. For details, check out [CONTRIBUTING.md](https://github.com/udacity/reactnd-project-would-you-rather-starter/blob/master/CONTRIBUTING.md).
+For comments, suggestions and collaboration all you can reach me on LinkedIn [Adedeji-Adelanwa](https://www.linkedin.com/in/adelanwaadedeji/)
