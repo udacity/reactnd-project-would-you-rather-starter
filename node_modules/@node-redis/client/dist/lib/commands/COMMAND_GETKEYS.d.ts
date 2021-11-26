@@ -1,0 +1,4 @@
+import { RedisCommandArguments } from '.';
+export declare const IS_READ_ONLY = true;
+export declare function transformArguments(args: Array<string>): RedisCommandArguments;
+export declare function transformReply(): Array<string>;

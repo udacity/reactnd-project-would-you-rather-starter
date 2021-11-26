@@ -1,0 +1,70 @@
+import TestUtils from '@node-redis/test-utils';
+declare const _default: TestUtils<import("@node-redis/client/lib/commands").RedisModules, import("@node-redis/client/lib/commands").RedisScripts>;
+export default _default;
+export declare const GLOBAL: {
+    SERVERS: {
+        OPEN: {
+            serverArguments: string[];
+            clientOptions: {
+                modules: {
+                    ft: {
+                        _LIST: typeof import("./commands/_LIST");
+                        _list: typeof import("./commands/_LIST");
+                        AGGREGATE: typeof import("./commands/AGGREGATE");
+                        aggregate: typeof import("./commands/AGGREGATE");
+                        ALIASADD: typeof import("./commands/ALIASADD");
+                        aliasAdd: typeof import("./commands/ALIASADD");
+                        ALIASDEL: typeof import("./commands/ALIASDEL");
+                        aliasDel: typeof import("./commands/ALIASDEL");
+                        ALIASUPDATE: typeof import("./commands/ALIASUPDATE");
+                        aliasUpdate: typeof import("./commands/ALIASUPDATE");
+                        CONFIG_GET: typeof import("./commands/CONFIG_GET");
+                        configGet: typeof import("./commands/CONFIG_GET");
+                        CONFIG_SET: typeof import("./commands/CONFIG_SET");
+                        configSet: typeof import("./commands/CONFIG_SET");
+                        CREATE: typeof import("./commands/CREATE");
+                        create: typeof import("./commands/CREATE");
+                        DICTADD: typeof import("./commands/DICTADD");
+                        dictAdd: typeof import("./commands/DICTADD");
+                        DICTDEL: typeof import("./commands/DICTDEL");
+                        dictDel: typeof import("./commands/DICTDEL");
+                        DICTDUMP: typeof import("./commands/DICTDUMP");
+                        dictDump: typeof import("./commands/DICTDUMP");
+                        DROPINDEX: typeof import("./commands/DROPINDEX");
+                        dropIndex: typeof import("./commands/DROPINDEX");
+                        EXPLAIN: typeof import("./commands/EXPLAIN");
+                        explain: typeof import("./commands/EXPLAIN");
+                        EXPLAINCLI: typeof import("./commands/EXPLAINCLI");
+                        explainCli: typeof import("./commands/EXPLAINCLI");
+                        INFO: typeof import("./commands/INFO");
+                        info: typeof import("./commands/INFO");
+                        SEARCH: typeof import("./commands/SEARCH");
+                        search: typeof import("./commands/SEARCH");
+                        SPELLCHECK: typeof import("./commands/SPELLCHECK");
+                        spellCheck: typeof import("./commands/SPELLCHECK");
+                        SUGADD: typeof import("./commands/SUGADD");
+                        sugAdd: typeof import("./commands/SUGADD");
+                        SUGDEL: typeof import("./commands/SUGDEL");
+                        sugDel: typeof import("./commands/SUGDEL");
+                        SUGGET_WITHPAYLOADS: typeof import("./commands/SUGGET_WITHPAYLOADS");
+                        sugGetWithPayloads: typeof import("./commands/SUGGET_WITHPAYLOADS");
+                        SUGGET_WITHSCORES_WITHPAYLOADS: typeof import("./commands/SUGGET_WITHSCORES_WITHPAYLOADS");
+                        sugGetWithScoresWithPayloads: typeof import("./commands/SUGGET_WITHSCORES_WITHPAYLOADS");
+                        SUGGET_WITHSCORES: typeof import("./commands/SUGGET_WITHSCORES");
+                        sugGetWithScores: typeof import("./commands/SUGGET_WITHSCORES");
+                        SUGGET: typeof import("./commands/SUGGET");
+                        sugGet: typeof import("./commands/SUGGET");
+                        SUGLEN: typeof import("./commands/SUGLEN");
+                        sugLen: typeof import("./commands/SUGLEN");
+                        SYNDUMP: typeof import("./commands/SYNDUMP");
+                        synDump: typeof import("./commands/SYNDUMP");
+                        SYNUPDATE: typeof import("./commands/SYNUPDATE");
+                        synUpdate: typeof import("./commands/SYNUPDATE");
+                        TAGVALS: typeof import("./commands/TAGVALS");
+                        tagVals: typeof import("./commands/TAGVALS");
+                    };
+                };
+            };
+        };
+    };
+};

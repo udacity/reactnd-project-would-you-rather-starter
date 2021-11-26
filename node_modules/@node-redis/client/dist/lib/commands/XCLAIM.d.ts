@@ -1,0 +1,9 @@
+export declare const FIRST_KEY_INDEX = 1;
+export interface XClaimOptions {
+    IDLE?: number;
+    TIME?: number | Date;
+    RETRYCOUNT?: number;
+    FORCE?: true;
+}
+export declare function transformArguments(key: string, group: string, consumer: string, minIdleTime: number, id: string | Array<string>, options?: XClaimOptions): Array<string>;
+export { transformReplyStreamMessages as transformReply } from './generic-transformers';

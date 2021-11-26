@@ -1,0 +1,3 @@
+export declare const FIRST_KEY_INDEX = 1;
+export declare function transformArguments(key: string, members: Array<string>): Array<string>;
+export { transformReplyBooleanArray as transformReply } from './generic-transformers';

@@ -1,0 +1,9 @@
+{
+  "name": "node-redis-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "redis": "../"
+  }
+}
+

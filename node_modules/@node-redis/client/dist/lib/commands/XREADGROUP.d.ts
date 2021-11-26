@@ -1,0 +1,13 @@
+export interface XReadGroupStream {
+    key: string;
+    id: string;
+}
+export interface XReadGroupOptions {
+    COUNT?: number;
+    BLOCK?: number;
+    NOACK?: true;
+}
+export declare const FIRST_KEY_INDEX: (_group: string, _consumer: string, streams: Array<XReadGroupStream> | XReadGroupStream) => string;
+export declare const IS_READ_ONLY = true;
+export declare function transformArguments(group: string, consumer: string, streams: Array<XReadGroupStream> | XReadGroupStream, options?: XReadGroupOptions): Array<string>;
+export { transformReplyStreamsMessages as transformReply } from './generic-transformers';

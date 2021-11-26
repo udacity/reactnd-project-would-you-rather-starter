@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.defineScript = exports.createCluster = exports.commandOptions = exports.createClient = void 0;
+const client_1 = require("./lib/client");
+const cluster_1 = require("./lib/cluster");
+exports.createClient = client_1.default.create;
+exports.commandOptions = client_1.default.commandOptions;
+exports.createCluster = cluster_1.default.create;
+var lua_script_1 = require("./lib/lua-script");
+Object.defineProperty(exports, "defineScript", { enumerable: true, get: function () { return lua_script_1.defineScript; } });

@@ -1,0 +1,7 @@
+export declare const FIRST_KEY_INDEX = 1;
+export declare const IS_READ_ONLY = true;
+interface XRangeOptions {
+    COUNT?: number;
+}
+export declare function transformArguments(key: string, start: string, end: string, options?: XRangeOptions): Array<string>;
+export { transformReplyStreamMessages as transformReply } from './generic-transformers';

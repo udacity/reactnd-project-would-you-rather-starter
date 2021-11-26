@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const assert_1 = require("assert");
+const test_utils_1 = require("../test-utils");
+const SUGGET_WITHSCORES_WITHPAYLOADS_1 = require("./SUGGET_WITHSCORES_WITHPAYLOADS");
+describe('SUGGET WITHSCORES WITHPAYLOADS', () => {
+    it('transformArguments', () => {
+        assert_1.strict.deepEqual((0, SUGGET_WITHSCORES_WITHPAYLOADS_1.transformArguments)('key', 'prefix'), ['FT.SUGGET', 'key', 'prefix', 'WITHSCORES', 'WITHPAYLOADS']);
+    });
+    describe('client.ft.sugGetWithScoresWithPayloads', () => {
+        test_utils_1.default.testWithClient('null', async (client) => {
+            assert_1.strict.equal(await client.ft.sugGetWithScoresWithPayloads('key', 'prefix'), null);
+        }, test_utils_1.GLOBAL.SERVERS.OPEN);
+        test_utils_1.default.testWithClient('with suggestions', async (client) => {
+            await client.ft.sugAdd('key', 'string', 1, { PAYLOAD: 'payload' });
+            assert_1.strict.deepEqual(await client.ft.sugGetWithScoresWithPayloads('key', 'string'), [{
+                    suggestion: 'string',
+                    score: 2147483648,
+                    payload: 'payload'
+                }]);
+        }, test_utils_1.GLOBAL.SERVERS.OPEN);
+    });
+});
