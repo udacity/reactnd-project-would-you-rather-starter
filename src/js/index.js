@@ -1,7 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+// Plugins
+import "../scss/index.scss";
+// ./Plugins
+
 // Components
 import App from "./App";
+// ./Components
 
-ReactDOM.render(<App />, document.getElementById("app"));
+// Settings
+import store from "./store";
+// ./Settings
+
+ReactDOM.render(<App store={store} />, document.getElementById("app"));

@@ -119,14 +119,14 @@ function generateUID() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
-// eslint-disable-next-line no-unused-vars, no-underscore-dangle
+// eslint-disable-next-line no-underscore-dangle
 export function _getUsers() {
   return new Promise((res) => {
     setTimeout(() => res({ ...users }), 1000);
   });
 }
 
-// eslint-disable-next-line no-unused-vars, no-underscore-dangle
+// eslint-disable-next-line no-underscore-dangle
 export function _getQuestions() {
   return new Promise((res) => {
     setTimeout(() => res({ ...questions }), 1000);
@@ -149,7 +149,7 @@ function formatQuestion({ optionOneText, optionTwoText, author }) {
   };
 }
 
-// eslint-disable-next-line no-unused-vars, no-underscore-dangle
+// eslint-disable-next-line no-underscore-dangle
 export function _saveQuestion(question) {
   return new Promise((res) => {
     const authedUser = question.author;
@@ -174,7 +174,7 @@ export function _saveQuestion(question) {
   });
 }
 
-// eslint-disable-next-line no-unused-vars, no-underscore-dangle
+// eslint-disable-next-line no-underscore-dangle
 export function _saveQuestionAnswer({ authedUser, qid, answer }) {
   return new Promise((res) => {
     setTimeout(() => {

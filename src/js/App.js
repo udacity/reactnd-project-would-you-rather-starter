@@ -1,5 +1,14 @@
 import React from "react";
+import { Provider } from "react-redux";
 
-export default function App() {
-  return <div>Test</div>;
+// Routes
+import Routes from "./Routes";
+// ./Routes
+
+export default function App({ store }) {
+  return (
+    <Provider store={store}>
+      <Routes />
+    </Provider>
+  );
 }

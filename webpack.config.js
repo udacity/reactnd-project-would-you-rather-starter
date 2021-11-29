@@ -14,11 +14,13 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "./dist"),
+    publicPath: "/",
   },
   devServer: {
     contentBase: path.join(__dirname, "/"),
     compress: true,
     port: 8080,
+    historyApiFallback: true,
   },
   module: {
     rules: [
