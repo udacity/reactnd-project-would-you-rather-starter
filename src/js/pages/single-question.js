@@ -1,29 +1,53 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, FormGroup, FormCheck } from "react-bootstrap";
+import { Button, Form, FormGroup, FormCheck } from "react-bootstrap";
+
+// Utils
+import { getAnsweredOption } from "../utils";
+// ./Utils
 
 // Settings
-import { setSelectedQuestion } from "../store/questions/actions";
+import { setSelectedQuestion, voteQuestion } from "../store/questions/actions";
 // ./Settings
 
 const SingleQuestion = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
+  const currentUser = useSelector((state) => state.users?.selected);
   const currentQuestion = useSelector((state) => state.questions?.selected);
-  const [currentValue, setCurrentValue] = useState("optionOne");
+  const [answer, setAnswer] = useState(null);
+  const [currentValue, setCurrentValue] = useState(null);
 
   useEffect(() => {
     dispatch(setSelectedQuestion(id));
+
+    return () => {
+      dispatch(setSelectedQuestion(null));
+    };
   }, []);
 
-  // eslint-disable-next-line no-console
-  console.log(currentQuestion);
+  useEffect(() => {
+    if (currentUser && currentQuestion) {
+      setAnswer(getAnsweredOption(currentUser.id, currentQuestion.optionOne?.votes, currentQuestion.optionTwo?.votes));
+    }
+  }, [currentQuestion, currentUser]);
 
   // Handlers
   const onSetCurrentValue = (val) => {
     setCurrentValue(val);
+  };
+  const handleSubmit = () => {
+    dispatch(
+      voteQuestion({
+        userId: currentUser.id,
+        questionId: currentQuestion.id,
+        answer: currentValue,
+      })
+    );
+
+    setAnswer(currentValue);
   };
   // ./Handlers
 
@@ -31,8 +55,9 @@ const SingleQuestion = () => {
     <Fragment>
       <h2>Would you rather...</h2>
       {!currentQuestion && "Loading..."}
-      {currentQuestion && (
-        <Fragment>
+      {currentQuestion && answer && <span>Answered!</span>}
+      {currentQuestion && !answer && (
+        <Form>
           <FormGroup>
             <FormCheck
               onChange={(evt) => onSetCurrentValue(evt.target.value)}
@@ -53,8 +78,10 @@ const SingleQuestion = () => {
               label={currentQuestion?.optionTwo?.text || ""}
             />
           </FormGroup>
-          <Button>Submit</Button>
-        </Fragment>
+          <Button type={"button"} disabled={!currentValue} onClick={handleSubmit}>
+            Submit
+          </Button>
+        </Form>
       )}
     </Fragment>
   );

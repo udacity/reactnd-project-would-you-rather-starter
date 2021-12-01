@@ -2,6 +2,10 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
+// Utils
+import { isQuestionAnswered } from "../utils";
+// ./Utils
+
 // Components
 import QuestionCard from "../components/QuestionCard";
 // ./Components
@@ -21,7 +25,7 @@ const Questions = () => {
             Unanswered questions:
             <ul>
               {Object.keys(questions)
-                .filter((el) => !questions[el].optionOne.votes.length || !questions[el].optionTwo.votes.length)
+                .filter((el) => !isQuestionAnswered(selectedUser.id, questions[el].optionOne?.votes, questions[el].optionTwo?.votes))
                 .map((el) => (
                   <QuestionCard
                     key={questions[el].id}
@@ -37,7 +41,7 @@ const Questions = () => {
             Answered questions:
             <ul>
               {Object.keys(questions)
-                .filter((el) => questions[el].optionOne.votes.length || questions[el].optionTwo.votes.length)
+                .filter((el) => isQuestionAnswered(selectedUser.id, questions[el].optionOne?.votes, questions[el].optionTwo?.votes))
                 .map((el) => (
                   <QuestionCard
                     key={questions[el].id}

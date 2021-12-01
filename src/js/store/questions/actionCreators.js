@@ -1,4 +1,4 @@
-import { Loading, Fetch, Select, Add } from "./constants";
+import { Loading, Fetch, SetSelected, Vote, Add } from "./constants";
 
 export const loadingAction = (load) => ({
   type: Loading,
@@ -8,9 +8,13 @@ export const fetchAction = (questions) => ({
   type: Fetch,
   payload: questions,
 });
-export const selectAction = (question) => ({
-  type: Select,
+export const setSelectedAction = (question) => ({
+  type: SetSelected,
   payload: question,
+});
+export const voteAction = (payload) => ({
+  type: Vote,
+  payload,
 });
 export const addAction = (question) => ({
   type: Add,

@@ -7,6 +7,11 @@ import { fetchUsers, setSelectedUser } from "./store/users/actions";
 import { fetchQuestions } from "./store/questions/actions";
 // ./Settings
 
+// Layouts
+import DefaultRoute from "./layouts/default";
+import AuthRoute from "./layouts/auth";
+// ./Layouts
+
 // Pages
 import SignIn from "./pages/sign-in";
 import Questions from "./pages/questions";
@@ -35,18 +40,18 @@ function Routes() {
       <Route path={"/"} exact>
         {isLoggedIn ? <Redirect to="/questions" /> : <Redirect to="/sign-in" />}
       </Route>
-      <Route path={"/sign-in"} exact>
+      <AuthRoute path={"/sign-in"} exact>
         <SignIn />
-      </Route>
-      <Route path={"/questions"} exact>
+      </AuthRoute>
+      <DefaultRoute path={"/questions"} exact>
         <Questions />
-      </Route>
-      <Route path={"/questions/:id"} exact>
+      </DefaultRoute>
+      <DefaultRoute path={"/questions/:id"} exact>
         <SingleQuestion />
-      </Route>
-      <Route path={"/add-new-question"} exact>
+      </DefaultRoute>
+      <DefaultRoute path={"/add-new-question"} exact>
         <AddNewQuestion />
-      </Route>
+      </DefaultRoute>
     </Router>
   );
 }

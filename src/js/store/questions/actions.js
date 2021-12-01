@@ -1,7 +1,8 @@
-import { loadingAction, fetchAction, selectAction } from "./actionCreators";
+import { loadingAction, fetchAction, setSelectedAction, voteAction } from "./actionCreators";
+import { voteAction as usersVoteAction } from "../users/actionCreators";
 
 // API
-import { _getQuestions } from "../../_DATA";
+import { _getQuestions, _saveQuestionAnswer } from "../../_DATA";
 
 // ./API
 
@@ -37,7 +38,33 @@ export function setSelectedQuestion(id) {
 
         const question = res[Object.keys(res).filter((el) => el === id)];
 
-        dispatch(selectAction(question));
+        dispatch(setSelectedAction(question));
+
+        return res;
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      });
+  };
+}
+
+export function voteQuestion(payload) {
+  const { userId, questionId, answer } = payload;
+
+  return (dispatch) => {
+    _saveQuestionAnswer({
+      authedUser: userId,
+      qid: questionId,
+      answer,
+    })
+      .then((res) => {
+        if (res.error) {
+          throw res.error;
+        }
+
+        dispatch(usersVoteAction({ userId, questionId, answer }));
+        dispatch(voteAction({ userId, questionId, answer }));
 
         return res;
       })

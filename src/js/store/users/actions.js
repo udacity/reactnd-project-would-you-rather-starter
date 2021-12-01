@@ -1,4 +1,4 @@
-import { loadingAction, fetchAction, selectAction } from "./actionCreators";
+import { loadingAction, fetchAction, setSelectedAction } from "./actionCreators";
 
 // API
 import { _getUsers } from "../../_DATA";
@@ -38,7 +38,7 @@ export function setSelectedUser(id) {
         const user = res[Object.keys(res).filter((el) => el === id)];
         localStorage.setItem("udacity-would-you-rather--current-user", JSON.stringify(user));
 
-        dispatch(selectAction(user));
+        dispatch(setSelectedAction(user));
 
         return res;
       })
@@ -52,6 +52,6 @@ export function setSelectedUser(id) {
 export function deleteSelectedUser() {
   return (dispatch) => {
     localStorage.removeItem("udacity-would-you-rather--current-user");
-    dispatch(selectAction(null));
+    dispatch(setSelectedAction(null));
   };
 }
