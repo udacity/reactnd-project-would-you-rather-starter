@@ -1,6 +1,6 @@
 import React from "react";
 import { connect, useDispatch } from "react-redux";
-import { Route, useHistory } from "react-router-dom";
+import { Route, Link, useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 // Settings
@@ -26,6 +26,14 @@ function DefaultRoute(props) {
         <Button type={"button"} onClick={handleLogOut}>
           Sign Out
         </Button>
+        <ul>
+          <li>
+            <Link to={"/questions"}>Questions</Link>
+          </li>
+          <li>
+            <Link to={"/add-new-question"}>Add New Question</Link>
+          </li>
+        </ul>
       </div>
       {children}
     </Route>

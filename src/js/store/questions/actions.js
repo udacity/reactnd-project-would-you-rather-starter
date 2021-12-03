@@ -1,8 +1,8 @@
-import { loadingAction, fetchAction, setSelectedAction, voteAction } from "./actionCreators";
-import { voteAction as usersVoteAction } from "../users/actionCreators";
+import { loadingAction, fetchAction, setSelectedAction, voteAction, addAction } from "./actionCreators";
+import { voteAction as usersVoteAction, addAction as usersAddAction } from "../users/actionCreators";
 
 // API
-import { _getQuestions, _saveQuestionAnswer } from "../../_DATA";
+import { _getQuestions, _saveQuestionAnswer, _saveQuestion } from "../../_DATA";
 
 // ./API
 
@@ -29,7 +29,7 @@ export function fetchQuestions() {
 }
 
 export function setSelectedQuestion(id) {
-  return (dispatch) => {
+  return (dispatch) =>
     _getQuestions()
       .then((res) => {
         if (res.error) {
@@ -46,13 +46,12 @@ export function setSelectedQuestion(id) {
         // eslint-disable-next-line no-console
         console.error(err);
       });
-  };
 }
 
 export function voteQuestion(payload) {
   const { userId, questionId, answer } = payload;
 
-  return (dispatch) => {
+  return (dispatch) =>
     _saveQuestionAnswer({
       authedUser: userId,
       qid: questionId,
@@ -72,5 +71,29 @@ export function voteQuestion(payload) {
         // eslint-disable-next-line no-console
         console.error(err);
       });
-  };
+}
+
+export function addQuestion(payload) {
+  const { optionOne, optionTwo, author } = payload;
+
+  return (dispatch) =>
+    _saveQuestion({
+      optionOneText: optionOne,
+      optionTwoText: optionTwo,
+      author,
+    })
+      .then((res) => {
+        if (res.error) {
+          throw res.error;
+        }
+
+        dispatch(usersAddAction(res.author));
+        dispatch(addAction(res));
+
+        return res;
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      });
 }

@@ -50,7 +50,10 @@ export default function questionsReducer(state = initialState, action) {
     case Add: {
       return {
         ...state,
-        data: { ...state.data, ...action.payload },
+        data: {
+          ...state.data,
+          [action.payload.id]: action.payload,
+        },
       };
     }
     default: {

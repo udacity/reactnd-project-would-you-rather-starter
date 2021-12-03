@@ -1,4 +1,4 @@
-import { Loading, Fetch, SetSelected, Vote } from "./constants";
+import { Loading, Fetch, SetSelected, Vote, Add } from "./constants";
 
 // Settings
 const initialState = {
@@ -42,6 +42,18 @@ export default function usersReducer(state = initialState, action) {
               ...state.data[userId].answers,
               [questionId]: answer,
             },
+          },
+        },
+      };
+    }
+    case Add: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [action.payload]: {
+            ...state.data[action.payload],
+            questions: state.data[action.payload].questions.concat([action.payload]),
           },
         },
       };

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, Form, FormGroup, FormCheck } from "react-bootstrap";
+import { Button, Form, FormGroup, FormCheck, ProgressBar } from "react-bootstrap";
 
 // Utils
 import { getAnsweredOption } from "../utils";
@@ -26,12 +26,16 @@ const SingleQuestion = () => {
     return () => {
       dispatch(setSelectedQuestion(null));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (currentUser && currentQuestion) {
       setAnswer(getAnsweredOption(currentUser.id, currentQuestion.optionOne?.votes, currentQuestion.optionTwo?.votes));
     }
+
+    // eslint-disable-next-line no-console
+    console.log(currentQuestion);
   }, [currentQuestion, currentUser]);
 
   // Handlers
@@ -45,43 +49,71 @@ const SingleQuestion = () => {
         questionId: currentQuestion.id,
         answer: currentValue,
       })
-    );
-
-    setAnswer(currentValue);
+    ).then(() => {
+      dispatch(setSelectedQuestion(currentQuestion.id)).then(() => {
+        setAnswer(currentValue);
+      });
+    });
   };
   // ./Handlers
 
   return (
     <Fragment>
-      <h2>Would you rather...</h2>
       {!currentQuestion && "Loading..."}
-      {currentQuestion && answer && <span>Answered!</span>}
+      {currentQuestion && answer && (
+        <Fragment>
+          <h2>Result:</h2>
+          <div className={`${currentQuestion.optionOne.votes.includes(currentUser.id) ? "bg-success" : ""}`}>
+            Would you rather {currentQuestion.optionOne?.text}?
+            <br />
+            <ProgressBar
+              now={currentQuestion.optionOne.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}
+              label={`${currentQuestion.optionOne.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}%`}
+            />
+            <br />
+            {currentQuestion.optionOne.votes.length} out of {currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length} votes
+          </div>
+          <div className={`${currentQuestion.optionTwo.votes.includes(currentUser.id) ? "bg-success" : ""}`}>
+            Would you rather {currentQuestion.optionTwo?.text}?
+            <br />
+            <ProgressBar
+              now={currentQuestion.optionTwo.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}
+              label={`${currentQuestion.optionTwo.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}%`}
+            />
+            <br />
+            {currentQuestion.optionTwo.votes.length} out of {currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length} votes
+          </div>
+        </Fragment>
+      )}
       {currentQuestion && !answer && (
-        <Form>
-          <FormGroup>
-            <FormCheck
-              onChange={(evt) => onSetCurrentValue(evt.target.value)}
-              checked={currentValue === "optionOne"}
-              name={"options"}
-              value={"optionOne"}
-              type={"radio"}
-              label={currentQuestion?.optionOne?.text || ""}
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormCheck
-              onChange={(evt) => onSetCurrentValue(evt.target.value)}
-              checked={currentValue === "optionTwo"}
-              name={"options"}
-              value={"optionTwo"}
-              type={"radio"}
-              label={currentQuestion?.optionTwo?.text || ""}
-            />
-          </FormGroup>
-          <Button type={"button"} disabled={!currentValue} onClick={handleSubmit}>
-            Submit
-          </Button>
-        </Form>
+        <Fragment>
+          <h2>Would you rather:</h2>
+          <Form>
+            <FormGroup>
+              <FormCheck
+                onChange={(evt) => onSetCurrentValue(evt.target.value)}
+                checked={currentValue === "optionOne"}
+                name={"options"}
+                value={"optionOne"}
+                type={"radio"}
+                label={currentQuestion?.optionOne?.text || ""}
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormCheck
+                onChange={(evt) => onSetCurrentValue(evt.target.value)}
+                checked={currentValue === "optionTwo"}
+                name={"options"}
+                value={"optionTwo"}
+                type={"radio"}
+                label={currentQuestion?.optionTwo?.text || ""}
+              />
+            </FormGroup>
+            <Button type={"button"} disabled={!currentValue} onClick={handleSubmit}>
+              Submit
+            </Button>
+          </Form>
+        </Fragment>
       )}
     </Fragment>
   );

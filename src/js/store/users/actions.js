@@ -28,7 +28,7 @@ export function fetchUsers() {
 }
 
 export function setSelectedUser(id) {
-  return (dispatch) => {
+  return (dispatch) =>
     _getUsers()
       .then((res) => {
         if (res.error) {
@@ -46,7 +46,6 @@ export function setSelectedUser(id) {
         // eslint-disable-next-line no-console
         console.error(err);
       });
-  };
 }
 
 export function deleteSelectedUser() {

@@ -17,7 +17,7 @@ const Questions = () => {
 
   return (
     <Fragment>
-      Current user is - {selectedUser && selectedUser.name}
+      Current user is - {selectedUser?.name}
       {isLoaded && "Loading..."}
       {!isLoaded && (
         <Row>
