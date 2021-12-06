@@ -7,6 +7,10 @@ import { Card, Button, Image } from "react-bootstrap";
 import { setSelectedQuestion } from "../store/questions/actions";
 // ./Settings
 
+// Helpers
+import { previewText } from "../utils";
+// ./Helpers
+
 const QuestionCard = (props) => {
   const { id, author, avatar, text } = props;
   const dispatch = useDispatch();
@@ -30,7 +34,7 @@ const QuestionCard = (props) => {
         </Card.Header>
         <Card.Body>
           <Card.Title>Would You Rather</Card.Title>
-          <Card.Text>{text}</Card.Text>
+          <Card.Text>{previewText(text)}</Card.Text>
           <Button onClick={() => onSelectQuestion()}>View Poll</Button>
         </Card.Body>
       </Card>
