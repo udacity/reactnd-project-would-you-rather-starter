@@ -1,11 +1,17 @@
 import React, { Fragment, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { FormGroup, Button } from "react-bootstrap";
+import Select from "react-select";
 
 // Settings
 import { fetchUsers, setSelectedUser, deleteSelectedUser } from "../store/users/actions";
+import { fetchQuestions } from "../store/questions/actions";
 // ./Settings
+
+// Components
+import Loader from "../components/Loader";
+// ./Components
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -14,6 +20,23 @@ const SignIn = () => {
   const isLoaded = useSelector((state) => state.users?.loading);
   const users = useSelector((state) => state.users?.data);
   const currentUser = useSelector((state) => state.users?.selected);
+
+  // Helpers
+  function arrayFromObject(arr) {
+    const result = [];
+
+    Object.entries(arr).map((el) => {
+      const [, val] = el;
+
+      result.push(val);
+
+      return true;
+    });
+
+    return result;
+  }
+
+  // ./Helpers
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -25,27 +48,26 @@ const SignIn = () => {
     dispatch(setSelectedUser(id));
   };
   const onLogIn = () => {
-    history.push("/questions");
+    dispatch(fetchQuestions()).then(() => {
+      history.push("/questions");
+    });
   };
   // ./Handlers
 
   return (
     <Fragment>
-      {isLoaded && "Loading..."}
+      {isLoaded && <Loader />}
       {!isLoaded && (
         <Fragment>
-          <Form.Select onChange={(evt) => onUserSelect(evt.target.value)}>
-            <option>Select user</option>
-            {Object.entries(users).map((el) => {
-              const [, val] = el;
-
-              return (
-                <option key={val.id} value={val.id}>
-                  {val.name}
-                </option>
-              );
-            })}
-          </Form.Select>
+          <FormGroup className={"mb-4"}>
+            <Select
+              placeholder={"Select User"}
+              options={arrayFromObject(users)}
+              getOptionValue={(option) => `${option.id}`}
+              getOptionLabel={(option) => `${option.name}`}
+              onChange={(evt) => onUserSelect(evt.id)}
+            />
+          </FormGroup>
           <Button type={"button"} variant={"primary"} size={"lg"} disabled={!currentUser} onClick={() => onLogIn()}>
             Sign In
           </Button>
@@ -59,4 +81,5 @@ export default connect(null, {
   fetchUsers,
   setSelectedUser,
   deleteSelectedUser,
+  fetchQuestions,
 })(SignIn);

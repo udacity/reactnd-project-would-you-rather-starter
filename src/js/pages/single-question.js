@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Button, Form, FormGroup, FormCheck, ProgressBar } from "react-bootstrap";
+import { Card, Button, Form, FormGroup, FormCheck, ProgressBar, Image } from "react-bootstrap";
 
 // Utils
 import { getAnsweredOption } from "../utils";
@@ -11,12 +11,17 @@ import { getAnsweredOption } from "../utils";
 import { setSelectedQuestion, voteQuestion } from "../store/questions/actions";
 // ./Settings
 
+// Components
+import Loader from "../components/Loader";
+// ./Components
+
 const SingleQuestion = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.users?.selected);
   const currentQuestion = useSelector((state) => state.questions?.selected);
+  const users = useSelector((state) => state.users?.data);
   const [answer, setAnswer] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);
 
@@ -33,9 +38,6 @@ const SingleQuestion = () => {
     if (currentUser && currentQuestion) {
       setAnswer(getAnsweredOption(currentUser.id, currentQuestion.optionOne?.votes, currentQuestion.optionTwo?.votes));
     }
-
-    // eslint-disable-next-line no-console
-    console.log(currentQuestion);
   }, [currentQuestion, currentUser]);
 
   // Handlers
@@ -59,61 +61,89 @@ const SingleQuestion = () => {
 
   return (
     <Fragment>
-      {!currentQuestion && "Loading..."}
+      {!currentQuestion && <Loader />}
       {currentQuestion && answer && (
         <Fragment>
-          <h2>Result:</h2>
-          <div className={`${currentQuestion.optionOne.votes.includes(currentUser.id) ? "bg-success" : ""}`}>
-            Would you rather {currentQuestion.optionOne?.text}?
-            <br />
-            <ProgressBar
-              now={currentQuestion.optionOne.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}
-              label={`${currentQuestion.optionOne.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}%`}
-            />
-            <br />
-            {currentQuestion.optionOne.votes.length} out of {currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length} votes
-          </div>
-          <div className={`${currentQuestion.optionTwo.votes.includes(currentUser.id) ? "bg-success" : ""}`}>
-            Would you rather {currentQuestion.optionTwo?.text}?
-            <br />
-            <ProgressBar
-              now={currentQuestion.optionTwo.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}
-              label={`${currentQuestion.optionTwo.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}%`}
-            />
-            <br />
-            {currentQuestion.optionTwo.votes.length} out of {currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length} votes
-          </div>
+          <Card>
+            <Card.Header>
+              <Card.Title className={"mb-0"}>
+                <Image
+                  src={users[currentQuestion.author]?.avatarURL}
+                  width={"40"}
+                  height={"40"}
+                  roundedCircle
+                  className={"border border-2 border-white me-2"}
+                />
+                Asked by {users[currentQuestion.author]?.name}:
+              </Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <h2 className={"mb-4"}>Result:</h2>
+              <div
+                className={`border rounded p-4 mb-4 ${currentQuestion.optionOne.votes.includes(currentUser.id) ? "bg-primary border-primary text-white" : ""}`}
+              >
+                <h4 className={"mb-2"}>Would you rather {currentQuestion.optionOne?.text}?</h4>
+                <ProgressBar
+                  now={currentQuestion.optionOne.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}
+                  label={`${
+                    currentQuestion.optionOne.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))
+                  }%`}
+                  variant={"warning"}
+                  className={"mb-2"}
+                />
+                {currentQuestion.optionOne.votes.length} out of {currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length} votes
+              </div>
+              <div className={`border rounded p-4 ${currentQuestion.optionTwo.votes.includes(currentUser.id) ? "bg-primary border-primary text-white" : ""}`}>
+                <h4 className={"mb-2"}>Would you rather {currentQuestion.optionTwo?.text}?</h4>
+                <ProgressBar
+                  now={currentQuestion.optionTwo.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))}
+                  label={`${
+                    currentQuestion.optionTwo.votes.length * (100 / (currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length))
+                  }%`}
+                  variant={"warning"}
+                  className={"mb-2"}
+                />
+                {currentQuestion.optionTwo.votes.length} out of {currentQuestion.optionOne.votes.length + currentQuestion.optionTwo.votes.length} votes
+              </div>
+            </Card.Body>
+          </Card>
         </Fragment>
       )}
-      {currentQuestion && !answer && (
-        <Fragment>
-          <h2>Would you rather:</h2>
-          <Form>
-            <FormGroup>
-              <FormCheck
-                onChange={(evt) => onSetCurrentValue(evt.target.value)}
-                checked={currentValue === "optionOne"}
-                name={"options"}
-                value={"optionOne"}
-                type={"radio"}
-                label={currentQuestion?.optionOne?.text || ""}
-              />
-            </FormGroup>
-            <FormGroup>
-              <FormCheck
-                onChange={(evt) => onSetCurrentValue(evt.target.value)}
-                checked={currentValue === "optionTwo"}
-                name={"options"}
-                value={"optionTwo"}
-                type={"radio"}
-                label={currentQuestion?.optionTwo?.text || ""}
-              />
-            </FormGroup>
-            <Button type={"button"} disabled={!currentValue} onClick={handleSubmit}>
-              Submit
-            </Button>
-          </Form>
-        </Fragment>
+      {users && currentQuestion && !answer && (
+        <Card>
+          <Card.Header>
+            <Card.Title className={"mb-0"}>
+              <Image src={users[currentQuestion.author]?.avatarURL} width={"40"} height={"40"} roundedCircle className={"border border-2 border-white me-2"} />
+              {users[currentQuestion.author]?.name} asks:
+            </Card.Title>
+          </Card.Header>
+          <Card.Body>
+            <h2 className={"mb-4"}>Would you rather:</h2>
+            <Form>
+              <FormGroup className={"mb-4"}>
+                <FormCheck
+                  onChange={(evt) => onSetCurrentValue(evt.target.value)}
+                  checked={currentValue === "optionOne"}
+                  name={"options"}
+                  value={"optionOne"}
+                  type={"radio"}
+                  label={currentQuestion?.optionOne?.text || ""}
+                />
+                <FormCheck
+                  onChange={(evt) => onSetCurrentValue(evt.target.value)}
+                  checked={currentValue === "optionTwo"}
+                  name={"options"}
+                  value={"optionTwo"}
+                  type={"radio"}
+                  label={currentQuestion?.optionTwo?.text || ""}
+                />
+              </FormGroup>
+              <Button type={"button"} disabled={!currentValue} onClick={handleSubmit}>
+                Submit
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
       )}
     </Fragment>
   );

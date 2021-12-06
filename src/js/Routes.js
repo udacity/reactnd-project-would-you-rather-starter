@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 // Settings
 import { fetchUsers, setSelectedUser } from "./store/users/actions";
@@ -17,6 +17,7 @@ import SignIn from "./pages/sign-in";
 import Questions from "./pages/questions";
 import SingleQuestion from "./pages/single-question";
 import AddNewQuestion from "./pages/add-new-question";
+import LeadersBoard from "./pages/leaders-board";
 
 // ./Pages
 
@@ -37,9 +38,7 @@ function Routes() {
 
   return (
     <Router>
-      <Route path={"/"} exact>
-        {isLoggedIn ? <Redirect to="/questions" /> : <Redirect to="/sign-in" />}
-      </Route>
+      {!isLoggedIn() && <Redirect to="/sign-in" />}
       <AuthRoute path={"/sign-in"} exact>
         <SignIn />
       </AuthRoute>
@@ -51,6 +50,9 @@ function Routes() {
       </DefaultRoute>
       <DefaultRoute path={"/add-new-question"} exact>
         <AddNewQuestion />
+      </DefaultRoute>
+      <DefaultRoute path={"/leaders-board"} exact>
+        <LeadersBoard />
       </DefaultRoute>
     </Router>
   );

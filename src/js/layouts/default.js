@@ -1,45 +1,30 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
-import { Route, Link, useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
-// Settings
-import { deleteSelectedUser } from "../store/users/actions";
+// Components
+import Header from "./components/header";
 
-// ./Settings
+// ./Components
 
 function DefaultRoute(props) {
   const { children, ...rest } = props;
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  // Handlers
-  const handleLogOut = () => {
-    dispatch(deleteSelectedUser());
-    history.push("/sign-in");
-  };
-  // ./Handlers
 
   return (
     <Route {...rest}>
-      <div>
-        <Button type={"button"} onClick={handleLogOut}>
-          Sign Out
-        </Button>
-        <ul>
-          <li>
-            <Link to={"/questions"}>Questions</Link>
-          </li>
-          <li>
-            <Link to={"/add-new-question"}>Add New Question</Link>
-          </li>
-        </ul>
-      </div>
-      {children}
+      <Header />
+
+      <main className={"py-4"}>
+        <Container
+          style={{
+            maxWidth: "600px",
+          }}
+        >
+          {children}
+        </Container>
+      </main>
     </Route>
   );
 }
 
-export default connect(null, {
-  deleteSelectedUser,
-})(DefaultRoute);
+export default DefaultRoute;

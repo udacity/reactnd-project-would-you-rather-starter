@@ -1,8 +1,13 @@
+import Avatar1 from "../img/avatars/1.jpg";
+import Avatar2 from "../img/avatars/2.jpg";
+import Avatar3 from "../img/avatars/3.jpg";
+import Avatar4 from "../img/avatars/4.jpg";
+
 let users = {
   sarahedo: {
     id: "sarahedo",
     name: "Sarah Edo",
-    avatarURL: "",
+    avatarURL: Avatar1,
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
@@ -14,7 +19,7 @@ let users = {
   tylermcginnis: {
     id: "tylermcginnis",
     name: "Tyler McGinnis",
-    avatarURL: "",
+    avatarURL: Avatar3,
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo",
@@ -24,13 +29,20 @@ let users = {
   johndoe: {
     id: "johndoe",
     name: "John Doe",
-    avatarURL: "",
+    avatarURL: Avatar2,
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
     },
     questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
+  },
+  mikemyers: {
+    id: "mikemyers",
+    name: "Mike Myers",
+    avatarURL: Avatar4,
+    answers: {},
+    questions: [],
   },
 };
 

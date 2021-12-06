@@ -1,14 +1,14 @@
 import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Card, Button, Image } from "react-bootstrap";
 
 // Settings
 import { setSelectedQuestion } from "../store/questions/actions";
 // ./Settings
 
 const QuestionCard = (props) => {
-  const { id, author, text } = props;
+  const { id, author, avatar, text } = props;
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,14 +20,20 @@ const QuestionCard = (props) => {
   // ./Handlers
 
   return (
-    <li>
-      {author} asks:
-      <br />
-      Would you rather
-      <br />
-      {text}
-      <br />
-      <Button onClick={() => onSelectQuestion()}>View Poll</Button>
+    <li className={"mb-4"}>
+      <Card className={"mb-0"}>
+        <Card.Header>
+          <Card.Title className={"mb-0"}>
+            <Image src={avatar} width={"40"} height={"40"} roundedCircle className={"border border-2 border-white me-2"} />
+            {author} asks:
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title>Would You Rather</Card.Title>
+          <Card.Text>{text}</Card.Text>
+          <Button onClick={() => onSelectQuestion()}>View Poll</Button>
+        </Card.Body>
+      </Card>
     </li>
   );
 };

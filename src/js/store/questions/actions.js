@@ -10,7 +10,7 @@ export function fetchQuestions() {
   return (dispatch) => {
     dispatch(loadingAction(true));
 
-    _getQuestions()
+    return _getQuestions()
       .then((res) => {
         if (res.error) {
           throw res.error;
