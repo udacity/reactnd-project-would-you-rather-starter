@@ -49,7 +49,7 @@ const SignIn = () => {
   };
   const onLogIn = () => {
     dispatch(fetchQuestions()).then(() => {
-      history.push("/questions");
+      history.push("/");
     });
   };
   // ./Handlers

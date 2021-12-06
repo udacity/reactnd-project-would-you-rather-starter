@@ -2,21 +2,16 @@ export default [
   {
     id: 1001,
     title: "Home",
-    url: "/questions",
+    url: "/",
   },
   {
     id: 1002,
     title: "Add New Question",
-    url: "/add-new-question",
+    url: "/add",
   },
   {
     id: 1003,
     title: "Leaders Board",
-    url: "/leaders-board",
+    url: "/leaderboard",
   },
-  // {
-  //   id: 1004,
-  //   title: "Sign In",
-  //   url: "/sign-in",
-  // },
 ];

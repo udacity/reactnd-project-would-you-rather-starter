@@ -42,16 +42,16 @@ function Routes() {
       <AuthRoute path={"/sign-in"} exact>
         <SignIn />
       </AuthRoute>
-      <DefaultRoute path={"/questions"} exact>
+      <DefaultRoute path={"/"} exact>
         <Questions />
       </DefaultRoute>
       <DefaultRoute path={"/questions/:id"} exact>
         <SingleQuestion />
       </DefaultRoute>
-      <DefaultRoute path={"/add-new-question"} exact>
+      <DefaultRoute path={"/add"} exact>
         <AddNewQuestion />
       </DefaultRoute>
-      <DefaultRoute path={"/leaders-board"} exact>
+      <DefaultRoute path={"/leaderboard"} exact>
         <LeadersBoard />
       </DefaultRoute>
     </Router>

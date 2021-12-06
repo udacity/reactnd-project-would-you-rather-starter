@@ -73,7 +73,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: "*",
+          from: "**/*",
           to: "src/img",
           context: "src/img",
         },
