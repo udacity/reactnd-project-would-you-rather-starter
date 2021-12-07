@@ -13,7 +13,7 @@ export const getAnsweredOption = (userId, one, two) => {
 export const isQuestionAnswered = (userId, one, two) => !!(one.includes(userId) || two.includes(userId));
 
 export const previewText = (text) => {
-  const cutLettersQty = Math.floor((text.length / 100) * 15);
+  const cutLettersQty = Math.ceil((text.length / 100) * 15);
   const truncatedText = text.slice(cutLettersQty).slice(0, -cutLettersQty);
 
   return `...${truncatedText}...`;

@@ -31,7 +31,7 @@ const Header = () => {
         <Navbar.Collapse id={"basic-navbar-nav"}>
           <Nav className={"me-auto"}>
             {navigation.map((el) => (
-              <Nav.Link as={NavLink} key={el.id} to={el.url} activeClassName={"active"}>
+              <Nav.Link as={NavLink} key={el.id} to={el.url} activeClassName={"active"} exact>
                 {el.title}
               </Nav.Link>
             ))}

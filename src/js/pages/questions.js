@@ -40,6 +40,7 @@ const Questions = () => {
               <ul className={"list-unstyled"}>
                 {Object.keys(questions)
                   .filter((el) => !isQuestionAnswered(selectedUser.id, questions[el].optionOne?.votes, questions[el].optionTwo?.votes))
+                  .sort((a, b) => new Date(questions[b].timestamp) - new Date(questions[a].timestamp))
                   .map((el) => (
                     <QuestionCard
                       key={questions[el].id}
@@ -56,6 +57,7 @@ const Questions = () => {
               <ul className={"list-unstyled"}>
                 {Object.keys(questions)
                   .filter((el) => isQuestionAnswered(selectedUser.id, questions[el].optionOne?.votes, questions[el].optionTwo?.votes))
+                  .sort((a, b) => new Date(questions[b].timestamp) - new Date(questions[a].timestamp))
                   .map((el) => (
                     <QuestionCard
                       key={questions[el].id}

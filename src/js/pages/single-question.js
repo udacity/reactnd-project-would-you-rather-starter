@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Card, Button, Form, FormGroup, FormCheck, ProgressBar, Image } from "react-bootstrap";
 
 // Utils
@@ -17,13 +17,22 @@ import Loader from "../components/Loader";
 
 const SingleQuestion = () => {
   const { id } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
 
-  const currentUser = useSelector((state) => state.users?.selected);
-  const currentQuestion = useSelector((state) => state.questions?.selected);
   const users = useSelector((state) => state.users?.data);
+  const currentUser = useSelector((state) => state.users?.selected);
+  const questions = useSelector((state) => state.questions?.data);
+  const currentQuestion = useSelector((state) => state.questions?.selected);
   const [answer, setAnswer] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);
+
+  useEffect(() => {
+    if (Object.keys(questions).length && questions[id] === undefined) {
+      history.push("/error");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questions]);
 
   useEffect(() => {
     dispatch(setSelectedQuestion(id));

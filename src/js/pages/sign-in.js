@@ -13,9 +13,10 @@ import { fetchQuestions } from "../store/questions/actions";
 import Loader from "../components/Loader";
 // ./Components
 
-const SignIn = () => {
+const SignIn = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { prevLocation = window.location.pathname } = props;
 
   const isLoaded = useSelector((state) => state.users?.loading);
   const users = useSelector((state) => state.users?.data);
@@ -40,6 +41,7 @@ const SignIn = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Handlers
@@ -49,7 +51,11 @@ const SignIn = () => {
   };
   const onLogIn = () => {
     dispatch(fetchQuestions()).then(() => {
-      history.push("/");
+      if (!history.length) {
+        history.push("/");
+      } else {
+        history.push(prevLocation);
+      }
     });
   };
   // ./Handlers

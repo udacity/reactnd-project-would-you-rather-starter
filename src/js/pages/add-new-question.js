@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Card, Form, FormGroup, FormLabel, FormControl, Button } from "react-bootstrap";
 
 // Settings
@@ -8,6 +9,7 @@ import { addQuestion } from "../store/questions/actions";
 
 const AddNewQuestion = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const currentUser = useSelector((state) => state.users?.selected);
   const [optionOne, setOptionOne] = useState("");
   const [optionTwo, setOptionTwo] = useState("");
@@ -26,6 +28,7 @@ const AddNewQuestion = () => {
       })
     ).then(() => {
       handleClearForm();
+      history.push("/");
     });
   };
   // ./Handlers
