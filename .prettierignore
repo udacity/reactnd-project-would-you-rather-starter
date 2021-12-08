@@ -1,0 +1,12 @@
+# Ignore settings folders:
+/.github
+/coverage
+
+# Ignore settings files:
+.eslintrc.js
+prettier.config.js
+stylelint.config.js
+webpack.config.js
+
+# Ignore folders:
+/dist
