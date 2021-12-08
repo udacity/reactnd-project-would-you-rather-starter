@@ -36,7 +36,7 @@ export function setSelectedUser(id) {
         }
 
         const user = res[Object.keys(res).filter((el) => el === id)];
-        localStorage.setItem("udacity-would-you-rather--current-user", JSON.stringify(user));
+        // localStorage.setItem("udacity-would-you-rather--current-user", JSON.stringify(user));
 
         dispatch(setSelectedAction(user));
 
@@ -50,7 +50,7 @@ export function setSelectedUser(id) {
 
 export function deleteSelectedUser() {
   return (dispatch) => {
-    localStorage.removeItem("udacity-would-you-rather--current-user");
+    // localStorage.removeItem("udacity-would-you-rather--current-user");
     dispatch(setSelectedAction(null));
   };
 }

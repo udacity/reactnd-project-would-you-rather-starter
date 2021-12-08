@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
-import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { Router, Switch, Redirect } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 // Settings
 import { fetchUsers, setSelectedUser } from "./store/users/actions";
@@ -23,28 +24,33 @@ import Error from "./pages/error";
 
 // ./Pages
 
+const history = createBrowserHistory();
+
 function Routes() {
   const dispatch = useDispatch();
-
-  // Handlers
-  const isLoggedIn = () => !!localStorage.getItem("udacity-would-you-rather--current-user");
-  // ./Handlers
+  const selectedUser = useSelector((state) => state.users?.selected);
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (selectedUser) {
       dispatch(fetchUsers());
-      dispatch(setSelectedUser(JSON.parse(localStorage.getItem("udacity-would-you-rather--current-user")).id));
       dispatch(fetchQuestions());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Router>
-      {!isLoggedIn() && <Redirect to="/sign-in" />}
+    <Router history={history}>
+      {!selectedUser && (
+        <Redirect
+          to={{
+            pathname: "/sign-in",
+            state: { from: history.location.pathname },
+          }}
+        />
+      )}
       <Switch>
         <AuthRoute path={"/sign-in"} exact>
-          <SignIn prevLocation={window.location.pathname} />
+          <SignIn />
         </AuthRoute>
         <DefaultRoute path={"/"} exact>
           <Questions />

@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { FormGroup, Button } from "react-bootstrap";
 import Select from "react-select";
 
@@ -13,10 +13,11 @@ import { fetchQuestions } from "../store/questions/actions";
 import Loader from "../components/Loader";
 // ./Components
 
-const SignIn = (props) => {
+const SignIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { prevLocation = window.location.pathname } = props;
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+  const [from, setFrom] = useState("");
 
   const isLoaded = useSelector((state) => state.users?.loading);
   const users = useSelector((state) => state.users?.data);
@@ -50,15 +51,16 @@ const SignIn = (props) => {
     dispatch(setSelectedUser(id));
   };
   const onLogIn = () => {
-    dispatch(fetchQuestions()).then(() => {
-      if (!history.length) {
-        history.push("/");
-      } else {
-        history.push(prevLocation);
-      }
-    });
+    setRedirectToReferrer(true);
+    setFrom(history?.location?.state?.from === "/sign-in" ? "/" : history?.location?.state?.from || "/");
+
+    dispatch(fetchQuestions());
   };
   // ./Handlers
+
+  if (redirectToReferrer === true) {
+    return <Redirect to={from} />;
+  }
 
   return (
     <Fragment>
