@@ -3,8 +3,8 @@ import { questions } from "./questions";
 import { authedUser } from "./authedUser";
 import { combineReducers } from "redux";
 
-combineReducers({
+export default combineReducers({
     users,
     questions,
-    authedUser,
+    //authedUser,
 })

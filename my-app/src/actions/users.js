@@ -1,10 +1,10 @@
 //action type
 export const RECEIVE_USERS = 'RECEIVE_USERS'
 //action creator
-export function receiveUsers(id){
+export function receiveUsers(users){
    return{
-        RECEIVE_USERS,
-        id,
+        type:RECEIVE_USERS,//DONT FORGET TO TYPE "type:"
+        users,
     }
 
 }

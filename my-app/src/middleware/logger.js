@@ -3,9 +3,9 @@ const logger = (store) =>(next) =>(action) =>{
     console.group(action.type);
     console.log("Action",action);
     console.log("Prev State",store.getState());
-    const returnedValue=next(action)
+    const returnValue=next(action)
     console.log("New State",store.getState());
     console.groupEnd()
-    return returnedValue;
+    return returnValue;
 }
 export default logger

@@ -9,6 +9,6 @@ export function authedUser(state ={}, action){
                 ...action.id
             }
         default:
-            state;
+            return state;
     }
 }
